@@ -2,9 +2,9 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: erlang | Connor Ross | Tech]]></title>
-  <link href="http://connor311.github.io/blog/categories/erlang/atom.xml" rel="self"/>
+  <link href="http://connor311.github.io/categories/erlang/atom.xml" rel="self"/>
   <link href="http://connor311.github.io/"/>
-  <updated>2013-07-01T23:44:57-04:00</updated>
+  <updated>2013-07-01T23:50:58-04:00</updated>
   <id>http://connor311.github.io/</id>
   <author>
     <name><![CDATA[Connor Ross]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Études for Erlang - CH 4]]></title>
-    <link href="http://connor311.github.io/blog/2013/06/25/etudes-for-erlang-ch-4/"/>
+    <link href="http://connor311.github.io/2013/06/25/etudes-for-erlang-ch-4/"/>
     <updated>2013-06-25T23:26:00-04:00</updated>
-    <id>http://connor311.github.io/blog/2013/06/25/etudes-for-erlang-ch-4</id>
+    <id>http://connor311.github.io/2013/06/25/etudes-for-erlang-ch-4</id>
     <content type="html"><![CDATA[<p>This week the homework for the <a href="http://www.meetup.com/Erlang-NYC/events/123394132/" target="_blank">meetup</a> was chapters 4 &amp; 5.  However this weekend I was at my childhood best friend&rsquo;s bachelor party so I only got to chapter 4. Ouch, Ouch, please stop throwing tomatoes, lettuce and actually I don&rsquo;t want to know what that is, I am sorry!  If you want more Erlang check out last week for <a href="/2013/06/16/etudes-for-erlang-ch-3/">chapter 3</a></a>, again!</p>
 
 <p>The party was a blast I got to play Frisbee golf for the first time in real life, it was awesome.  The other plus was the party&rsquo;s location was in Richmond, VA, so I got to rent a car and drive all the way there.  For those of you who do not know me, I LOVE TO DRIVE!!!  I specifically went to a rental company just because I heard they had VW Jettas for rent.  Must say, this whole better gas mileage kick the auto industry is on really makes driving automatics suck.  Give me a manual any day.</p>
@@ -55,7 +55,7 @@
 <span class='line-number'>22</span>
 <span class='line-number'>23</span>
 <span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;a href=&quot;&amp;#109;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#x6f;&amp;#58;&amp;#x63;&amp;#111;&amp;#110;&amp;#x6e;&amp;#111;&amp;#114;&amp;#51;&amp;#49;&amp;#49;&amp;#64;&amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#x6d;&quot;&gt;&amp;#x63;&amp;#111;&amp;#x6e;&amp;#110;&amp;#111;&amp;#x72;&amp;#51;&amp;#x31;&amp;#49;&amp;#x40;&amp;#103;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#109;&lt;/a&gt;</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;a href=&quot;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#116;&amp;#x6f;&amp;#x3a;&amp;#99;&amp;#111;&amp;#110;&amp;#110;&amp;#x6f;&amp;#114;&amp;#x33;&amp;#x31;&amp;#49;&amp;#x40;&amp;#x67;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#x2e;&amp;#99;&amp;#111;&amp;#109;&quot;&gt;&amp;#99;&amp;#x6f;&amp;#x6e;&amp;#x6e;&amp;#x6f;&amp;#x72;&amp;#x33;&amp;#49;&amp;#49;&amp;#64;&amp;#x67;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#109;&lt;/a&gt;</span>
 </span><span class='line'><span class="c">%% @doc Functions for calculating areas of geometric shapes.</span>
 </span><span class='line'><span class="c">%% @copyright 2013 C J Ross</span>
 </span><span class='line'><span class="c">%% @version 0.1&lt;/p&gt;</span>
@@ -101,7 +101,7 @@
 <span class='line-number'>16</span>
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#116;&amp;#x6f;&amp;#58;&amp;#x63;&amp;#111;&amp;#x6e;&amp;#x6e;&amp;#x6f;&amp;#114;&amp;#51;&amp;#49;&amp;#x31;&amp;#64;&amp;#x67;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#108;&amp;#46;&amp;#99;&amp;#111;&amp;#x6d;&quot;&gt;&amp;#x63;&amp;#111;&amp;#110;&amp;#x6e;&amp;#111;&amp;#x72;&amp;#x33;&amp;#49;&amp;#49;&amp;#x40;&amp;#x67;&amp;#109;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#46;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#111;&amp;#58;&amp;#x63;&amp;#x6f;&amp;#110;&amp;#110;&amp;#111;&amp;#x72;&amp;#x33;&amp;#x31;&amp;#49;&amp;#x40;&amp;#103;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#x6d;&quot;&gt;&amp;#x63;&amp;#111;&amp;#110;&amp;#110;&amp;#111;&amp;#114;&amp;#51;&amp;#x31;&amp;#x31;&amp;#64;&amp;#x67;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#108;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#x6d;&lt;/a&gt;</span>
 </span><span class='line'><span class="c">%% @doc Functions for calculating GCD.</span>
 </span><span class='line'><span class="c">%% @copyright 2013 C J Ross</span>
 </span><span class='line'><span class="c">%% @version 0.1&lt;/p&gt;</span>
@@ -155,7 +155,7 @@
 <span class='line-number'>28</span>
 <span class='line-number'>29</span>
 <span class='line-number'>30</span>
-</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#116;&amp;#111;&amp;#x3a;&amp;#x63;&amp;#x6f;&amp;#x6e;&amp;#x6e;&amp;#111;&amp;#x72;&amp;#x33;&amp;#49;&amp;#49;&amp;#x40;&amp;#x67;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#108;&amp;#x2e;&amp;#99;&amp;#x6f;&amp;#x6d;&quot;&gt;&amp;#x63;&amp;#x6f;&amp;#x6e;&amp;#x6e;&amp;#x6f;&amp;#114;&amp;#51;&amp;#x31;&amp;#x31;&amp;#x40;&amp;#103;&amp;#109;&amp;#97;&amp;#x69;&amp;#108;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#x6d;&lt;/a&gt;</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#105;&amp;#108;&amp;#116;&amp;#x6f;&amp;#x3a;&amp;#99;&amp;#x6f;&amp;#110;&amp;#x6e;&amp;#x6f;&amp;#x72;&amp;#x33;&amp;#x31;&amp;#49;&amp;#x40;&amp;#103;&amp;#109;&amp;#97;&amp;#x69;&amp;#108;&amp;#46;&amp;#x63;&amp;#111;&amp;#x6d;&quot;&gt;&amp;#x63;&amp;#111;&amp;#110;&amp;#110;&amp;#111;&amp;#114;&amp;#x33;&amp;#49;&amp;#49;&amp;#x40;&amp;#103;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#108;&amp;#x2e;&amp;#99;&amp;#x6f;&amp;#109;&lt;/a&gt;</span>
 </span><span class='line'><span class="c">%% @doc Functions for calculating powers</span>
 </span><span class='line'><span class="c">%% @copyright 2013 C J Ross</span>
 </span><span class='line'><span class="c">%% @version 0.1&lt;/p&gt;</span>
@@ -225,7 +225,7 @@
 <span class='line-number'>34</span>
 <span class='line-number'>35</span>
 <span class='line-number'>36</span>
-</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;a href=&quot;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#108;&amp;#116;&amp;#111;&amp;#x3a;&amp;#99;&amp;#111;&amp;#x6e;&amp;#x6e;&amp;#x6f;&amp;#x72;&amp;#51;&amp;#49;&amp;#49;&amp;#x40;&amp;#103;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#108;&amp;#x2e;&amp;#99;&amp;#111;&amp;#109;&quot;&gt;&amp;#99;&amp;#x6f;&amp;#x6e;&amp;#x6e;&amp;#111;&amp;#114;&amp;#51;&amp;#x31;&amp;#49;&amp;#64;&amp;#x67;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#46;&amp;#99;&amp;#111;&amp;#x6d;&lt;/a&gt;</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#105;&amp;#108;&amp;#x74;&amp;#111;&amp;#x3a;&amp;#99;&amp;#111;&amp;#110;&amp;#110;&amp;#x6f;&amp;#x72;&amp;#x33;&amp;#x31;&amp;#x31;&amp;#x40;&amp;#x67;&amp;#109;&amp;#x61;&amp;#105;&amp;#108;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#x6d;&quot;&gt;&amp;#x63;&amp;#111;&amp;#x6e;&amp;#x6e;&amp;#x6f;&amp;#x72;&amp;#51;&amp;#x31;&amp;#x31;&amp;#64;&amp;#x67;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#x6d;&lt;/a&gt;</span>
 </span><span class='line'><span class="c">%% @doc Functions for calculating powers</span>
 </span><span class='line'><span class="c">%% @copyright 2013 C J Ross</span>
 </span><span class='line'><span class="c">%% @version 0.1&lt;/p&gt;</span>
@@ -321,9 +321,9 @@
   
   <entry>
     <title type="html"><![CDATA[Études for Erlang - CH 3]]></title>
-    <link href="http://connor311.github.io/blog/2013/06/16/etudes-for-erlang-ch-3/"/>
+    <link href="http://connor311.github.io/2013/06/16/etudes-for-erlang-ch-3/"/>
     <updated>2013-06-16T23:01:00-04:00</updated>
-    <id>http://connor311.github.io/blog/2013/06/16/etudes-for-erlang-ch-3</id>
+    <id>http://connor311.github.io/2013/06/16/etudes-for-erlang-ch-3</id>
     <content type="html"><![CDATA[<p>It is that time again, well I don&rsquo;t really know if I can say that yet since this is only the second installment of the series.  Last week I wrote about <a href="/2013/06/14/etudes-for-erlang-ch-1-and-2/">chapters 1 &amp; 2</a> from <a href="http://chimera.labs.oreilly.com/books/1234000000726" target="_blank">Etudes for Erlang</a>, however I actually wrote my solutions after the <a href="http://www.meetup.com/Erlang-NYC/events/122174852/" target="_blank">meetup</a>.  This time I am getting a head start and thankfully I only have to do one chapter. I will just hop right into it, because I am excited to learn some more about Erlang!<!--more--></p>
 
 <h2>Chapter 3: Atoms, Tuples, and Pattern Matching</h2>
