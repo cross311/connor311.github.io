@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Connor Ross | Tech]]></title>
+  <link href="http://connor311.github.io/atom.xml" rel="self"/>
+  <link href="http://connor311.github.io/"/>
+  <updated>2013-07-01T23:50:58-04:00</updated>
+  <id>http://connor311.github.io/</id>
+  <author>
+    <name><![CDATA[Connor Ross]]></name>
+    
+  </author>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Études for Erlang - CH 4]]></title>
+    <link href="http://connor311.github.io/2013/06/25/etudes-for-erlang-ch-4/"/>
+    <updated>2013-06-25T23:26:00-04:00</updated>
+    <id>http://connor311.github.io/2013/06/25/etudes-for-erlang-ch-4</id>
+    <content type="html"><![CDATA[<p>This week the homework for the <a href="http://www.meetup.com/Erlang-NYC/events/123394132/" target="_blank">meetup</a> was chapters 4 &amp; 5.  However this weekend I was at my childhood best friend&rsquo;s bachelor party so I only got to chapter 4. Ouch, Ouch, please stop throwing tomatoes, lettuce and actually I don&rsquo;t want to know what that is, I am sorry!  If you want more Erlang check out last week for <a href="http://connor311.github.io/2013/06/16/etudes-for-erlang-ch-3/">chapter 3</a></a>, again!</p>
+
+<p>The party was a blast I got to play Frisbee golf for the first time in real life, it was awesome.  The other plus was the party&rsquo;s location was in Richmond, VA, so I got to rent a car and drive all the way there.  For those of you who do not know me, I LOVE TO DRIVE!!!  I specifically went to a rental company just because I heard they had VW Jettas for rent.  Must say, this whole better gas mileage kick the auto industry is on really makes driving automatics suck.  Give me a manual any day.</p>
+
+<p>Oh wow I really got off track, my B.<!--more--></p>
+
+<h2>Chapter 4: Logic and Recursion</h2>
+
+
+<p><a href="http://chimera.labs.oreilly.com/books/1234000000726/ch04.html" target="_blank">link</a></p>
+
+<p>The first task this week was super simple, change last weeks area function into an Erlang case statement.  Since case statements are just pattern matches, the two are almost identical.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;connor311@gmail.com&gt;</span>
+</span><span class='line'><span class="c">%% @doc Functions for calculating areas of geometric shapes.</span>
+</span><span class='line'><span class="c">%% @copyright 2013 C J Ross</span>
+</span><span class='line'><span class="c">%% @version 0.1</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">geom</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">area</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">spec</span><span class="p">(</span><span class="n">area</span><span class="p">({</span><span class="n">atom</span><span class="p">(),</span> <span class="n">number</span><span class="p">(),</span><span class="n">number</span><span class="p">()})</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="p">()).</span>
+</span><span class='line'><span class="nf">area</span><span class="p">({</span><span class="nv">Shape</span><span class="p">,</span> <span class="nv">Height</span><span class="p">,</span> <span class="nv">Width</span><span class="p">})</span> <span class="k">when</span> <span class="nv">Height</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">Width</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="k">case</span> <span class="nv">Shape</span> <span class="k">of</span>
+</span><span class='line'>      <span class="n">rectangle</span>  <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="nv">Height</span> <span class="o">*</span> <span class="nv">Width</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">triangle</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="nv">Height</span> <span class="o">*</span> <span class="nv">Width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">ellipse</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="nn">math</span><span class="p">:</span><span class="nf">pi</span><span class="p">()</span> <span class="o">*</span> <span class="nv">Height</span> <span class="o">*</span> <span class="nv">Width</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">_</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="mi">0</span>
+</span><span class='line'>  <span class="k">end</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The main topic for this week is introduced in task two, Recursion!  The task, Greatest Common Divisor, makes me sentimental a little bit. I don&rsquo;t know about you, but GCD was the first program I had to write recursion for in college.  Again, another easy problem as to not jump into a freezing pool all at once.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;connor311@gmail.com&gt;</span>
+</span><span class='line'><span class="c">%% @doc Functions for calculating GCD.</span>
+</span><span class='line'><span class="c">%% @copyright 2013 C J Ross</span>
+</span><span class='line'><span class="c">%% @version 0.1</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">dijkstra</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">gcd</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">spec</span><span class="p">(</span><span class="n">gcd</span><span class="p">(</span><span class="n">number</span><span class="p">(),</span> <span class="n">number</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="p">()).</span>
+</span><span class='line'><span class="nf">gcd</span><span class="p">(</span><span class="nv">M</span><span class="p">,</span> <span class="nv">N</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="k">if</span> <span class="nv">M</span> <span class="o">==</span> <span class="nv">N</span> <span class="o">-&gt;</span> <span class="nv">M</span><span class="p">;</span>
+</span><span class='line'>     <span class="nv">M</span> <span class="o">&gt;</span> <span class="nv">N</span> <span class="o">-&gt;</span> <span class="n">gcd</span><span class="p">(</span><span class="nv">M</span><span class="o">-</span><span class="nv">N</span><span class="p">,</span> <span class="nv">N</span><span class="p">);</span>
+</span><span class='line'>     <span class="nv">M</span> <span class="o">&lt;</span> <span class="nv">N</span> <span class="o">-&gt;</span> <span class="n">gcd</span><span class="p">(</span><span class="nv">M</span><span class="p">,</span> <span class="nv">N</span> <span class="o">-</span> <span class="nv">M</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>One of the big sellers for Erlang is an idea of Tail Recursion. This is a language concept that allows recursion with out worries of overflowing the stack (the main concern of recursion).  My co-worker and good pal, Steve, nicely informed me that most languages actually implement this feature.  Makes me feel like a dummy for thinking Erlang was the cool kid on the block for implementing this.</p>
+
+<p>The objective for for task three is to not use tail-recursion, then later compare to an actual tail-recursion version. The math function of choice for this task, is to raise a number to another number. X to the power of N, or 2 to the power of 2 equals 4.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;connor311@gmail.com&gt;</span>
+</span><span class='line'><span class="c">%% @doc Functions for calculating powers</span>
+</span><span class='line'><span class="c">%% @copyright 2013 C J Ross</span>
+</span><span class='line'><span class="c">%% @version 0.1</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">powers</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">raise</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">spec</span><span class="p">(</span><span class="n">raise</span><span class="p">(</span><span class="n">number</span><span class="p">(),</span> <span class="n">number</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="p">()).</span>
+</span><span class='line'><span class="nf">raise</span><span class="p">(_,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'><span class="nf">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">X</span><span class="p">;</span>
+</span><span class='line'><span class="nf">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="p">)</span> <span class="k">when</span> <span class="nv">N</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">X</span> <span class="o">*</span> <span class="n">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="nf">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="p">)</span> <span class="k">when</span> <span class="nv">N</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="mi">1</span> <span class="o">/</span> <span class="n">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="o">-</span><span class="nv">N</span><span class="p">).</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now as promised, the tail-recursive version.  The first noticeable difference is the addition of a helper function to accumulate the answer. This is common practice since the caller of the public method will not know what to start the accumulator variable as, nor should they.  Notice how the main return with recursion just calls a method and returns its return.  If any kind of modifications was done with the return, this method would not longer be tail-recursive.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;connor311@gmail.com&gt;</span>
+</span><span class='line'><span class="c">%% @doc Functions for calculating powers</span>
+</span><span class='line'><span class="c">%% @copyright 2013 C J Ross</span>
+</span><span class='line'><span class="c">%% @version 0.1</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">powers_tail</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">raise</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">spec</span><span class="p">(</span><span class="n">raise</span><span class="p">(</span><span class="n">number</span><span class="p">(),</span> <span class="n">number</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="p">()).</span>
+</span><span class='line'><span class="nf">raise</span><span class="p">(_,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'><span class="nf">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="p">)</span> <span class="k">when</span> <span class="nv">N</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="mi">1</span> <span class="o">/</span> <span class="n">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="o">-</span><span class="nv">N</span><span class="p">);</span>
+</span><span class='line'><span class="nf">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="p">)</span> <span class="k">when</span> <span class="nv">N</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">spec</span><span class="p">(</span><span class="n">raise</span><span class="p">(</span><span class="n">number</span><span class="p">(),</span> <span class="n">number</span><span class="p">(),</span> <span class="n">number</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="p">()).</span>
+</span><span class='line'><span class="nf">raise</span><span class="p">(_,</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">A</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">A</span><span class="p">;</span>
+</span><span class='line'><span class="nf">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="p">,</span> <span class="nv">A</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">X</span> <span class="o">*</span> <span class="nv">A</span><span class="p">).</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For the last task, the author decided to up the difficulty a wee bit.  The new function in the powers module, is to find the nth root by guessing (<a href="http://en.wikipedia.org/wiki/Newton%27s_method" target="_blank">Newton-Raphson</a> method for calculating roots).  Another addition is the outputting of the guesses while the function is working.  I was excited to work on this problem, since it was the first one to really use everything that we have learned so far: functions, Variables, if statements, and recursion.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">...</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">spec</span><span class="p">(</span><span class="n">nth_root</span><span class="p">(</span><span class="n">number</span><span class="p">(),</span> <span class="n">number</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="p">()).</span>
+</span><span class='line'><span class="nf">nth_root</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">nth_root</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span> <span class="p">,</span> <span class="nv">X</span> <span class="o">/</span> <span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">spec</span><span class="p">(</span><span class="n">nth_root</span><span class="p">(</span><span class="n">number</span><span class="p">(),</span> <span class="n">number</span><span class="p">(),</span> <span class="n">number</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="p">()).</span>
+</span><span class='line'><span class="nf">nth_root</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="p">,</span> <span class="nv">A</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;Current guess is </span><span class="si">~p~n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nv">A</span><span class="p">]),</span>
+</span><span class='line'>  <span class="nv">F</span> <span class="o">=</span> <span class="n">raise</span><span class="p">(</span><span class="nv">A</span><span class="p">,</span> <span class="nv">N</span><span class="p">)</span> <span class="o">-</span> <span class="nv">X</span><span class="p">,</span>
+</span><span class='line'>  <span class="nv">Fprime</span> <span class="o">=</span> <span class="nv">N</span> <span class="o">*</span> <span class="n">raise</span><span class="p">(</span><span class="nv">A</span><span class="p">,</span> <span class="nv">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">Next</span> <span class="o">=</span> <span class="nv">A</span> <span class="o">-</span> <span class="nv">F</span> <span class="o">/</span> <span class="nv">Fprime</span><span class="p">,</span>
+</span><span class='line'>  <span class="nv">Change</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nv">Next</span> <span class="o">-</span> <span class="nv">A</span><span class="p">),</span>
+</span><span class='line'>  <span class="k">if</span> <span class="nv">Change</span> <span class="o">=&lt;</span> <span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="n">e</span><span class="o">-</span><span class="mi">8</span> <span class="o">-&gt;</span> <span class="nv">Next</span><span class="p">;</span>
+</span><span class='line'>     <span class="nv">Change</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="n">e</span><span class="o">-</span><span class="mi">8</span> <span class="o">-&gt;</span> <span class="n">nth_root</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="p">,</span> <span class="nv">Next</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Hope to see you tomorrow at the meetup!  Til next week, play some Frisbee Golf!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Études for Erlang - CH 3]]></title>
+    <link href="http://connor311.github.io/2013/06/16/etudes-for-erlang-ch-3/"/>
+    <updated>2013-06-16T23:01:00-04:00</updated>
+    <id>http://connor311.github.io/2013/06/16/etudes-for-erlang-ch-3</id>
+    <content type="html"><![CDATA[<p>It is that time again, well I don&rsquo;t really know if I can say that yet since this is only the second installment of the series.  Last week I wrote about <a href="http://connor311.github.io/2013/06/14/etudes-for-erlang-ch-1-and-2/">chapters 1 &amp; 2</a> from <a href="http://chimera.labs.oreilly.com/books/1234000000726" target="_blank">Etudes for Erlang</a>, however I actually wrote my solutions after the <a href="http://www.meetup.com/Erlang-NYC/events/122174852/" target="_blank">meetup</a>.  This time I am getting a head start and thankfully I only have to do one chapter. I will just hop right into it, because I am excited to learn some more about Erlang!<!--more--></p>
+
+<h2>Chapter 3: Atoms, Tuples, and Pattern Matching</h2>
+
+
+<p><a href="http://chimera.labs.oreilly.com/books/1234000000726/ch03.html" target="_blank">link</a></p>
+
+<p>The first part is asking me to update my area function, from last week, to also calculate the area of a triangle, and ellipse not just a rectangle.  The main change it would seem is using pattern matching on a new parameter that is an atom representing the shape.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">area</span><span class="p">(</span><span class="n">rectangle</span><span class="p">,</span> <span class="nv">Height</span><span class="p">,</span> <span class="nv">Width</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Height</span> <span class="o">*</span> <span class="nv">Width</span><span class="p">;</span>
+</span><span class='line'><span class="nf">area</span><span class="p">(</span><span class="n">triangle</span><span class="p">,</span> <span class="nv">Height</span><span class="p">,</span> <span class="nv">Width</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Height</span> <span class="o">*</span> <span class="nv">Width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="nf">area</span><span class="p">(</span><span class="n">ellipse</span><span class="p">,</span> <span class="nv">Height</span><span class="p">,</span> <span class="nv">Width</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">math</span><span class="p">:</span><span class="nf">pi</span><span class="p">()</span> <span class="o">*</span> <span class="nv">Height</span> <span class="o">*</span> <span class="nv">Width</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Output:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">3</span><span class="o">&gt;</span> <span class="n">c</span><span class="p">(</span><span class="n">geom</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="n">geom</span><span class="p">}</span>
+</span><span class='line'><span class="mi">4</span><span class="o">&gt;</span> <span class="nn">geom</span><span class="p">:</span><span class="nf">area</span><span class="p">(</span><span class="n">rectangle</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">).</span>
+</span><span class='line'><span class="mi">12</span>
+</span><span class='line'><span class="mi">5</span><span class="o">&gt;</span> <span class="nn">geom</span><span class="p">:</span><span class="nf">area</span><span class="p">(</span><span class="n">triangle</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">).</span>
+</span><span class='line'><span class="mi">7</span><span class="p">.</span><span class="mi">5</span>
+</span><span class='line'><span class="mi">6</span><span class="o">&gt;</span> <span class="nn">geom</span><span class="p">:</span><span class="nf">area</span><span class="p">(</span><span class="n">ellipse</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">).</span>
+</span><span class='line'><span class="mi">25</span><span class="p">.</span><span class="mi">132741228718345</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The second part brings up the fact that our current solution will allow a negative input, while you cannot have a negative area. The recommendation is to use guards. A guard is a when statement after the function signature but before the &ndash;&gt;. If you have more then one they can be seporated with commas.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">area</span><span class="p">(</span><span class="n">rectangle</span><span class="p">,</span> <span class="nv">Height</span><span class="p">,</span> <span class="nv">Width</span><span class="p">)</span> <span class="k">when</span> <span class="nv">Height</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">Width</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Height</span> <span class="o">*</span> <span class="nv">Width</span><span class="p">;</span>
+</span><span class='line'><span class="nf">area</span><span class="p">(</span><span class="n">triangle</span><span class="p">,</span> <span class="nv">Height</span><span class="p">,</span> <span class="nv">Width</span><span class="p">)</span> <span class="k">when</span> <span class="nv">Height</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">Width</span> <span class="o">&gt;=</span> <span class="mi">0</span>  <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Height</span> <span class="o">*</span> <span class="nv">Width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="nf">area</span><span class="p">(</span><span class="n">ellipse</span><span class="p">,</span> <span class="nv">Height</span><span class="p">,</span> <span class="nv">Width</span><span class="p">)</span> <span class="k">when</span> <span class="nv">Height</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">Width</span> <span class="o">&gt;=</span> <span class="mi">0</span>  <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">math</span><span class="p">:</span><span class="nf">pi</span><span class="p">()</span> <span class="o">*</span> <span class="nv">Height</span> <span class="o">*</span> <span class="nv">Width</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Output:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">11</span><span class="o">&gt;</span> <span class="nn">geom</span><span class="p">:</span><span class="nf">area</span><span class="p">(</span><span class="n">rectangle</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">).</span>
+</span><span class='line'><span class="mi">12</span>
+</span><span class='line'><span class="mi">12</span><span class="o">&gt;</span> <span class="nn">geom</span><span class="p">:</span><span class="nf">area</span><span class="p">(</span><span class="n">ellipse</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">).</span>
+</span><span class='line'><span class="mi">18</span><span class="p">.</span><span class="mi">84955592153876</span>
+</span><span class='line'><span class="mi">13</span><span class="o">&gt;</span> <span class="nn">geom</span><span class="p">:</span><span class="nf">area</span><span class="p">(</span><span class="n">rectangle</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="p">,</span><span class="mi">3</span><span class="p">).</span>
+</span><span class='line'><span class="o">**</span> <span class="n">exception</span> <span class="nn">error</span><span class="p">:</span> <span class="n">no</span> <span class="n">function</span> <span class="n">clause</span> <span class="n">matching</span> <span class="nn">geom</span><span class="p">:</span><span class="nf">area</span><span class="p">(</span><span class="n">rectangle</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="p">(</span><span class="n">geom</span><span class="p">.</span><span class="n">erl</span><span class="p">,</span> <span class="n">line</span> <span class="mi">14</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Onto part three, where our function is now supposed to take in any kind of shape. One catch is that if the function does not support the shape it just returns zero. Seems a little none Erlang (let it fail), but I guess it is a good way to teach underscores. Oh crap, I just gave away the answer&hellip; In Erlang an _ in a signature means accept anything.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">...</span>
+</span><span class='line'><span class="nf">area</span><span class="p">(</span><span class="n">ellipse</span><span class="p">,</span> <span class="nv">Height</span><span class="p">,</span> <span class="nv">Width</span><span class="p">)</span> <span class="k">when</span> <span class="nv">Height</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">Width</span> <span class="o">&gt;=</span> <span class="mi">0</span>  <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">math</span><span class="p">:</span><span class="nf">pi</span><span class="p">()</span> <span class="o">*</span> <span class="nv">Height</span> <span class="o">*</span> <span class="nv">Width</span><span class="p">;</span>
+</span><span class='line'><span class="nf">area</span><span class="p">(_,</span> <span class="p">_,</span> <span class="p">_)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="mi">0</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Output:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">18</span><span class="o">&gt;</span> <span class="nn">geom</span><span class="p">:</span><span class="nf">area</span><span class="p">(</span><span class="n">rectangle</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">).</span>
+</span><span class='line'><span class="mi">12</span>
+</span><span class='line'><span class="mi">19</span><span class="o">&gt;</span> <span class="nn">geom</span><span class="p">:</span><span class="nf">area</span><span class="p">(</span><span class="n">pentagon</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">).</span>
+</span><span class='line'><span class="mi">0</span>
+</span><span class='line'><span class="mi">20</span><span class="o">&gt;</span> <span class="nn">geom</span><span class="p">:</span><span class="nf">area</span><span class="p">(</span><span class="n">hexagon</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">).</span>
+</span><span class='line'><span class="mi">0</span>
+</span><span class='line'><span class="mi">21</span><span class="o">&gt;</span> <span class="nn">geom</span><span class="p">:</span><span class="nf">area</span><span class="p">(</span><span class="n">rectangle</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">).</span>
+</span><span class='line'><span class="mi">0</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you can see, now our negatives return zero even for recognized shapes. This is because the guards are making the pattern match fail, those allowing the catch all case to match and return zero.</p>
+
+<p>The fourth and last part brings Erlang Tuples into the picture. The new requirement is to only have one public facing function, area/1. How are we going to take a 3 parameter function down to only one you ask? By using tuples, which in my mind are the strongly typed messages used in Erlang. While Erlang compiler does not throw error messages like a normal strongly typed languages, the use of tuples, atoms, and pattern matching allow a programmer to specify exactly what he/she wants to come into the function. In this example we will continue to use the shape name as the object type, by making it the first object in the tuple followed by its specs. {shape,number,number}</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">geom</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">area</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">area</span><span class="p">({</span><span class="nv">Shape</span><span class="p">,</span> <span class="nv">Height</span><span class="p">,</span> <span class="nv">Width</span><span class="p">})</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">area</span><span class="p">(</span><span class="nv">Shape</span><span class="p">,</span> <span class="nv">Height</span><span class="p">,</span> <span class="nv">Width</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">area</span><span class="p">(</span><span class="n">rectangle</span><span class="p">,</span> <span class="nv">Height</span><span class="p">,</span> <span class="nv">Width</span><span class="p">)</span> <span class="k">when</span> <span class="nv">Height</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">Width</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Height</span> <span class="o">*</span> <span class="nv">Width</span><span class="p">;</span>
+</span><span class='line'><span class="nf">area</span><span class="p">(</span><span class="n">triangle</span><span class="p">,</span> <span class="nv">Height</span><span class="p">,</span> <span class="nv">Width</span><span class="p">)</span> <span class="k">when</span> <span class="nv">Height</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">Width</span> <span class="o">&gt;=</span> <span class="mi">0</span>  <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Height</span> <span class="o">*</span> <span class="nv">Width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="nf">area</span><span class="p">(</span><span class="n">ellipse</span><span class="p">,</span> <span class="nv">Height</span><span class="p">,</span> <span class="nv">Width</span><span class="p">)</span> <span class="k">when</span> <span class="nv">Height</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">Width</span> <span class="o">&gt;=</span> <span class="mi">0</span>  <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">math</span><span class="p">:</span><span class="nf">pi</span><span class="p">()</span> <span class="o">*</span> <span class="nv">Height</span> <span class="o">*</span> <span class="nv">Width</span><span class="p">;</span>
+</span><span class='line'><span class="nf">area</span><span class="p">(_,</span> <span class="p">_,</span> <span class="p">_)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="mi">0</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Output:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">26</span><span class="o">&gt;</span> <span class="nn">geom</span><span class="p">:</span><span class="nf">area</span><span class="p">({</span><span class="n">rectangle</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">}).</span>
+</span><span class='line'><span class="mi">21</span>
+</span><span class='line'><span class="mi">27</span><span class="o">&gt;</span> <span class="nn">geom</span><span class="p">:</span><span class="nf">area</span><span class="p">({</span><span class="n">triangle</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">}).</span>
+</span><span class='line'><span class="mi">10</span><span class="p">.</span><span class="mi">5</span>
+</span><span class='line'><span class="mi">28</span><span class="o">&gt;</span> <span class="nn">geom</span><span class="p">:</span><span class="nf">area</span><span class="p">({</span><span class="n">ellipse</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">}).</span>
+</span><span class='line'><span class="mi">65</span><span class="p">.</span><span class="mi">97344572538566</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Hope to see you at Erlang-NYC meetup this tuesday (06/18/2013)! Look for next weeks solution to chapters 4 &amp; 5, next sunday .</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Études for Erlang – CH 1 &amp; 2]]></title>
+    <link href="http://connor311.github.io/2013/06/14/etudes-for-erlang-ch-1-and-2/"/>
+    <updated>2013-06-14T22:41:00-04:00</updated>
+    <id>http://connor311.github.io/2013/06/14/etudes-for-erlang-ch-1-and-2</id>
+    <content type="html"><![CDATA[<p>Have you ever thought to yourself, &ldquo;What can I do with all my spare time&rdquo; or maybe &ldquo;There are all these people at work, that I really would like to get to know better&rdquo;?  No, <em>really</em>, oh well I have.  The game plan I came up with was simple, find something that was related to work but happened after work and beer was provided.  The answer to all the worlds problems is <a href="http://www.erlang.org/" target="_blank">Erlang</a>, dun dun duda&hellip;.  Ok maybe not, but the newly re-minted <a href="http://www.meetup.com/Erlang-NYC/" target="_blank">Erlang-NYC</a> meetup group was the answer to my problems.  For those of you who have never heard of this &ldquo;<a href="http://www.meetup.com" target="_blank">Meetup</a>&rdquo; idea, it is a group of people getting together to talk or act on a unified topic or activity.  This meetup&rsquo;s unified topic is Erlang, DUH, and they get together about once a month or more.<!--more--></p>
+
+<p>One of the series the group is doing follows along with a beginners guide to Erlang called, <a href="http://chimera.labs.oreilly.com/books/1234000000726" target="_blank">Études for Erlang</a>.  Every week we meet to go through one of the chapters from the guide and hopefully we all become more familiar with the language, while making friends with people of similar interests.  This week (06/10/2013) we had our first meeting to go through chapters 1 and 2.  Here are my solutions:</p>
+
+<h2>Chapter 1: Getting Comfortable with Erlang</h2>
+
+<p><a href="http://chimera.labs.oreilly.com/books/1234000000726/ch01.html" target="_blank">link</a></p>
+
+<p>Try leaving out parentheses in arithmetic expressions:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="p">.</span>
+</span><span class='line'><span class="n">syntax</span> <span class="n">error</span> <span class="nn">before</span><span class="p">:</span> <span class="n">&#39;.&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Try adding <code>&ldquo;adam&rdquo;</code> to <code>12</code>:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="s">&quot;adam&quot;</span> <span class="o">+</span> <span class="mi">12</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">**</span> <span class="n">exception</span> <span class="nn">error</span><span class="p">:</span> <span class="n">an</span> <span class="n">error</span> <span class="n">occurred</span> <span class="k">when</span> <span class="n">evaluating</span> <span class="n">an</span> <span class="n">arithmetic</span> <span class="n">expression</span>
+</span><span class='line'> <span class="n">in</span> <span class="n">operator</span> <span class="o">+/</span><span class="mi">2</span>
+</span><span class='line'> <span class="n">called</span> <span class="n">as</span> <span class="s">&quot;adam&quot;</span> <span class="o">+</span> <span class="mi">12</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Make up variable names that you are sure Erlang wouldn’t ever accept</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nv">VarNameWithAmp</span><span class="err">&amp;</span> <span class="o">=</span> <span class="mi">1</span><span class="p">.</span>
+</span><span class='line'><span class="o">*</span> <span class="mi">1</span><span class="p">:</span> <span class="n">syntax</span> <span class="n">error</span> <span class="nn">before</span><span class="p">:</span> <span class="n">&#39;&amp;&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">VarNameWithUnderScore_Test</span> <span class="o">=</span> <span class="mi">12</span><span class="p">.</span>
+</span><span class='line'><span class="mi">12</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">atom_trying_to_be_var</span> <span class="o">=</span> <span class="mi">2</span><span class="p">.</span>
+</span><span class='line'><span class="o">**</span> <span class="n">exception</span> <span class="nn">error</span><span class="p">:</span> <span class="n">no</span> <span class="n">match</span> <span class="k">of</span> <span class="n">right</span> <span class="n">hand</span> <span class="n">side</span> <span class="n">value</span> <span class="mi">2</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h2>Chapter 2: Functions and Modules</h2>
+
+
+<p><a href="http://chimera.labs.oreilly.com/books/1234000000726/ch02.html" target="_blank">link</a></p>
+
+<p>Write a module with a function that takes the length and width of a rectangle and returns (yields) its area. Name the module <code>geom</code>, and name the function <code>area</code>. The function has arity 2, because it needs two pieces of information to make the calculation. In Erlang-speak: write function <code>area/2</code>.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;connor311@gmail.com&gt;</span>
+</span><span class='line'><span class="c">%% @doc Functions for calculating areas of geometric shapes.</span>
+</span><span class='line'><span class="c">%% @copyright 2013 C J Ross</span>
+</span><span class='line'><span class="c">%% @version 0.1</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">geom</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">area</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">%% @doc Calculates the area of a rectangle, given the</span>
+</span><span class='line'><span class="c">%% length and width. Returns the product</span>
+</span><span class='line'><span class="c">%% of its arguments.</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">spec</span><span class="p">(</span><span class="n">area</span><span class="p">(</span><span class="n">number</span><span class="p">(),</span><span class="n">number</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="p">()).</span>
+</span><span class='line'><span class="nf">area</span><span class="p">(</span><span class="nv">Height</span><span class="p">,</span> <span class="nv">Width</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Height</span> <span class="o">*</span> <span class="nv">Width</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Test:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">2</span><span class="o">&gt;</span> <span class="n">c</span><span class="p">(</span><span class="n">geom</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="n">geom</span><span class="p">}</span>
+</span><span class='line'><span class="mi">3</span><span class="o">&gt;</span> <span class="nn">geom</span><span class="p">:</span><span class="nf">area</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">).</span>
+</span><span class='line'><span class="mi">12</span>
+</span><span class='line'><span class="mi">4</span><span class="o">&gt;</span> <span class="nn">geom</span><span class="p">:</span><span class="nf">area</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">7</span><span class="p">).</span>
+</span><span class='line'><span class="mi">84</span>
+</span><span class='line'><span class="mi">5</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Generated EDoc:</p>
+
+<p><a href="http://connorjross.com/blog/wp-content/uploads/2013/06/Screen-Shot-2013-06-13-at-11.09.49-PM.png"><img class="aligncenter size-full wp-image-201" alt="Edoc - Geom" src="http://connorjross.com/blog/wp-content/uploads/2013/06/Screen-Shot-2013-06-13-at-11.09.49-PM.png" /></a></p>
+
+<p>Looking forward to next week!  Hope you can join myself and other <a href="http://www.mdsol.com" target="_blank">Medidatations</a> at the <a href="http://www.meetup.com/Erlang-NYC/events/122174852/" target="_blank">06/18/2013 Erlang-NYC Meetup</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>
