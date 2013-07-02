@@ -1,4 +1,4 @@
-$max-width: 550px;
+$max-width:1024px;
 
 *{
 	margin: 0;
@@ -22,6 +22,12 @@ body{
 
 h1{
 	font-size: 36px;
+	@media screen and (max-width: 1040px){
+		line-height:1.0;
+	}
+	@media screen and (max-width: 600px){
+		line-height:1.5;
+	}
 }
 h2{
 	font-size: 36px;
