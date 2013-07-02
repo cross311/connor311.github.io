@@ -1,0 +1,364 @@
+
+<!DOCTYPE HTML>
+<html lang="en-GB">
+<head>
+	<meta charset="utf-8">
+	<title>Études for Erlang - CH 4  | Connor Ross | Tech</title>
+
+	<meta name="author" content="Connor Ross">
+
+<meta name="description" content="This week the homework for the meetup was chapters 4 &amp; 5.  However this weekend I was at my childhood best friend&rsquo;s bachelor party so I &hellip;"> <meta name="keywords" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Connor Ross | Tech" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Connor Ross | Tech</a></h1>
+<span class="tagline">The Tech That Keeps Me Ticking</span>
+<nav id="main-nav"><ul>
+	<li><a href="/about">About</a></li>
+	<li><a href="/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul>
+	<li><a href="/about">About</a></li>
+	<li><a href="/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+</nav>
+
+
+</header>
+
+	<div id="content" class="inner"><article class="post">
+	<header>
+		<h2 class="title">Études for Erlang - CH 4</h2>
+		<div class="meta date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-25T23:26:00-04:00" pubdate data-updated="true">Jun 25<span>th</span>, 2013</time></div>
+	</header>
+	<div class="entry-content"><p>This week the homework for the <a href="http://www.meetup.com/Erlang-NYC/events/123394132/" target="_blank">meetup</a> was chapters 4 &amp; 5.  However this weekend I was at my childhood best friend&rsquo;s bachelor party so I only got to chapter 4. Ouch, Ouch, please stop throwing tomatoes, lettuce and actually I don&rsquo;t want to know what that is, I am sorry!  If you want more Erlang check out last week for <a href="/2013/06/16/etudes-for-erlang-ch-3/">chapter 3</a></a>, again!</p>
+
+<p>The party was a blast I got to play Frisbee golf for the first time in real life, it was awesome.  The other plus was the party&rsquo;s location was in Richmond, VA, so I got to rent a car and drive all the way there.  For those of you who do not know me, I LOVE TO DRIVE!!!  I specifically went to a rental company just because I heard they had VW Jettas for rent.  Must say, this whole better gas mileage kick the auto industry is on really makes driving automatics suck.  Give me a manual any day.</p>
+
+<p>Oh wow I really got off track, my B.<!--more--></p>
+
+<h2>Chapter 4: Logic and Recursion</h2>
+
+
+<p><a href="http://chimera.labs.oreilly.com/books/1234000000726/ch04.html" target="_blank">link</a></p>
+
+<p>The first task this week was super simple, change last weeks area function into an Erlang case statement.  Since case statements are just pattern matches, the two are almost identical.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;connor311@gmail.com&gt;</span>
+</span><span class='line'><span class="c">%% @doc Functions for calculating areas of geometric shapes.</span>
+</span><span class='line'><span class="c">%% @copyright 2013 C J Ross</span>
+</span><span class='line'><span class="c">%% @version 0.1</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">geom</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">area</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">spec</span><span class="p">(</span><span class="n">area</span><span class="p">({</span><span class="n">atom</span><span class="p">(),</span> <span class="n">number</span><span class="p">(),</span><span class="n">number</span><span class="p">()})</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="p">()).</span>
+</span><span class='line'><span class="nf">area</span><span class="p">({</span><span class="nv">Shape</span><span class="p">,</span> <span class="nv">Height</span><span class="p">,</span> <span class="nv">Width</span><span class="p">})</span> <span class="k">when</span> <span class="nv">Height</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">Width</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="k">case</span> <span class="nv">Shape</span> <span class="k">of</span>
+</span><span class='line'>      <span class="n">rectangle</span>  <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="nv">Height</span> <span class="o">*</span> <span class="nv">Width</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">triangle</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="nv">Height</span> <span class="o">*</span> <span class="nv">Width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">ellipse</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="nn">math</span><span class="p">:</span><span class="nf">pi</span><span class="p">()</span> <span class="o">*</span> <span class="nv">Height</span> <span class="o">*</span> <span class="nv">Width</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">_</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="mi">0</span>
+</span><span class='line'>  <span class="k">end</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The main topic for this week is introduced in task two, Recursion!  The task, Greatest Common Divisor, makes me sentimental a little bit. I don&rsquo;t know about you, but GCD was the first program I had to write recursion for in college.  Again, another easy problem as to not jump into a freezing pool all at once.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;connor311@gmail.com&gt;</span>
+</span><span class='line'><span class="c">%% @doc Functions for calculating GCD.</span>
+</span><span class='line'><span class="c">%% @copyright 2013 C J Ross</span>
+</span><span class='line'><span class="c">%% @version 0.1</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">dijkstra</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">gcd</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">spec</span><span class="p">(</span><span class="n">gcd</span><span class="p">(</span><span class="n">number</span><span class="p">(),</span> <span class="n">number</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="p">()).</span>
+</span><span class='line'><span class="nf">gcd</span><span class="p">(</span><span class="nv">M</span><span class="p">,</span> <span class="nv">N</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="k">if</span> <span class="nv">M</span> <span class="o">==</span> <span class="nv">N</span> <span class="o">-&gt;</span> <span class="nv">M</span><span class="p">;</span>
+</span><span class='line'>     <span class="nv">M</span> <span class="o">&gt;</span> <span class="nv">N</span> <span class="o">-&gt;</span> <span class="n">gcd</span><span class="p">(</span><span class="nv">M</span><span class="o">-</span><span class="nv">N</span><span class="p">,</span> <span class="nv">N</span><span class="p">);</span>
+</span><span class='line'>     <span class="nv">M</span> <span class="o">&lt;</span> <span class="nv">N</span> <span class="o">-&gt;</span> <span class="n">gcd</span><span class="p">(</span><span class="nv">M</span><span class="p">,</span> <span class="nv">N</span> <span class="o">-</span> <span class="nv">M</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>One of the big sellers for Erlang is an idea of Tail Recursion. This is a language concept that allows recursion with out worries of overflowing the stack (the main concern of recursion).  My co-worker and good pal, Steve, nicely informed me that most languages actually implement this feature.  Makes me feel like a dummy for thinking Erlang was the cool kid on the block for implementing this.</p>
+
+<p>The objective for for task three is to not use tail-recursion, then later compare to an actual tail-recursion version. The math function of choice for this task, is to raise a number to another number. X to the power of N, or 2 to the power of 2 equals 4.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;connor311@gmail.com&gt;</span>
+</span><span class='line'><span class="c">%% @doc Functions for calculating powers</span>
+</span><span class='line'><span class="c">%% @copyright 2013 C J Ross</span>
+</span><span class='line'><span class="c">%% @version 0.1</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">powers</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">raise</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">spec</span><span class="p">(</span><span class="n">raise</span><span class="p">(</span><span class="n">number</span><span class="p">(),</span> <span class="n">number</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="p">()).</span>
+</span><span class='line'><span class="nf">raise</span><span class="p">(_,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'><span class="nf">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">X</span><span class="p">;</span>
+</span><span class='line'><span class="nf">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="p">)</span> <span class="k">when</span> <span class="nv">N</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">X</span> <span class="o">*</span> <span class="n">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="nf">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="p">)</span> <span class="k">when</span> <span class="nv">N</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="mi">1</span> <span class="o">/</span> <span class="n">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="o">-</span><span class="nv">N</span><span class="p">).</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now as promised, the tail-recursive version.  The first noticeable difference is the addition of a helper function to accumulate the answer. This is common practice since the caller of the public method will not know what to start the accumulator variable as, nor should they.  Notice how the main return with recursion just calls a method and returns its return.  If any kind of modifications was done with the return, this method would not longer be tail-recursive.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;connor311@gmail.com&gt;</span>
+</span><span class='line'><span class="c">%% @doc Functions for calculating powers</span>
+</span><span class='line'><span class="c">%% @copyright 2013 C J Ross</span>
+</span><span class='line'><span class="c">%% @version 0.1</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">powers_tail</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">raise</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">spec</span><span class="p">(</span><span class="n">raise</span><span class="p">(</span><span class="n">number</span><span class="p">(),</span> <span class="n">number</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="p">()).</span>
+</span><span class='line'><span class="nf">raise</span><span class="p">(_,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'><span class="nf">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="p">)</span> <span class="k">when</span> <span class="nv">N</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="mi">1</span> <span class="o">/</span> <span class="n">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="o">-</span><span class="nv">N</span><span class="p">);</span>
+</span><span class='line'><span class="nf">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="p">)</span> <span class="k">when</span> <span class="nv">N</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">spec</span><span class="p">(</span><span class="n">raise</span><span class="p">(</span><span class="n">number</span><span class="p">(),</span> <span class="n">number</span><span class="p">(),</span> <span class="n">number</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="p">()).</span>
+</span><span class='line'><span class="nf">raise</span><span class="p">(_,</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">A</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">A</span><span class="p">;</span>
+</span><span class='line'><span class="nf">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="p">,</span> <span class="nv">A</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">raise</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">X</span> <span class="o">*</span> <span class="nv">A</span><span class="p">).</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For the last task, the author decided to up the difficulty a wee bit.  The new function in the powers module, is to find the nth root by guessing (<a href="http://en.wikipedia.org/wiki/Newton%27s_method" target="_blank">Newton-Raphson</a> method for calculating roots).  Another addition is the outputting of the guesses while the function is working.  I was excited to work on this problem, since it was the first one to really use everything that we have learned so far: functions, Variables, if statements, and recursion.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">...</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">spec</span><span class="p">(</span><span class="n">nth_root</span><span class="p">(</span><span class="n">number</span><span class="p">(),</span> <span class="n">number</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="p">()).</span>
+</span><span class='line'><span class="nf">nth_root</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">nth_root</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span> <span class="p">,</span> <span class="nv">X</span> <span class="o">/</span> <span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">spec</span><span class="p">(</span><span class="n">nth_root</span><span class="p">(</span><span class="n">number</span><span class="p">(),</span> <span class="n">number</span><span class="p">(),</span> <span class="n">number</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="p">()).</span>
+</span><span class='line'><span class="nf">nth_root</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="p">,</span> <span class="nv">A</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;Current guess is </span><span class="si">~p~n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nv">A</span><span class="p">]),</span>
+</span><span class='line'>  <span class="nv">F</span> <span class="o">=</span> <span class="n">raise</span><span class="p">(</span><span class="nv">A</span><span class="p">,</span> <span class="nv">N</span><span class="p">)</span> <span class="o">-</span> <span class="nv">X</span><span class="p">,</span>
+</span><span class='line'>  <span class="nv">Fprime</span> <span class="o">=</span> <span class="nv">N</span> <span class="o">*</span> <span class="n">raise</span><span class="p">(</span><span class="nv">A</span><span class="p">,</span> <span class="nv">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">Next</span> <span class="o">=</span> <span class="nv">A</span> <span class="o">-</span> <span class="nv">F</span> <span class="o">/</span> <span class="nv">Fprime</span><span class="p">,</span>
+</span><span class='line'>  <span class="nv">Change</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nv">Next</span> <span class="o">-</span> <span class="nv">A</span><span class="p">),</span>
+</span><span class='line'>  <span class="k">if</span> <span class="nv">Change</span> <span class="o">=&lt;</span> <span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="n">e</span><span class="o">-</span><span class="mi">8</span> <span class="o">-&gt;</span> <span class="nv">Next</span><span class="p">;</span>
+</span><span class='line'>     <span class="nv">Change</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="n">e</span><span class="o">-</span><span class="mi">8</span> <span class="o">-&gt;</span> <span class="n">nth_root</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">N</span><span class="p">,</span> <span class="nv">Next</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Hope to see you tomorrow at the meetup!  Til next week, play some Frisbee Golf!</p>
+</div>
+	
+		<div class="meta">
+			<span class="comments"><a href="/2013/06/25/etudes-for-erlang-ch-4/#disqus_thread">Comments</a></span>
+		</div>
+	
+
+</article>
+
+	
+	<div class="share">
+		<ul>
+			<li>
+  <a href="https://twitter.com/intent/tweet?text=Études for Erlang - CH 4 by @otter311&url=http://connor311.github.io/2013/06/25/etudes-for-erlang-ch-4/" title="Share Études for Erlang - CH 4 on Twitter">
+    <img src="/images/social/twitter.png" />
+  </a>
+</li>
+
+			<li>
+  <a href="https://www.facebook.com/sharer.php?u=http://connor311.github.io/2013/06/25/etudes-for-erlang-ch-4/" title="Share Études for Erlang - CH 4 on Facebook">
+    <img src="/images/social/facebook.png" />
+  </a>
+</li>
+
+			<li>
+  <a href="https://plus.google.com/share?url=http://connor311.github.io/2013/06/25/etudes-for-erlang-ch-4/" title="Share Études for Erlang - CH 4 on Google Plus">
+    <img src="/images/social/google.png" />
+  </a>
+</li>
+
+		</ul>
+	</div>
+
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">&copy; 2013
+
+    Connor Ross
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/hyphenator.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'connorrosstech';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://connor311.github.io/2013/06/25/etudes-for-erlang-ch-4/';
+        var disqus_url = 'http://connor311.github.io/2013/06/25/etudes-for-erlang-ch-4/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-42145286-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+</body>
+</html>
