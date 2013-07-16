@@ -4,7 +4,7 @@
   <title><![CDATA[Connor Ross | Tech]]></title>
   <link href="http://connor311.github.io/atom.xml" rel="self"/>
   <link href="http://connor311.github.io/"/>
-  <updated>2013-07-15T21:46:57-04:00</updated>
+  <updated>2013-07-16T00:28:53-04:00</updated>
   <id>http://connor311.github.io/</id>
   <author>
     <name><![CDATA[Connor Ross]]></name>
@@ -13,18 +13,242 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Études for Erlang - CH 7]]></title>
+    <link href="http://connor311.github.io/2013/07/15/etudes-for-erlang-ch-7/"/>
+    <updated>2013-07-15T22:58:00-04:00</updated>
+    <id>http://connor311.github.io/2013/07/15/etudes-for-erlang-ch-7</id>
+    <content type="html"><![CDATA[<p>I have been working double duty tonight, since I have been slacking on my blogging duty.  I am again slacking, I am going to skip from <a href="http://connor311.github.io/2013/07/08/etudes-for-erlang-ch-5/">chapter 5</a> to chapter 6 for now. <!-- more --></p>
+
+<h2>Chapter 7: Higher Order Functions and List Comprehensions</h2>
+
+<p><a href="http://chimera.labs.oreilly.com/books/1234000000726/ch07.html">link</a></p>
+
+<p>This etude starts off freshman HS year style, with a little calculus!  It is asking us to create a method that determines the derivative of an anonymous function.</p>
+
+<figure class='code'><figcaption><span> (calculus.erl)</span> <a href='http://connor311.github.io/downloads/code/erlang-etudes/ch7/calculus.erl'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">calculus</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">derivative</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nf">derivative</span><span class="p">(</span><span class="nv">Func</span><span class="p">,</span> <span class="nv">X</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">derivative</span><span class="p">(</span><span class="nv">Func</span><span class="p">,</span> <span class="nv">X</span><span class="p">,</span> <span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="n">e</span><span class="o">-</span><span class="mi">10</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">derivative</span><span class="p">(</span><span class="nv">Func</span><span class="p">,</span> <span class="nv">X</span><span class="p">,</span> <span class="nv">Delta</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">(</span><span class="nv">Func</span><span class="p">(</span><span class="nv">X</span> <span class="o">+</span> <span class="nv">Delta</span><span class="p">)</span> <span class="o">-</span> <span class="nv">Func</span><span class="p">(</span><span class="nv">X</span><span class="p">))</span> <span class="o">/</span> <span class="nv">Delta</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The next exercise is pushing our understanding of what we can do with <a href="http://www.erlang.org/doc/programming_examples/list_comprehensions.html">list comprehensions</a>.  It asks if it is possible to use pattern matching and list comprehension together?  I think YES.</p>
+
+<figure class='code'><figcaption><span> (people.erl)</span> <a href='http://connor311.github.io/downloads/code/erlang-etudes/ch7/people.erl'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">people</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">part_one</span><span class="o">/</span><span class="mi">0</span>
+</span><span class='line'>  <span class="p">,</span><span class="n">part_two</span><span class="o">/</span><span class="mi">0</span>
+</span><span class='line'>  <span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">people_list</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">[{</span><span class="s">&quot;Federico&quot;</span><span class="p">,</span> <span class="sc">$M</span><span class="p">,</span> <span class="mi">22</span><span class="p">},</span>
+</span><span class='line'>   <span class="p">{</span><span class="s">&quot;Kim&quot;</span><span class="p">,</span> <span class="sc">$F</span><span class="p">,</span> <span class="mi">45</span><span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span><span class="s">&quot;Hansa&quot;</span><span class="p">,</span> <span class="sc">$F</span><span class="p">,</span> <span class="mi">30</span><span class="p">},</span>
+</span><span class='line'>   <span class="p">{</span><span class="s">&quot;Tran&quot;</span><span class="p">,</span> <span class="sc">$M</span><span class="p">,</span> <span class="mi">47</span><span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span><span class="s">&quot;Cathy&quot;</span><span class="p">,</span> <span class="sc">$F</span><span class="p">,</span> <span class="mi">32</span><span class="p">},</span>
+</span><span class='line'>     <span class="p">{</span><span class="s">&quot;Elias&quot;</span><span class="p">,</span> <span class="sc">$M</span><span class="p">,</span> <span class="mi">50</span><span class="p">}].</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">part_one</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">[{</span><span class="nv">Name</span><span class="p">,</span> <span class="nv">Gender</span><span class="p">,</span> <span class="nv">Age</span><span class="p">}</span> <span class="p">||</span> <span class="p">{</span><span class="nv">Name</span><span class="p">,</span> <span class="nv">Gender</span><span class="p">,</span> <span class="nv">Age</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="n">people_list</span><span class="p">(),</span> <span class="nv">Gender</span> <span class="o">==</span> <span class="sc">$M</span><span class="p">,</span> <span class="nv">Age</span> <span class="o">&gt;</span> <span class="mi">40</span><span class="p">].</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">part_two</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">[{</span><span class="nv">Name</span><span class="p">,</span> <span class="nv">Gender</span><span class="p">,</span> <span class="nv">Age</span><span class="p">}</span> <span class="p">||</span> <span class="p">{</span><span class="nv">Name</span><span class="p">,</span> <span class="nv">Gender</span><span class="p">,</span> <span class="nv">Age</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="n">people_list</span><span class="p">(),</span> <span class="p">(</span><span class="nv">Gender</span> <span class="o">==</span> <span class="sc">$M</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nv">Age</span> <span class="o">&gt;</span> <span class="mi">40</span><span class="p">)].</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I am starting to notice a pattern with this chapter, and I think it is lists.  Next we get to finally use some functions implemented by the framework, and not have to implement them ourselves.  The function that gets the privalige of our attention first is: lists:foldl/3. Don&rsquo;t exactly know why there is an l at the end, scratch that just looked it <a href="http://www.erlang.org/doc/man/lists.html#foldr-3">up</a>.  It seems as though you can pick which direction you want to fold the list up, which makes sense.</p>
+
+<figure class='code'><figcaption><span> (stats.erl)</span> <a href='http://connor311.github.io/downloads/code/erlang-etudes/ch7/stats.erl'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">stats</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">mean</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span><span class="n">stdv</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">mean</span><span class="p">([])</span> <span class="o">-&gt;</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="nf">mean</span><span class="p">(</span><span class="nv">List</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Length</span> <span class="o">=</span> <span class="nb">length</span><span class="p">(</span><span class="nv">List</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">Sum</span> <span class="o">=</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">foldl</span><span class="p">(</span><span class="k">fun</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Acc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">X</span> <span class="o">+</span> <span class="nv">Acc</span> <span class="k">end</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">List</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">Sum</span> <span class="o">/</span> <span class="nv">Length</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">stdv</span><span class="p">([])</span> <span class="o">-&gt;</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="nf">stdv</span><span class="p">(</span><span class="nv">List</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Length</span> <span class="o">=</span> <span class="nb">length</span><span class="p">(</span><span class="nv">List</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">Sum</span> <span class="o">=</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">foldl</span><span class="p">(</span><span class="k">fun</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Acc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">X</span> <span class="o">+</span> <span class="nv">Acc</span> <span class="k">end</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">List</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">Sum_Of_Squares</span> <span class="o">=</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">foldl</span><span class="p">(</span><span class="k">fun</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Acc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">X</span><span class="o">*</span><span class="nv">X</span><span class="p">)</span> <span class="o">+</span> <span class="nv">Acc</span> <span class="k">end</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">List</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">Step5</span> <span class="o">=</span> <span class="p">(</span><span class="nv">Length</span> <span class="o">*</span> <span class="nv">Sum_Of_Squares</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="nv">Sum</span> <span class="o">*</span> <span class="nv">Sum</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">Step6</span> <span class="o">=</span> <span class="nv">Step5</span> <span class="o">/</span> <span class="p">(</span><span class="nv">Length</span> <span class="o">*</span> <span class="p">(</span><span class="nv">Length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)),</span>
+</span><span class='line'>  <span class="nn">math</span><span class="p">:</span><span class="nf">sqrt</span><span class="p">(</span><span class="nv">Step6</span><span class="p">).</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>More list work…</p>
+
+<figure class='code'><figcaption><span> (list_test.erl)</span> <a href='http://connor311.github.io/downloads/code/erlang-etudes/ch7/list_test.erl'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">list_test</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">seven_four</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span><span class="n">seven_five</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">seven_four</span><span class="p">(</span><span class="n">test1</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">lists</span><span class="p">:</span><span class="nf">split</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="mi">110</span><span class="p">,</span><span class="mi">220</span><span class="p">,</span><span class="mi">330</span><span class="p">,</span><span class="mi">440</span><span class="p">,</span><span class="mi">550</span><span class="p">,</span><span class="mi">660</span><span class="p">]);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">seven_four</span><span class="p">(</span><span class="n">test2</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">lists</span><span class="p">:</span><span class="nf">split</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mi">110</span><span class="p">,</span><span class="mi">220</span><span class="p">,</span><span class="mi">330</span><span class="p">,</span><span class="mi">440</span><span class="p">,</span><span class="mi">550</span><span class="p">,</span><span class="mi">660</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">seven_five</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">[</span><span class="nv">X</span> <span class="o">*</span> <span class="nv">Y</span> <span class="p">||</span> <span class="nv">X</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="nv">Y</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]].</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Have you been waiting for an exercise that kinda sorta had a real world feel to it?  Well prepare to have you real world socks, get barely dirty but still dirty!</p>
+
+<p>We will now use what we have learned about list comprehension to create a deck of cards!  We also get to figure out how a pre-defined function works, then comment it. Junior Software Engineer in each of us just sighed a little, I know you did don&rsquo;t act like you were never assigned this task!</p>
+
+<figure class='code'><figcaption><span> (deck.erl)</span> <a href='http://connor311.github.io/downloads/code/erlang-etudes/ch7/deck.erl'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">deck</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">make_deck</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span><span class="n">show_deck</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">make_deck</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Cards</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;A&quot;</span><span class="p">,</span><span class="s">&quot;2&quot;</span><span class="p">,</span><span class="s">&quot;3&quot;</span><span class="p">,</span><span class="s">&quot;4&quot;</span><span class="p">,</span><span class="s">&quot;5&quot;</span><span class="p">,</span><span class="s">&quot;6&quot;</span><span class="p">,</span><span class="s">&quot;7&quot;</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;9&quot;</span><span class="p">,</span><span class="s">&quot;10&quot;</span><span class="p">,</span><span class="s">&quot;J&quot;</span><span class="p">,</span><span class="s">&quot;Q&quot;</span><span class="p">,</span><span class="s">&quot;K&quot;</span><span class="p">],</span>
+</span><span class='line'>  <span class="nv">Suits</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Clubs&quot;</span><span class="p">,</span><span class="s">&quot;Diamonds&quot;</span><span class="p">,</span><span class="s">&quot;Hearts&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">],</span>
+</span><span class='line'>  <span class="p">[{</span><span class="nv">Card</span><span class="p">,</span> <span class="nv">Suit</span><span class="p">}</span> <span class="p">||</span> <span class="nv">Card</span> <span class="o">&lt;-</span> <span class="nv">Cards</span><span class="p">,</span> <span class="nv">Suit</span> <span class="o">&lt;-</span> <span class="nv">Suits</span><span class="p">].</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">show_deck</span><span class="p">(</span><span class="nv">Deck</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">lists</span><span class="p">:</span><span class="nf">foreach</span><span class="p">(</span><span class="k">fun</span><span class="p">(</span><span class="nv">Card</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;</span><span class="si">~p~n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nv">Card</span><span class="p">])</span> <span class="k">end</span><span class="p">,</span> <span class="nv">Deck</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">%%%</span>
+</span><span class='line'><span class="c">% Get the Accumulator Setup</span>
+</span><span class='line'><span class="c">%%</span>
+</span><span class='line'><span class="nf">shuffle</span><span class="p">(</span><span class="nv">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">shuffle</span><span class="p">(</span><span class="nv">List</span><span class="p">,</span> <span class="p">[]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">%%</span>
+</span><span class='line'><span class="c">% Break recurssion once we have gone through</span>
+</span><span class='line'><span class="c">% the whole deck</span>
+</span><span class='line'><span class="c">%%</span>
+</span><span class='line'><span class="nf">shuffle</span><span class="p">([],</span> <span class="nv">Acc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">Acc</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">%%</span>
+</span><span class='line'><span class="c">% Shuffle the remaining deck</span>
+</span><span class='line'><span class="c">% still left in List</span>
+</span><span class='line'><span class="c">%%</span>
+</span><span class='line'><span class="nf">shuffle</span><span class="p">(</span><span class="nv">List</span><span class="p">,</span> <span class="nv">Acc</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="c">%% Split the deck at a random point</span>
+</span><span class='line'>  <span class="c">%% then on the second part of the split</span>
+</span><span class='line'>  <span class="c">%% take the top card and put at the begining of</span>
+</span><span class='line'>  <span class="c">%% out shuffled pill (Acc)</span>
+</span><span class='line'>  <span class="p">{</span><span class="nv">Leading</span><span class="p">,</span> <span class="p">[</span><span class="nv">H</span> <span class="p">|</span> <span class="nv">T</span><span class="p">]}</span> <span class="o">=</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">split</span><span class="p">(</span><span class="nn">random</span><span class="p">:</span><span class="nf">uniform</span><span class="p">(</span><span class="nb">length</span><span class="p">(</span><span class="nv">List</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">List</span><span class="p">),</span>
+</span><span class='line'>  <span class="n">shuffle</span><span class="p">(</span><span class="nv">Leading</span> <span class="o">++</span> <span class="nv">T</span><span class="p">,</span> <span class="p">[</span><span class="nv">H</span> <span class="p">|</span> <span class="nv">Acc</span><span class="p">]).</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Well I am excited to chapter 8, when we finally get into processes.  That is next week, so stay tuned!</p>
+
+<p>What are you most excited to learn about processes, next week??</p>
+
+<p><a href="http://www.meetup.com/Erlang-NYC/">MEETUP</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Études for Erlang - CH 5]]></title>
-    <link href="http://connor311.github.io/2013/07/15/etudes-for-erlang-ch-5/"/>
-    <updated>2013-07-15T23:36:00-04:00</updated>
-    <id>http://connor311.github.io/2013/07/15/etudes-for-erlang-ch-5</id>
+    <link href="http://connor311.github.io/2013/07/08/etudes-for-erlang-ch-5/"/>
+    <updated>2013-07-08T23:36:00-04:00</updated>
+    <id>http://connor311.github.io/2013/07/08/etudes-for-erlang-ch-5</id>
     <content type="html"><![CDATA[<p>Have you missed me??  For the past two weeks I have been driving to and from many a wedding.  My cousin, Olivia, got married two weeks ago to an awesome man, John!  Then this past weekend my best friend growing up, Ben, got married to a lady who I do not know to well but any person he would marry must be a great gal!  To each of you I wish you the best!</p>
 
 <p>I am going to stick to doing only do one chapter per blog post.  Hopefully you should see two more posts right after this one!  For those of you who have forgotten completely what I have been talking about for the past 6 weeks check out <a href="http://connor311.github.io/2013/06/25/etudes-for-erlang-ch-4/">chapter 4</a>.</p>
 
-<p>Let&rsquo;s hop right into the good stuff!</p>
-
-<!--more-->
-
+<p>Let&rsquo;s hop right into the good stuff!<!--more--></p>
 
 <h2>Chapter 5: Strings</h2>
 
@@ -191,6 +415,10 @@
 <p>Thats it. If anyone asks me to write a command line utility again in erlang, I am going to tell them that I will buy them lunch if I can write it in another language like ruby or c#.</p>
 
 <p>Let me know if you ran into any other interesting issues while working on this weeks etudes!</p>
+
+<p><a href="http://www.meetup.com/Erlang-NYC/">MEETUP</a></p>
+
+<p><a href="http://connor311.github.io/2013/07/15/etudes-for-erlang-ch-7">Chapter 7</a></p>
 ]]></content>
   </entry>
   
@@ -414,6 +642,8 @@
 
 
 <p>Hope to see you tomorrow at the meetup!  Til next week, play some Frisbee Golf!</p>
+
+<p><a href="http://connor311.github.io/2013/07/08/etudes-for-erlang-ch-5">Chapter 5</a></p>
 ]]></content>
   </entry>
   
@@ -590,6 +820,8 @@
 
 
 <p>Hope to see you at Erlang-NYC meetup this tuesday (06/18/2013)! Look for next weeks solution to chapters 4 &amp; 5, next sunday .</p>
+
+<p><a href="http://connor311.github.io/2013/06/25/etudes-for-erlang-ch-4">Chapter 4</a></p>
 ]]></content>
   </entry>
   
@@ -717,6 +949,8 @@
 <p><a href="http://connorjross.com/blog/wp-content/uploads/2013/06/Screen-Shot-2013-06-13-at-11.09.49-PM.png"><img class="aligncenter size-full wp-image-201" alt="Edoc - Geom" src="http://connorjross.com/blog/wp-content/uploads/2013/06/Screen-Shot-2013-06-13-at-11.09.49-PM.png" /></a></p>
 
 <p>Looking forward to next week!  Hope you can join myself and other <a href="http://www.mdsol.com" target="_blank">Medidatations</a> at the <a href="http://www.meetup.com/Erlang-NYC/events/122174852/" target="_blank">06/18/2013 Erlang-NYC Meetup</a>.</p>
+
+<p><a href="http://connor311.github.io/2013/06/16/etudes-for-erlang-ch-3">Chapter 3</a></p>
 ]]></content>
   </entry>
   
