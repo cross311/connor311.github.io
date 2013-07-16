@@ -10,7 +10,7 @@ Have you missed me??  For the past two weeks I have been driving to and from man
 I am going to stick to doing only do one chapter per blog post.  Hopefully you should see two more posts right after this one!  For those of you who have forgotten completely what I have been talking about for the past 6 weeks check out [chapter 4](/2013/06/25/etudes-for-erlang-ch-4/).
 
 Let's hop right into the good stuff!
-
+<!--more-->
 ## Chapter 5: Strings
 [link](http://chimera.labs.oreilly.com/books/1234000000726/ch05.html)
 
