@@ -81,3 +81,5 @@ Generated EDoc:
 <a href="http://connorjross.com/blog/wp-content/uploads/2013/06/Screen-Shot-2013-06-13-at-11.09.49-PM.png"><img class="aligncenter size-full wp-image-201" alt="Edoc - Geom" src="http://connorjross.com/blog/wp-content/uploads/2013/06/Screen-Shot-2013-06-13-at-11.09.49-PM.png" /></a>
 
 Looking forward to next week!  Hope you can join myself and other <a href="http://www.mdsol.com" target="_blank">Medidatations</a> at the <a href="http://www.meetup.com/Erlang-NYC/events/122174852/" target="_blank">06/18/2013 Erlang-NYC Meetup</a>.
+
+[Chapter 3](/2013/06/16/etudes-for-erlang-ch-3)

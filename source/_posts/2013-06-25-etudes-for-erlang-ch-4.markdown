@@ -131,3 +131,5 @@ nth_root(X, N, A) ->
 {% endcodeblock %}
 
 Hope to see you tomorrow at the meetup!  Til next week, play some Frisbee Golf!
+
+[Chapter 5](/2013/07/08/etudes-for-erlang-ch-5)

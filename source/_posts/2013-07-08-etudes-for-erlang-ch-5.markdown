@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Études for Erlang - CH 5"
-date: 2013-07-15 23:36
+date: 2013-07-08 23:36
 comments: true
 categories: [erlang]
 ---
@@ -9,8 +9,8 @@ Have you missed me??  For the past two weeks I have been driving to and from man
 
 I am going to stick to doing only do one chapter per blog post.  Hopefully you should see two more posts right after this one!  For those of you who have forgotten completely what I have been talking about for the past 6 weeks check out [chapter 4](/2013/06/25/etudes-for-erlang-ch-4/).
 
-Let's hop right into the good stuff!
-<!--more-->
+Let's hop right into the good stuff!<!--more-->
+
 ## Chapter 5: Strings
 [link](http://chimera.labs.oreilly.com/books/1234000000726/ch05.html)
 
@@ -29,3 +29,7 @@ After that exercise I think even the author was done but his editor told him he 
 Thats it. If anyone asks me to write a command line utility again in erlang, I am going to tell them that I will buy them lunch if I can write it in another language like ruby or c#.
 
 Let me know if you ran into any other interesting issues while working on this weeks etudes!
+
+[MEETUP](http://www.meetup.com/Erlang-NYC/)
+
+[Chapter 7](/2013/07/15/etudes-for-erlang-ch-7)

@@ -111,3 +111,5 @@ Output:
 {% endcodeblock %}
 
 Hope to see you at Erlang-NYC meetup this tuesday (06/18/2013)! Look for next weeks solution to chapters 4 &amp; 5, next sunday .
+
+[Chapter 4](/2013/06/25/etudes-for-erlang-ch-4)
