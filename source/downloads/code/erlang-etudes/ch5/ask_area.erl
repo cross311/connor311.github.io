@@ -10,7 +10,7 @@ get_area(Shape) ->
   geom:area({Shape, element(1, Dimensions), element(2, Dimensions)}).
 
 get_shape()  ->
-  [Char|] = io:get_line("R)ectangle, T)riangle, or E)llipse > ", 1),
+  [Char|_] = io:get_line("R)ectangle, T)riangle, or E)llipse > "),
   char_to_shape(Char).
 
 get_number(Prompt) ->
@@ -41,7 +41,7 @@ get_dimensions(ellipse) ->
   {Dimension1, Dimension2};
 
 get_dimensions(_) ->
-  io:format("Unknown shape"),
+  io:format("Unknown shape\n"),
   {0,0}.
 
 char_to_shape(Char)  ->

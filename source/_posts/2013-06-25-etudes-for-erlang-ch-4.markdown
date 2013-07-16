@@ -5,7 +5,7 @@ date: 2013-06-25 23:26
 comments: true
 categories: [erlang]
 ---
-This week the homework for the <a href="http://www.meetup.com/Erlang-NYC/events/123394132/" target="_blank">meetup</a> was chapters 4 &amp; 5.  However this weekend I was at my childhood best friend's bachelor party so I only got to chapter 4. Ouch, Ouch, please stop throwing tomatoes, lettuce and actually I don't want to know what that is, I am sorry!  If you want more Erlang check out last week for [chapter 3](/2013/06/16/etudes-for-erlang-ch-3/)</a>, again!
+This week the homework for the <a href="http://www.meetup.com/Erlang-NYC/events/123394132/" target="_blank">meetup</a> was chapters 4 &amp; 5.  However this weekend I was at my childhood best friend's bachelor party so I only got to chapter 4. Ouch, Ouch, please stop throwing tomatoes, lettuce and actually I don't want to know what that is, I am sorry!  If you want more Erlang check out last week for [chapter 3](/2013/06/16/etudes-for-erlang-ch-3/), again!
 
 The party was a blast I got to play Frisbee golf for the first time in real life, it was awesome.  The other plus was the party's location was in Richmond, VA, so I got to rent a car and drive all the way there.  For those of you who do not know me, I LOVE TO DRIVE!!!  I specifically went to a rental company just because I heard they had VW Jettas for rent.  Must say, this whole better gas mileage kick the auto industry is on really makes driving automatics suck.  Give me a manual any day.
 
