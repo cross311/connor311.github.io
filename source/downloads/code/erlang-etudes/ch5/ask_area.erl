@@ -2,12 +2,23 @@
 -export([area/0]).
 
 area() ->
-  Shape = get_shape(),
-  get_area(Shape).
+  {Input, Shape} = get_shape(),
+  case Shape of
+    unknown -> io:format("Unknown shape ~c~n",[Input]);
+    _ -> get_area(Shape, get_dimensions(Shape))
+  end.
+  
+get_area(_, {error, _}) ->
+  io:format("Error in first number.~n");
+  
+get_area(_, {_, error}) ->
+  io:format("Error in second number.~n");
 
-get_area(Shape) -> 
-  Dimensions = get_dimensions(Shape),
-  geom:area({Shape, element(1, Dimensions), element(2, Dimensions)}).
+get_area(_, {X, Y}) when X < 0; Y < 0 ->
+  io:format("Both number must be greater than or equal to zero.~n");
+
+get_area(Shape, {X, Y}) ->
+  geom:area({Shape, X, Y}).
 
 get_shape()  ->
   [Char|_] = io:get_line("R)ectangle, T)riangle, or E)llipse > "),
@@ -38,19 +49,15 @@ get_dimensions(rectangle)->
 get_dimensions(ellipse) ->
   Dimension1 = get_number("axis"),
   Dimension2 = get_number("axis"),
-  {Dimension1, Dimension2};
-
-get_dimensions(_) ->
-  io:format("Unknown shape\n"),
-  {0,0}.
+  {Dimension1, Dimension2}.
 
 char_to_shape(Char)  ->
   case Char of
-    $T -> triangle;
-    $t -> triangle;
-    $R -> rectangle;
-    $r -> rectangle;
-    $E -> ellipse;
-    $e -> ellipse;
-    _ -> unknown
+    $T -> {t, triangle};
+    $t -> {t, triangle};
+    $R -> {r, rectangle};
+    $r -> {r, rectangle};
+    $E -> {e, ellipse};
+    $e -> {e, ellipse};
+    _ -> {Char, unknown}
   end.
