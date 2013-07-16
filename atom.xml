@@ -4,7 +4,7 @@
   <title><![CDATA[Connor Ross | Tech]]></title>
   <link href="http://connor311.github.io/atom.xml" rel="self"/>
   <link href="http://connor311.github.io/"/>
-  <updated>2013-07-15T21:14:47-04:00</updated>
+  <updated>2013-07-15T21:46:57-04:00</updated>
   <id>http://connor311.github.io/</id>
   <author>
     <name><![CDATA[Connor Ross]]></name>
@@ -22,6 +22,9 @@
 <p>I am going to stick to doing only do one chapter per blog post.  Hopefully you should see two more posts right after this one!  For those of you who have forgotten completely what I have been talking about for the past 6 weeks check out <a href="http://connor311.github.io/2013/06/25/etudes-for-erlang-ch-4/">chapter 4</a>.</p>
 
 <p>Let&rsquo;s hop right into the good stuff!</p>
+
+<!--more-->
+
 
 <h2>Chapter 5: Strings</h2>
 
