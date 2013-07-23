@@ -1,0 +1,80 @@
+Eshell V5.10.2  (abort with ^G)
+1> c(deck).
+{ok,deck}
+2> c(player).
+{ok,player}
+3> c(dealer).
+{ok,dealer}
+4> c(war).
+{ok,war}
+5> war:start(16).
+Player 1 sent hand [{8,"8","Clubs"}].
+Player 2 sent hand [{9,"9","Hearts"}].
+Player 2 wins hand. {8,"8","Clubs"} vs {9,"9","Hearts"}
+Player 1: 7, Player 2: 9.
+Player 1 sent hand [{10,"10","Spades"}].
+Player 2 sent hand [{8,"8","Clubs"}].
+Player 1 wins hand. {10,"10","Spades"} vs {8,"8","Clubs"}
+Player 1: 8, Player 2: 8.
+Player 1 sent hand [{10,"10","Spades"}].
+Player 2 sent hand [{9,"9","Hearts"}].
+Player 1 wins hand. {10,"10","Spades"} vs {9,"9","Hearts"}
+Player 1: 9, Player 2: 7.
+Player 1 sent hand [{10,"10","Spades"}].
+Player 2 sent hand [{12,"Q","Clubs"}].
+Player 2 wins hand. {10,"10","Spades"} vs {12,"Q","Clubs"}
+Player 1: 8, Player 2: 8.
+Player 1 sent hand [{9,"9","Hearts"}].
+Player 2 sent hand [{10,"10","Spades"}].
+Player 2 wins hand. {9,"9","Hearts"} vs {10,"10","Spades"}
+Player 1: 7, Player 2: 9.
+Player 1 sent hand [{8,"8","Clubs"}].
+Player 2 sent hand [{9,"9","Hearts"}].
+Player 2 wins hand. {8,"8","Clubs"} vs {9,"9","Hearts"}
+Player 1: 6, Player 2: 10.
+Player 1 sent hand [{6,"6","Diamonds"}].
+Player 2 sent hand [{8,"8","Clubs"}].
+Player 2 wins hand. {6,"6","Diamonds"} vs {8,"8","Clubs"}
+Player 1: 5, Player 2: 11.
+Player 1 sent hand [{8,"8","Spades"}].
+Player 2 sent hand [{6,"6","Diamonds"}].
+Player 1 wins hand. {8,"8","Spades"} vs {6,"6","Diamonds"}
+Player 1: 6, Player 2: 10.
+Player 1 sent hand [{8,"8","Spades"}].
+Player 2 sent hand [{8,"8","Clubs"}].
+Start War. {8,"8","Spades"} vs {8,"8","Clubs"}
+Player 2 sent hand [{9,"9","Hearts"},{10,"10","Spades"},{12,"Q","Clubs"}].
+Player 1 sent hand [{6,"6","Diamonds"},
+                    {10,"10","Diamonds"},
+                    {13,"K","Diamonds"}].
+Player 1 wins hand. {13,"K","Diamonds"} vs {12,"Q","Clubs"}
+Player 1: 10, Player 2: 6.
+Player 1 sent hand [{8,"8","Spades"}].
+Player 2 sent hand [{11,"J","Spades"}].
+Player 2 wins hand. {8,"8","Spades"} vs {11,"J","Spades"}
+Player 1: 9, Player 2: 7.
+Player 1 sent hand [{8,"8","Clubs"}].
+Player 2 sent hand [{8,"8","Spades"}].
+Start War. {8,"8","Clubs"} vs {8,"8","Spades"}
+Player 1 sent hand [{13,"K","Diamonds"},
+                    {10,"10","Diamonds"},
+                    {6,"6","Diamonds"}].
+Player 2 sent hand [{11,"J","Spades"},{14,"A","Hearts"},{5,"5","Clubs"}].
+Player 1 wins hand. {6,"6","Diamonds"} vs {5,"5","Clubs"}
+Player 1: 13, Player 2: 3.
+Player 1 sent hand [{8,"8","Clubs"}].
+Player 2 sent hand [{3,"3","Hearts"}].
+Player 1 wins hand. {8,"8","Clubs"} vs {3,"3","Hearts"}
+Player 1: 14, Player 2: 2.
+Player 1 sent hand [{8,"8","Clubs"}].
+Player 2 sent hand [{3,"3","Clubs"}].
+Player 1 wins hand. {8,"8","Clubs"} vs {3,"3","Clubs"}
+Player 1: 15, Player 2: 1.
+Player 1 sent hand [{8,"8","Clubs"}].
+Player 2 sent hand [{2,"2","Spades"}].
+Player 1 wins hand. {8,"8","Clubs"} vs {2,"2","Spades"}
+Player 1: 16, Player 2: 0.
+Player 1 sent hand [{8,"8","Clubs"}].
+Player 2 is out of cards.
+Game Over "Player 1" Wins!
+ok

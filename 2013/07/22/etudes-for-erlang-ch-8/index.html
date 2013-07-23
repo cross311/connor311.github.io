@@ -1,0 +1,773 @@
+
+<!DOCTYPE HTML>
+<html lang="en-GB">
+<head>
+	<meta charset="utf-8">
+	<title>Études for Erlang - CH 8  | Connor Ross | Tech</title>
+
+	<meta name="author" content="Connor Ross">
+
+<meta name="description" content="Connor Ross' place to ramble about the interesting development tech he has used recently."> <meta name="keywords" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Connor Ross | Tech" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Connor Ross | Tech</a></h1>
+<span class="tagline">The Tech That Keeps Me Ticking</span>
+<nav id="main-nav"><ul>
+	<li><a href="/about">About</a></li>
+	<li><a href="/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul>
+	<li><a href="/about">About</a></li>
+	<li><a href="/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+</nav>
+
+
+</header>
+
+	<div id="content" class="inner"><article class="post">
+	<header>
+		<h2 class="title">Études for Erlang - CH 8</h2>
+		<div class="meta date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-22T23:14:00-04:00" pubdate data-updated="true">Jul 22<span>nd</span>, 2013</time></div>
+	</header>
+	<div class="entry-content"><p>For the past few weeks we have been diving into the normal workings of Erlang.  So far however we have not really ran into anything that makes Erlang special.  To be honest if what we have gone over so far is all that was to Erlang, I would probably tell you to never use this language ever, ever, ever.  Ok maybe that is a little over the top, but as you saw in <a href="/2013/07/08/etudes-for-erlang-ch-5/">Chapter 5</a> Erlang does not handle strings very nicely and that is a lot of what a I use in my day to day programming.</p>
+
+<p>BUT FEAR NOT, my fellow compatriots, there is way more to Erlang.  Today, in this etude we will enter the bread and butter of Erlang.  Welcome my friends to Erlang <a href="http://www.erlang.org/doc/reference_manual/processes.html">Processes</a>!!!! <!-- more --></p>
+
+<h2>Chapter 8: Processes</h2>
+
+<p><a href="http://chimera.labs.oreilly.com/books/1234000000726/ch08.html">link</a></p>
+
+<p>Last week in <a href="/2013/07/15/etudes-for-erlang-ch-7/">Chapter 7</a> the etude concluded with an excersise that used list comprehension to create a deck of cards.  If I was a studied fortune teller, I might have told you that, that could be an ammonius sign pointing to this weeks etude.  I however am not and did not exactly point this out.</p>
+
+<p>The lesson this week asks us to simulate a childhood card game used by parents to keep their kids occupied for hours and hours, The Game Of War (<em>Dun Dun Duuuuunnn</em>).  This game has some very simple rules:</p>
+
+<pre><code>1. Split the deck evenly between two people
+2. Each turn consists of each player laying down a card
+3. Winner is person with the highest card (Aces high)
+4. If the cards match, each player lays down three and the last one is used to battle.
+5. This continues until one player has all the cards to the other player does not have enough cards to play a turn.
+</code></pre>
+
+<p>Alright, now I know what you are thinking, &ldquo;Cool a card game, but what does that have to do with Erlang processes??&rdquo;  Well I have an answer for that, think of cards as messages that are passed between people.  Then think about people as processes, catching the drift yet?</p>
+
+<p>First on the agenda is to plan out how we want the code to work.  Since this will be the most complex piece of Erlang software we have written so far, it makes sense to spend a little time planning out the plan of attack.  I decided to use (Lucid Charts)[<a href="https://www.lucidchart.com/">https://www.lucidchart.com/</a>] to map out how I thought the flow of messages and the logic will progress.</p>
+
+<p>Here is a picture of what I came up with:</p>
+
+<p><img src="/downloads/code/erlang-etudes/ch8/war-planning.png"></p>
+
+<p>I did not shy away from the author&rsquo;s suggestion to break it down into players and dealer.  After my planning session I took a little break to make sure I did not just rush out a solution.  This is what I came up with when I got to coding:</p>
+
+<figure class='code'><figcaption><span> (deck.erl)</span> <a href='/downloads/code/erlang-etudes/ch8/deck.erl'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">deck</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">make</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">show_deck</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">compare</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">make_deck</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nf">make</span><span class="p">(</span><span class="nv">SizeOfDeck</span><span class="p">)</span> <span class="k">when</span> <span class="nv">SizeOfDeck</span> <span class="o">=&lt;</span> <span class="mi">52</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="nv">ReturnDeck</span><span class="p">,</span> <span class="p">_}</span> <span class="o">=</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">split</span><span class="p">(</span><span class="nv">SizeOfDeck</span><span class="p">,</span> <span class="n">shuffle</span><span class="p">(</span><span class="n">make_deck</span><span class="p">())),</span>
+</span><span class='line'>  <span class="nv">ReturnDeck</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">show_deck</span><span class="p">(</span><span class="nv">Deck</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">lists</span><span class="p">:</span><span class="nf">foreach</span><span class="p">(</span><span class="k">fun</span><span class="p">({_,</span><span class="nv">DisplayValue</span><span class="p">,</span> <span class="nv">Suit</span><span class="p">})</span> <span class="o">-&gt;</span>
+</span><span class='line'>      <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;</span><span class="si">~p</span><span class="s"> of </span><span class="si">~p~n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nv">DisplayValue</span><span class="p">,</span> <span class="nv">Suit</span><span class="p">])</span> <span class="k">end</span><span class="p">,</span> <span class="nv">Deck</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">compare</span><span class="p">({</span><span class="nv">Card1Value</span><span class="p">,</span> <span class="p">_,_},</span> <span class="p">{</span><span class="nv">Card2Value</span><span class="p">,</span> <span class="p">_,_})</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Card1Value</span> <span class="o">-</span> <span class="nv">Card2Value</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">%% PRIVATE %%</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">make_deck</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Cards</span> <span class="o">=</span>
+</span><span class='line'>  <span class="p">[{</span><span class="s">&quot;2&quot;</span><span class="p">,</span><span class="mi">2</span><span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span><span class="s">&quot;3&quot;</span><span class="p">,</span><span class="mi">3</span><span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span><span class="s">&quot;4&quot;</span><span class="p">,</span><span class="mi">4</span><span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span><span class="s">&quot;5&quot;</span><span class="p">,</span><span class="mi">5</span><span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span><span class="s">&quot;6&quot;</span><span class="p">,</span><span class="mi">6</span><span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span><span class="s">&quot;7&quot;</span><span class="p">,</span><span class="mi">7</span><span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="mi">8</span><span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span><span class="s">&quot;9&quot;</span><span class="p">,</span><span class="mi">9</span><span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span><span class="s">&quot;10&quot;</span><span class="p">,</span><span class="mi">10</span><span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span><span class="s">&quot;J&quot;</span><span class="p">,</span><span class="mi">11</span><span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span><span class="s">&quot;Q&quot;</span><span class="p">,</span><span class="mi">12</span><span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span><span class="s">&quot;K&quot;</span><span class="p">,</span><span class="mi">13</span><span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span><span class="s">&quot;A&quot;</span><span class="p">,</span> <span class="mi">14</span><span class="p">}],</span>
+</span><span class='line'>  <span class="nv">Suits</span> <span class="o">=</span>
+</span><span class='line'>  <span class="p">[</span><span class="s">&quot;Clubs&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s">&quot;Diamonds&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s">&quot;Hearts&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s">&quot;Spades&quot;</span><span class="p">],</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="p">[{</span><span class="nv">Value</span><span class="p">,</span> <span class="nv">DisplayValue</span><span class="p">,</span><span class="nv">Suit</span><span class="p">}</span> <span class="p">||</span>
+</span><span class='line'>      <span class="p">{</span><span class="nv">DisplayValue</span><span class="p">,</span> <span class="nv">Value</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="nv">Cards</span><span class="p">,</span>
+</span><span class='line'>      <span class="nv">Suit</span> <span class="o">&lt;-</span> <span class="nv">Suits</span><span class="p">].</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">%%%</span>
+</span><span class='line'><span class="c">% Get the Accumulator Setup</span>
+</span><span class='line'><span class="c">%%</span>
+</span><span class='line'><span class="nf">shuffle</span><span class="p">(</span><span class="nv">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">shuffle</span><span class="p">(</span><span class="nv">List</span><span class="p">,</span> <span class="p">[]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">%%</span>
+</span><span class='line'><span class="c">% Break recurssion once we have gone through</span>
+</span><span class='line'><span class="c">% the whole deck</span>
+</span><span class='line'><span class="c">%%</span>
+</span><span class='line'><span class="nf">shuffle</span><span class="p">([],</span> <span class="nv">Acc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">Acc</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">%%</span>
+</span><span class='line'><span class="c">% Shuffle the remaining deck</span>
+</span><span class='line'><span class="c">% still left in List</span>
+</span><span class='line'><span class="c">%%</span>
+</span><span class='line'><span class="nf">shuffle</span><span class="p">(</span><span class="nv">List</span><span class="p">,</span> <span class="nv">Acc</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="c">%% Split the deck at a random point</span>
+</span><span class='line'>  <span class="c">%% then on the second part of the split</span>
+</span><span class='line'>  <span class="c">%% take the top card and put at the begining of</span>
+</span><span class='line'>  <span class="c">%% out shuffled pill (Acc)</span>
+</span><span class='line'>  <span class="p">{</span><span class="nv">Leading</span><span class="p">,</span> <span class="p">[</span><span class="nv">H</span> <span class="p">|</span> <span class="nv">T</span><span class="p">]}</span> <span class="o">=</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">split</span><span class="p">(</span><span class="nn">random</span><span class="p">:</span><span class="nf">uniform</span><span class="p">(</span><span class="nb">length</span><span class="p">(</span><span class="nv">List</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">List</span><span class="p">),</span>
+</span><span class='line'>  <span class="n">shuffle</span><span class="p">(</span><span class="nv">Leading</span> <span class="o">++</span> <span class="nv">T</span><span class="p">,</span> <span class="p">[</span><span class="nv">H</span> <span class="p">|</span> <span class="nv">Acc</span><span class="p">]).</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span> (player.erl)</span> <a href='/downloads/code/erlang-etudes/ch8/player.erl'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span> <span class="p">(</span><span class="n">player</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span> <span class="p">([</span><span class="n">play</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">play</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">listen_loop</span><span class="p">([]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">listen_loop</span><span class="p">(</span><span class="nv">Cards</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">NumberOfCards</span> <span class="o">=</span> <span class="nb">length</span><span class="p">(</span><span class="nv">Cards</span><span class="p">),</span>
+</span><span class='line'>  <span class="k">receive</span>
+</span><span class='line'>      <span class="p">{_,</span> <span class="n">hand</span><span class="p">,</span> <span class="nv">NewCards</span><span class="p">}</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="n">listen_loop</span><span class="p">(</span><span class="nv">NewCards</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="p">{</span><span class="nv">From</span><span class="p">,</span> <span class="n">send_cards</span><span class="p">,</span> <span class="nv">N</span><span class="p">}</span> <span class="k">when</span> <span class="nv">N</span> <span class="o">=&lt;</span> <span class="nv">NumberOfCards</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="p">{</span><span class="nv">Hand</span><span class="p">,</span> <span class="nv">LeftCards</span><span class="p">}</span> <span class="o">=</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">split</span><span class="p">(</span><span class="nv">N</span><span class="p">,</span> <span class="nv">Cards</span><span class="p">),</span>
+</span><span class='line'>          <span class="nv">From</span> <span class="o">!</span> <span class="p">{</span><span class="n">self</span><span class="p">(),</span> <span class="n">send_hand</span><span class="p">,</span> <span class="nv">Hand</span><span class="p">},</span>
+</span><span class='line'>          <span class="n">listen_loop</span><span class="p">(</span><span class="nv">LeftCards</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="p">{</span><span class="nv">From</span><span class="p">,</span> <span class="n">send_cards</span><span class="p">,</span> <span class="nv">N</span><span class="p">}</span> <span class="k">when</span> <span class="nv">N</span> <span class="o">&gt;</span> <span class="nv">NumberOfCards</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="nv">From</span> <span class="o">!</span> <span class="p">{</span><span class="n">self</span><span class="p">(),</span> <span class="n">send_hand</span><span class="p">,</span> <span class="p">[]},</span>
+</span><span class='line'>          <span class="n">listen_loop</span><span class="p">(</span><span class="nv">Cards</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="p">{_,</span> <span class="n">won_hand</span><span class="p">,</span> <span class="nv">Pile</span><span class="p">}</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="n">listen_loop</span><span class="p">(</span><span class="nv">Pile</span> <span class="o">++</span> <span class="nv">Cards</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="p">{</span><span class="nv">From</span><span class="p">,</span> <span class="n">send_count</span><span class="p">}</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="nv">From</span> <span class="o">!</span> <span class="p">{</span><span class="n">self</span><span class="p">(),</span> <span class="n">send_count</span><span class="p">,</span> <span class="nv">NumberOfCards</span><span class="p">},</span>
+</span><span class='line'>          <span class="n">listen_loop</span><span class="p">(</span><span class="nv">Cards</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span><span class="p">.</span>      
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span> (dealer.erl)</span> <a href='/downloads/code/erlang-etudes/ch8/dealer.erl'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">dealer</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span> <span class="p">([</span><span class="n">deal</span><span class="o">/</span><span class="mi">3</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">deal</span><span class="p">(</span><span class="nv">Deck</span><span class="p">,</span> <span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player2</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="nv">Player1Cards</span><span class="p">,</span> <span class="nv">Player2Cards</span><span class="p">}</span> <span class="o">=</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">split</span><span class="p">(</span><span class="nb">length</span><span class="p">(</span><span class="nv">Deck</span><span class="p">)</span> <span class="ow">div</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">Deck</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">Player1</span> <span class="o">!</span> <span class="p">{</span><span class="n">self</span><span class="p">(),</span> <span class="n">hand</span><span class="p">,</span> <span class="nv">Player1Cards</span><span class="p">},</span>
+</span><span class='line'>  <span class="nv">Player2</span> <span class="o">!</span> <span class="p">{</span><span class="n">self</span><span class="p">(),</span> <span class="n">hand</span><span class="p">,</span> <span class="nv">Player2Cards</span><span class="p">},</span>
+</span><span class='line'>  <span class="n">start_hand</span><span class="p">(</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player2</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">start_hand</span><span class="p">(</span><span class="nv">Player1</span><span class="p">,</span><span class="nv">Player2</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Player1</span> <span class="o">!</span> <span class="p">{</span><span class="n">self</span><span class="p">(),</span> <span class="n">send_cards</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span>
+</span><span class='line'>  <span class="nv">Player2</span> <span class="o">!</span> <span class="p">{</span><span class="n">self</span><span class="p">(),</span> <span class="n">send_cards</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span>
+</span><span class='line'>  <span class="n">get_hand</span><span class="p">(</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player2</span><span class="p">,</span> <span class="p">[]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">start_war</span><span class="p">(</span><span class="nv">Player1</span><span class="p">,</span><span class="nv">Player2</span><span class="p">,</span> <span class="nv">Pile</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Player1</span> <span class="o">!</span> <span class="p">{</span><span class="n">self</span><span class="p">(),</span> <span class="n">send_cards</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>
+</span><span class='line'>  <span class="nv">Player2</span> <span class="o">!</span> <span class="p">{</span><span class="n">self</span><span class="p">(),</span> <span class="n">send_cards</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>
+</span><span class='line'>  <span class="n">get_hand</span><span class="p">(</span><span class="nv">Player1</span><span class="p">,</span><span class="nv">Player2</span><span class="p">,</span> <span class="nv">Pile</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">get_hand</span><span class="p">(</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player2</span><span class="p">,</span> <span class="nv">Pile</span><span class="p">)</span>  <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">hand_loop</span><span class="p">({</span><span class="nv">Player1</span><span class="p">,</span> <span class="p">[]},{</span><span class="nv">Player2</span><span class="p">,</span> <span class="p">[]},</span> <span class="nv">Pile</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">await_hand</span><span class="p">({</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player1Hand</span><span class="p">},{</span><span class="nv">Player2</span><span class="p">,</span> <span class="p">[]},</span> <span class="nv">Pile</span><span class="p">)</span>  <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">hand_loop</span><span class="p">({</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player1Hand</span><span class="p">},{</span><span class="nv">Player2</span><span class="p">,</span> <span class="p">[]},</span> <span class="nv">Pile</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">await_hand</span><span class="p">({</span><span class="nv">Player1</span><span class="p">,</span> <span class="p">[]},{</span><span class="nv">Player2</span><span class="p">,</span> <span class="nv">Player2Hand</span><span class="p">},</span> <span class="nv">Pile</span><span class="p">)</span>  <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">hand_loop</span><span class="p">({</span><span class="nv">Player1</span><span class="p">,</span> <span class="p">[]},{</span><span class="nv">Player2</span><span class="p">,</span> <span class="nv">Player2Hand</span><span class="p">},</span> <span class="nv">Pile</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">await_hand</span><span class="p">({</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player1Hand</span><span class="p">},</span>
+</span><span class='line'>          <span class="p">{</span><span class="nv">Player2</span><span class="p">,</span> <span class="nv">Player2Hand</span><span class="p">},</span>
+</span><span class='line'>          <span class="nv">Pile</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">[</span><span class="nv">Player1HandH</span> <span class="p">|</span> <span class="nv">Player1HandT</span><span class="p">]</span> <span class="o">=</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">reverse</span><span class="p">(</span><span class="nv">Player1Hand</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">[</span><span class="nv">Player2HandH</span> <span class="p">|</span> <span class="nv">Player2HandT</span><span class="p">]</span> <span class="o">=</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">reverse</span><span class="p">(</span><span class="nv">Player2Hand</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">Compare</span> <span class="o">=</span> <span class="nn">deck</span><span class="p">:</span><span class="nf">compare</span><span class="p">(</span><span class="nv">Player1HandH</span><span class="p">,</span> <span class="nv">Player2HandH</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">NewPile</span> <span class="o">=</span> <span class="nv">Pile</span> <span class="o">++</span> <span class="p">[</span><span class="nv">Player1HandH</span> <span class="p">|</span> <span class="nv">Player1HandT</span><span class="p">]</span> <span class="o">++</span> <span class="p">[</span><span class="nv">Player2HandH</span> <span class="p">|</span> <span class="nv">Player2HandT</span><span class="p">],</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">if</span>   <span class="nv">Compare</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;Player 1 wins hand. </span><span class="si">~p</span><span class="s"> vs </span><span class="si">~p~n</span><span class="s">&quot;</span><span class="p">,[</span><span class="nv">Player1HandH</span><span class="p">,</span> <span class="nv">Player2HandH</span><span class="p">]),</span>
+</span><span class='line'>          <span class="nv">Player1</span> <span class="o">!</span> <span class="p">{</span><span class="n">self</span><span class="p">(),</span> <span class="n">won_hand</span><span class="p">,</span> <span class="nv">NewPile</span><span class="p">},</span>
+</span><span class='line'>          <span class="n">get_count</span><span class="p">(</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player2</span><span class="p">);</span>
+</span><span class='line'>      <span class="nv">Compare</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;Player 2 wins hand. </span><span class="si">~p</span><span class="s"> vs </span><span class="si">~p~n</span><span class="s">&quot;</span><span class="p">,[</span><span class="nv">Player1HandH</span><span class="p">,</span> <span class="nv">Player2HandH</span><span class="p">]),</span>
+</span><span class='line'>          <span class="nv">Player2</span> <span class="o">!</span> <span class="p">{</span><span class="n">self</span><span class="p">(),</span> <span class="n">won_hand</span><span class="p">,</span> <span class="nv">NewPile</span><span class="p">},</span>
+</span><span class='line'>          <span class="n">get_count</span><span class="p">(</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player2</span><span class="p">);</span>
+</span><span class='line'>      <span class="nv">Compare</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;Start War. </span><span class="si">~p</span><span class="s"> vs </span><span class="si">~p~n</span><span class="s">&quot;</span><span class="p">,[</span><span class="nv">Player1HandH</span><span class="p">,</span> <span class="nv">Player2HandH</span><span class="p">]),</span>
+</span><span class='line'>          <span class="n">start_war</span><span class="p">(</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player2</span><span class="p">,</span> <span class="nv">NewPile</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nf">hand_loop</span><span class="p">({</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player1Hand</span><span class="p">},{</span><span class="nv">Player2</span><span class="p">,</span> <span class="nv">Player2Hand</span><span class="p">},</span> <span class="nv">Pile</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="k">receive</span>
+</span><span class='line'>      <span class="p">{</span><span class="nv">Player1</span><span class="p">,</span> <span class="n">send_hand</span> <span class="p">,[]}</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;Player 1 is out of cards.</span><span class="si">~n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">[]),</span>
+</span><span class='line'>          <span class="n">winner</span><span class="p">(</span><span class="s">&quot;Player 2&quot;</span><span class="p">,</span> <span class="nv">Player2</span><span class="p">,</span> <span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player2Hand</span> <span class="o">++</span> <span class="nv">Pile</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">{</span><span class="nv">Player2</span><span class="p">,</span> <span class="n">send_hand</span><span class="p">,[]}</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;Player 2 is out of cards.</span><span class="si">~n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">[]),</span>
+</span><span class='line'>          <span class="n">winner</span><span class="p">(</span><span class="s">&quot;Player 1&quot;</span><span class="p">,</span> <span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player2</span><span class="p">,</span> <span class="nv">Player1Hand</span> <span class="o">++</span> <span class="nv">Pile</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="p">{</span><span class="nv">Player1</span><span class="p">,</span> <span class="n">send_hand</span> <span class="p">,</span><span class="nv">Cards</span><span class="p">}</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;Player 1 sent hand </span><span class="si">~p</span><span class="s">.</span><span class="si">~n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nv">Cards</span><span class="p">]),</span>
+</span><span class='line'>          <span class="n">await_hand</span><span class="p">({</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Cards</span><span class="p">},{</span><span class="nv">Player2</span><span class="p">,</span> <span class="nv">Player2Hand</span><span class="p">},</span> <span class="nv">Pile</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">{</span><span class="nv">Player2</span><span class="p">,</span> <span class="n">send_hand</span> <span class="p">,</span><span class="nv">Cards</span><span class="p">}</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;Player 2 sent hand </span><span class="si">~p</span><span class="s">.</span><span class="si">~n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nv">Cards</span><span class="p">]),</span>
+</span><span class='line'>          <span class="n">await_hand</span><span class="p">({</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player1Hand</span><span class="p">},{</span><span class="nv">Player2</span><span class="p">,</span> <span class="nv">Cards</span><span class="p">},</span> <span class="nv">Pile</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">get_count</span><span class="p">(</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player2</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Player1</span> <span class="o">!</span> <span class="p">{</span><span class="n">self</span><span class="p">(),</span> <span class="n">send_count</span><span class="p">},</span>
+</span><span class='line'>  <span class="nv">Player2</span> <span class="o">!</span> <span class="p">{</span><span class="n">self</span><span class="p">(),</span> <span class="n">send_count</span><span class="p">},</span>
+</span><span class='line'>  <span class="n">count_loop</span><span class="p">({</span><span class="nv">Player1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">},</span>
+</span><span class='line'>          <span class="p">{</span><span class="nv">Player2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">}).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">await_count</span><span class="p">({</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player1Count</span><span class="p">},</span>
+</span><span class='line'>          <span class="p">{</span><span class="nv">Player2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">})</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">count_loop</span><span class="p">({</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player1Count</span><span class="p">},</span>
+</span><span class='line'>          <span class="p">{</span><span class="nv">Player2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">await_count</span><span class="p">({</span><span class="nv">Player1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">},</span>
+</span><span class='line'>          <span class="p">{</span><span class="nv">Player2</span><span class="p">,</span> <span class="nv">Player2Count</span><span class="p">})</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">count_loop</span><span class="p">({</span><span class="nv">Player1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">},</span>
+</span><span class='line'>          <span class="p">{</span><span class="nv">Player2</span><span class="p">,</span> <span class="nv">Player2Count</span><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">await_count</span><span class="p">({</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player1Count</span><span class="p">},</span>
+</span><span class='line'>          <span class="p">{</span><span class="nv">Player2</span><span class="p">,</span> <span class="nv">Player2Count</span><span class="p">})</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;Player 1: </span><span class="si">~p</span><span class="s">, Player 2: </span><span class="si">~p</span><span class="s">.</span><span class="si">~n</span><span class="s">&quot;</span><span class="p">,[</span><span class="nv">Player1Count</span><span class="p">,</span> <span class="nv">Player2Count</span><span class="p">]),</span>
+</span><span class='line'>  <span class="n">start_hand</span><span class="p">(</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player2</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">count_loop</span><span class="p">({</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player1Count</span><span class="p">},</span>
+</span><span class='line'>          <span class="p">{</span><span class="nv">Player2</span><span class="p">,</span> <span class="nv">Player2Count</span><span class="p">})</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="k">receive</span>
+</span><span class='line'>      <span class="p">{</span><span class="nv">Player1</span><span class="p">,</span> <span class="n">send_count</span><span class="p">,</span> <span class="nv">Num</span><span class="p">}</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="n">await_count</span><span class="p">({</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Num</span><span class="p">},{</span><span class="nv">Player2</span><span class="p">,</span> <span class="nv">Player2Count</span><span class="p">});</span>
+</span><span class='line'>      <span class="p">{</span><span class="nv">Player2</span><span class="p">,</span> <span class="n">send_count</span><span class="p">,</span> <span class="nv">Num</span><span class="p">}</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="n">await_count</span><span class="p">({</span><span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player1Count</span><span class="p">},{</span><span class="nv">Player2</span><span class="p">,</span> <span class="nv">Num</span><span class="p">})</span>
+</span><span class='line'>  <span class="k">end</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nf">winner</span><span class="p">(</span><span class="nv">PlayerName</span><span class="p">,</span> <span class="p">_</span><span class="nv">WinningPlayer</span><span class="p">,</span> <span class="p">_</span><span class="nv">LosingPlayer</span><span class="p">,</span> <span class="p">_</span><span class="nv">LootPile</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;Game Over </span><span class="si">~p</span><span class="s"> Wins!</span><span class="si">~n</span><span class="s">&quot;</span><span class="p">,[</span><span class="nv">PlayerName</span><span class="p">]).</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I wanted to be able to easily test with a smaller sized deck, like the etude suggested.  I created a war module that takes in the size of the deck and starts up the game.</p>
+
+<figure class='code'><figcaption><span> (war.erl)</span> <a href='/downloads/code/erlang-etudes/ch8/war.erl'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">war</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span> <span class="p">([</span><span class="n">start</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span><span class="n">start</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">start</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">start</span><span class="p">(</span><span class="mi">52</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">start</span><span class="p">(</span><span class="nv">NumberOfCards</span><span class="p">)</span> <span class="k">when</span> <span class="nv">NumberOfCards</span> <span class="ow">rem</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Deck</span> <span class="o">=</span> <span class="nn">deck</span><span class="p">:</span><span class="nf">make</span><span class="p">(</span><span class="nv">NumberOfCards</span><span class="p">),</span>
+</span><span class='line'>  <span class="nv">Player1</span> <span class="o">=</span> <span class="nb">spawn</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">play</span><span class="p">,</span> <span class="p">[]),</span>
+</span><span class='line'>  <span class="nv">Player2</span> <span class="o">=</span> <span class="nb">spawn</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">play</span><span class="p">,</span> <span class="p">[]),</span>
+</span><span class='line'>  <span class="nn">dealer</span><span class="p">:</span><span class="nf">deal</span><span class="p">(</span><span class="nv">Deck</span><span class="p">,</span> <span class="nv">Player1</span><span class="p">,</span> <span class="nv">Player2</span><span class="p">).</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here is an actual game that my simulation outputs:</p>
+
+<figure class='code'><figcaption><span> (output.txt)</span> <a href='/downloads/code/erlang-etudes/ch8/output.txt'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nv">Eshell</span> <span class="nv">V5</span><span class="p">.</span><span class="mi">10</span><span class="p">.</span><span class="mi">2</span>  <span class="p">(</span><span class="n">abort</span> <span class="n">with</span> <span class="err">^</span><span class="nv">G</span><span class="p">)</span>
+</span><span class='line'><span class="mi">1</span><span class="o">&gt;</span> <span class="n">c</span><span class="p">(</span><span class="n">deck</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="n">deck</span><span class="p">}</span>
+</span><span class='line'><span class="mi">2</span><span class="o">&gt;</span> <span class="n">c</span><span class="p">(</span><span class="n">player</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="n">player</span><span class="p">}</span>
+</span><span class='line'><span class="mi">3</span><span class="o">&gt;</span> <span class="n">c</span><span class="p">(</span><span class="n">dealer</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="n">dealer</span><span class="p">}</span>
+</span><span class='line'><span class="mi">4</span><span class="o">&gt;</span> <span class="n">c</span><span class="p">(</span><span class="n">war</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="n">war</span><span class="p">}</span>
+</span><span class='line'><span class="mi">5</span><span class="o">&gt;</span> <span class="nn">war</span><span class="p">:</span><span class="nf">start</span><span class="p">(</span><span class="mi">16</span><span class="p">).</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">9</span><span class="p">,</span><span class="s">&quot;9&quot;</span><span class="p">,</span><span class="s">&quot;Hearts&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">wins</span> <span class="n">hand</span><span class="p">.</span> <span class="p">{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}</span> <span class="n">vs</span> <span class="p">{</span><span class="mi">9</span><span class="p">,</span><span class="s">&quot;9&quot;</span><span class="p">,</span><span class="s">&quot;Hearts&quot;</span><span class="p">}</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="nv">Player</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">9</span><span class="p">.</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">10</span><span class="p">,</span><span class="s">&quot;10&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">wins</span> <span class="n">hand</span><span class="p">.</span> <span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="s">&quot;10&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}</span> <span class="n">vs</span> <span class="p">{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nv">Player</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">8</span><span class="p">.</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">10</span><span class="p">,</span><span class="s">&quot;10&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">9</span><span class="p">,</span><span class="s">&quot;9&quot;</span><span class="p">,</span><span class="s">&quot;Hearts&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">wins</span> <span class="n">hand</span><span class="p">.</span> <span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="s">&quot;10&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}</span> <span class="n">vs</span> <span class="p">{</span><span class="mi">9</span><span class="p">,</span><span class="s">&quot;9&quot;</span><span class="p">,</span><span class="s">&quot;Hearts&quot;</span><span class="p">}</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span> <span class="nv">Player</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">7</span><span class="p">.</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">10</span><span class="p">,</span><span class="s">&quot;10&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">12</span><span class="p">,</span><span class="s">&quot;Q&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">wins</span> <span class="n">hand</span><span class="p">.</span> <span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="s">&quot;10&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}</span> <span class="n">vs</span> <span class="p">{</span><span class="mi">12</span><span class="p">,</span><span class="s">&quot;Q&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nv">Player</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">8</span><span class="p">.</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">9</span><span class="p">,</span><span class="s">&quot;9&quot;</span><span class="p">,</span><span class="s">&quot;Hearts&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">10</span><span class="p">,</span><span class="s">&quot;10&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">wins</span> <span class="n">hand</span><span class="p">.</span> <span class="p">{</span><span class="mi">9</span><span class="p">,</span><span class="s">&quot;9&quot;</span><span class="p">,</span><span class="s">&quot;Hearts&quot;</span><span class="p">}</span> <span class="n">vs</span> <span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="s">&quot;10&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="nv">Player</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">9</span><span class="p">.</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">9</span><span class="p">,</span><span class="s">&quot;9&quot;</span><span class="p">,</span><span class="s">&quot;Hearts&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">wins</span> <span class="n">hand</span><span class="p">.</span> <span class="p">{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}</span> <span class="n">vs</span> <span class="p">{</span><span class="mi">9</span><span class="p">,</span><span class="s">&quot;9&quot;</span><span class="p">,</span><span class="s">&quot;Hearts&quot;</span><span class="p">}</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nv">Player</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">10</span><span class="p">.</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">6</span><span class="p">,</span><span class="s">&quot;6&quot;</span><span class="p">,</span><span class="s">&quot;Diamonds&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">wins</span> <span class="n">hand</span><span class="p">.</span> <span class="p">{</span><span class="mi">6</span><span class="p">,</span><span class="s">&quot;6&quot;</span><span class="p">,</span><span class="s">&quot;Diamonds&quot;</span><span class="p">}</span> <span class="n">vs</span> <span class="p">{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="nv">Player</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">11</span><span class="p">.</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">6</span><span class="p">,</span><span class="s">&quot;6&quot;</span><span class="p">,</span><span class="s">&quot;Diamonds&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">wins</span> <span class="n">hand</span><span class="p">.</span> <span class="p">{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}</span> <span class="n">vs</span> <span class="p">{</span><span class="mi">6</span><span class="p">,</span><span class="s">&quot;6&quot;</span><span class="p">,</span><span class="s">&quot;Diamonds&quot;</span><span class="p">}</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nv">Player</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">10</span><span class="p">.</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Start</span> <span class="nv">War</span><span class="p">.</span> <span class="p">{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}</span> <span class="n">vs</span> <span class="p">{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">9</span><span class="p">,</span><span class="s">&quot;9&quot;</span><span class="p">,</span><span class="s">&quot;Hearts&quot;</span><span class="p">},{</span><span class="mi">10</span><span class="p">,</span><span class="s">&quot;10&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">},{</span><span class="mi">12</span><span class="p">,</span><span class="s">&quot;Q&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">6</span><span class="p">,</span><span class="s">&quot;6&quot;</span><span class="p">,</span><span class="s">&quot;Diamonds&quot;</span><span class="p">},</span>
+</span><span class='line'>                    <span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="s">&quot;10&quot;</span><span class="p">,</span><span class="s">&quot;Diamonds&quot;</span><span class="p">},</span>
+</span><span class='line'>                    <span class="p">{</span><span class="mi">13</span><span class="p">,</span><span class="s">&quot;K&quot;</span><span class="p">,</span><span class="s">&quot;Diamonds&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">wins</span> <span class="n">hand</span><span class="p">.</span> <span class="p">{</span><span class="mi">13</span><span class="p">,</span><span class="s">&quot;K&quot;</span><span class="p">,</span><span class="s">&quot;Diamonds&quot;</span><span class="p">}</span> <span class="n">vs</span> <span class="p">{</span><span class="mi">12</span><span class="p">,</span><span class="s">&quot;Q&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nv">Player</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">6</span><span class="p">.</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">11</span><span class="p">,</span><span class="s">&quot;J&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">wins</span> <span class="n">hand</span><span class="p">.</span> <span class="p">{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}</span> <span class="n">vs</span> <span class="p">{</span><span class="mi">11</span><span class="p">,</span><span class="s">&quot;J&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span> <span class="nv">Player</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">7</span><span class="p">.</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Start</span> <span class="nv">War</span><span class="p">.</span> <span class="p">{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}</span> <span class="n">vs</span> <span class="p">{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">13</span><span class="p">,</span><span class="s">&quot;K&quot;</span><span class="p">,</span><span class="s">&quot;Diamonds&quot;</span><span class="p">},</span>
+</span><span class='line'>                    <span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="s">&quot;10&quot;</span><span class="p">,</span><span class="s">&quot;Diamonds&quot;</span><span class="p">},</span>
+</span><span class='line'>                    <span class="p">{</span><span class="mi">6</span><span class="p">,</span><span class="s">&quot;6&quot;</span><span class="p">,</span><span class="s">&quot;Diamonds&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">11</span><span class="p">,</span><span class="s">&quot;J&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">},{</span><span class="mi">14</span><span class="p">,</span><span class="s">&quot;A&quot;</span><span class="p">,</span><span class="s">&quot;Hearts&quot;</span><span class="p">},{</span><span class="mi">5</span><span class="p">,</span><span class="s">&quot;5&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">wins</span> <span class="n">hand</span><span class="p">.</span> <span class="p">{</span><span class="mi">6</span><span class="p">,</span><span class="s">&quot;6&quot;</span><span class="p">,</span><span class="s">&quot;Diamonds&quot;</span><span class="p">}</span> <span class="n">vs</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span><span class="s">&quot;5&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span> <span class="nv">Player</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">3</span><span class="p">.</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">3</span><span class="p">,</span><span class="s">&quot;3&quot;</span><span class="p">,</span><span class="s">&quot;Hearts&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">wins</span> <span class="n">hand</span><span class="p">.</span> <span class="p">{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}</span> <span class="n">vs</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span><span class="s">&quot;3&quot;</span><span class="p">,</span><span class="s">&quot;Hearts&quot;</span><span class="p">}</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span> <span class="nv">Player</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">2</span><span class="p">.</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">3</span><span class="p">,</span><span class="s">&quot;3&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">wins</span> <span class="n">hand</span><span class="p">.</span> <span class="p">{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}</span> <span class="n">vs</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span><span class="s">&quot;3&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> <span class="nv">Player</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">1</span><span class="p">.</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">2</span><span class="p">,</span><span class="s">&quot;2&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">wins</span> <span class="n">hand</span><span class="p">.</span> <span class="p">{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}</span> <span class="n">vs</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="s">&quot;2&quot;</span><span class="p">,</span><span class="s">&quot;Spades&quot;</span><span class="p">}</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="nv">Player</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">1</span> <span class="n">sent</span> <span class="n">hand</span> <span class="p">[{</span><span class="mi">8</span><span class="p">,</span><span class="s">&quot;8&quot;</span><span class="p">,</span><span class="s">&quot;Clubs&quot;</span><span class="p">}].</span>
+</span><span class='line'><span class="nv">Player</span> <span class="mi">2</span> <span class="n">is</span> <span class="n">out</span> <span class="k">of</span> <span class="n">cards</span><span class="p">.</span>
+</span><span class='line'><span class="nv">Game</span> <span class="nv">Over</span> <span class="s">&quot;Player 1&quot;</span> <span class="nv">Wins</span><span class="o">!</span>
+</span><span class='line'><span class="n">ok</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+	
+		<div class="meta">
+			<span class="comments"><a href="/2013/07/22/etudes-for-erlang-ch-8/#disqus_thread">Comments</a></span>
+		</div>
+	
+
+</article>
+
+	
+	<div class="share">
+		<ul>
+			<li>
+  <a href="https://twitter.com/intent/tweet?text=Études for Erlang - CH 8 by @otter311&url=http://connor311.github.io/2013/07/22/etudes-for-erlang-ch-8/" title="Share Études for Erlang - CH 8 on Twitter">
+    <img src="/images/social/twitter.png" />
+  </a>
+</li>
+
+			<li>
+  <a href="https://www.facebook.com/sharer.php?u=http://connor311.github.io/2013/07/22/etudes-for-erlang-ch-8/" title="Share Études for Erlang - CH 8 on Facebook">
+    <img src="/images/social/facebook.png" />
+  </a>
+</li>
+
+			<li>
+  <a href="https://plus.google.com/share?url=http://connor311.github.io/2013/07/22/etudes-for-erlang-ch-8/" title="Share Études for Erlang - CH 8 on Google Plus">
+    <img src="/images/social/google.png" />
+  </a>
+</li>
+
+		</ul>
+	</div>
+
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">&copy; 2013
+
+    Connor Ross
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/hyphenator.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'connorrosstech';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://connor311.github.io/2013/07/22/etudes-for-erlang-ch-8/';
+        var disqus_url = 'http://connor311.github.io/2013/07/22/etudes-for-erlang-ch-8/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-42145286-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+</body>
+</html>
