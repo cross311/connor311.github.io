@@ -59,7 +59,7 @@
   
 
 
-<time datetime="2013-07-22T23:14:00-04:00" pubdate data-updated="true">Jul 22<span>nd</span>, 2013</time></div>
+<time datetime="2013-07-22T23:14:00+00:00" pubdate data-updated="true">Jul 22<span>nd</span>, 2013</time></div>
 	</header>
 	<div class="entry-content"><p>For the past few weeks we have been diving into the normal workings of Erlang.  So far however we have not really ran into anything that makes Erlang special.  To be honest if what we have gone over so far is all that was to Erlang, I would probably tell you to never use this language ever, ever, ever.  Ok maybe that is a little over the top, but as you saw in <a href="/2013/07/08/etudes-for-erlang-ch-5/">Chapter 5</a> Erlang does not handle strings very nicely and that is a lot of what a I use in my day to day programming.</p>
 
@@ -82,7 +82,7 @@
 
 <p>Alright, now I know what you are thinking, &ldquo;Cool a card game, but what does that have to do with Erlang processes??&rdquo;  Well I have an answer for that, think of cards as messages that are passed between people.  Then think about people as processes, catching the drift yet?</p>
 
-<p>First on the agenda is to plan out how we want the code to work.  Since this will be the most complex piece of Erlang software we have written so far, it makes sense to spend a little time planning out the plan of attack.  I decided to use (Lucid Charts)[<a href="https://www.lucidchart.com/">https://www.lucidchart.com/</a>] to map out how I thought the flow of messages and the logic will progress.</p>
+<p>First on the agenda is to plan out how we want the code to work.  Since this will be the most complex piece of Erlang software we have written so far, it makes sense to spend a little time planning out the plan of attack.  I decided to use <a href="https://www.lucidchart.com/">Lucid Charts</a> to map out how I thought the flow of messages and the logic will progress.</p>
 
 <p>Here is a picture of what I came up with:</p>
 
@@ -684,7 +684,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-
+<p>If you want to see a different and probably better solution check out the solution in the book: <a href="http://chimera.labs.oreilly.com/books/1234000000726/apa.html#_literal_game_erl_literal">Game.erl</a></p>
 </div>
 	
 		<div class="meta">

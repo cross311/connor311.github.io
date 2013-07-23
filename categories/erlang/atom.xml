@@ -4,7 +4,7 @@
   <title><![CDATA[Category: erlang | Connor Ross | Tech]]></title>
   <link href="http://connor311.github.io/categories/erlang/atom.xml" rel="self"/>
   <link href="http://connor311.github.io/"/>
-  <updated>2013-07-23T00:48:56-04:00</updated>
+  <updated>2013-07-23T14:21:01+00:00</updated>
   <id>http://connor311.github.io/</id>
   <author>
     <name><![CDATA[Connor Ross]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Études for Erlang - CH 8]]></title>
     <link href="http://connor311.github.io/2013/07/22/etudes-for-erlang-ch-8/"/>
-    <updated>2013-07-22T23:14:00-04:00</updated>
+    <updated>2013-07-22T23:14:00+00:00</updated>
     <id>http://connor311.github.io/2013/07/22/etudes-for-erlang-ch-8</id>
     <content type="html"><![CDATA[<p>For the past few weeks we have been diving into the normal workings of Erlang.  So far however we have not really ran into anything that makes Erlang special.  To be honest if what we have gone over so far is all that was to Erlang, I would probably tell you to never use this language ever, ever, ever.  Ok maybe that is a little over the top, but as you saw in <a href="/2013/07/08/etudes-for-erlang-ch-5/">Chapter 5</a> Erlang does not handle strings very nicely and that is a lot of what a I use in my day to day programming.</p>
 
@@ -39,7 +39,7 @@
 
 <p>Alright, now I know what you are thinking, &ldquo;Cool a card game, but what does that have to do with Erlang processes??&rdquo;  Well I have an answer for that, think of cards as messages that are passed between people.  Then think about people as processes, catching the drift yet?</p>
 
-<p>First on the agenda is to plan out how we want the code to work.  Since this will be the most complex piece of Erlang software we have written so far, it makes sense to spend a little time planning out the plan of attack.  I decided to use (Lucid Charts)[<a href="https://www.lucidchart.com/">https://www.lucidchart.com/</a>] to map out how I thought the flow of messages and the logic will progress.</p>
+<p>First on the agenda is to plan out how we want the code to work.  Since this will be the most complex piece of Erlang software we have written so far, it makes sense to spend a little time planning out the plan of attack.  I decided to use <a href="https://www.lucidchart.com/">Lucid Charts</a> to map out how I thought the flow of messages and the logic will progress.</p>
 
 <p>Here is a picture of what I came up with:</p>
 
@@ -631,13 +631,15 @@
 </span><span class='line'><span class="nv">Game</span> <span class="nv">Over</span> <span class="s">&quot;Player 1&quot;</span> <span class="nv">Wins</span><span class="o">!</span>
 </span><span class='line'><span class="n">ok</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>If you want to see a different and probably better solution check out the solution in the book: <a href="http://chimera.labs.oreilly.com/books/1234000000726/apa.html#_literal_game_erl_literal">Game.erl</a></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Études for Erlang - CH 7]]></title>
     <link href="http://connor311.github.io/2013/07/15/etudes-for-erlang-ch-7/"/>
-    <updated>2013-07-15T22:58:00-04:00</updated>
+    <updated>2013-07-15T22:58:00+00:00</updated>
     <id>http://connor311.github.io/2013/07/15/etudes-for-erlang-ch-7</id>
     <content type="html"><![CDATA[<p>I have been working double duty tonight, since I have been slacking on my blogging duty.  I am again slacking, I am going to skip from <a href="/2013/07/08/etudes-for-erlang-ch-5/">chapter 5</a> to chapter 6 for now. <!-- more --></p>
 
@@ -860,7 +862,7 @@
   <entry>
     <title type="html"><![CDATA[Études for Erlang - CH 5]]></title>
     <link href="http://connor311.github.io/2013/07/08/etudes-for-erlang-ch-5/"/>
-    <updated>2013-07-08T23:36:00-04:00</updated>
+    <updated>2013-07-08T23:36:00+00:00</updated>
     <id>http://connor311.github.io/2013/07/08/etudes-for-erlang-ch-5</id>
     <content type="html"><![CDATA[<p>Have you missed me??  For the past two weeks I have been driving to and from many a wedding.  My cousin, Olivia, got married two weeks ago to an awesome man, John!  Then this past weekend my best friend growing up, Ben, got married to a lady who I do not know to well but any person he would marry must be a great gal!  To each of you I wish you the best!</p>
 
@@ -1041,7 +1043,7 @@
   <entry>
     <title type="html"><![CDATA[Études for Erlang - CH 4]]></title>
     <link href="http://connor311.github.io/2013/06/25/etudes-for-erlang-ch-4/"/>
-    <updated>2013-06-25T23:26:00-04:00</updated>
+    <updated>2013-06-25T23:26:00+00:00</updated>
     <id>http://connor311.github.io/2013/06/25/etudes-for-erlang-ch-4</id>
     <content type="html"><![CDATA[<p>This week the homework for the <a href="http://www.meetup.com/Erlang-NYC/events/123394132/" target="_blank">meetup</a> was chapters 4 &amp; 5.  However this weekend I was at my childhood best friend&rsquo;s bachelor party so I only got to chapter 4. Ouch, Ouch, please stop throwing tomatoes, lettuce and actually I don&rsquo;t want to know what that is, I am sorry!  If you want more Erlang check out last week for <a href="/2013/06/16/etudes-for-erlang-ch-3/">chapter 3</a>, again!</p>
 
@@ -1080,7 +1082,7 @@
 <span class='line-number'>22</span>
 <span class='line-number'>23</span>
 <span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#105;&amp;#108;&amp;#x74;&amp;#x6f;&amp;#58;&amp;#99;&amp;#111;&amp;#110;&amp;#x6e;&amp;#x6f;&amp;#114;&amp;#x33;&amp;#x31;&amp;#x31;&amp;#x40;&amp;#103;&amp;#109;&amp;#x61;&amp;#105;&amp;#108;&amp;#x2e;&amp;#99;&amp;#111;&amp;#109;&quot;&gt;&amp;#x63;&amp;#111;&amp;#x6e;&amp;#110;&amp;#111;&amp;#x72;&amp;#x33;&amp;#49;&amp;#x31;&amp;#64;&amp;#x67;&amp;#109;&amp;#97;&amp;#x69;&amp;#108;&amp;#46;&amp;#99;&amp;#111;&amp;#x6d;&lt;/a&gt;</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#x74;&amp;#x6f;&amp;#58;&amp;#99;&amp;#x6f;&amp;#110;&amp;#110;&amp;#111;&amp;#114;&amp;#x33;&amp;#x31;&amp;#49;&amp;#64;&amp;#103;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#108;&amp;#x2e;&amp;#99;&amp;#x6f;&amp;#109;&quot;&gt;&amp;#x63;&amp;#x6f;&amp;#110;&amp;#x6e;&amp;#x6f;&amp;#114;&amp;#51;&amp;#49;&amp;#49;&amp;#x40;&amp;#x67;&amp;#109;&amp;#97;&amp;#x69;&amp;#108;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#x6d;&lt;/a&gt;</span>
 </span><span class='line'><span class="c">%% @doc Functions for calculating areas of geometric shapes.</span>
 </span><span class='line'><span class="c">%% @copyright 2013 C J Ross</span>
 </span><span class='line'><span class="c">%% @version 0.1&lt;/p&gt;</span>
@@ -1126,7 +1128,7 @@
 <span class='line-number'>16</span>
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;a href=&quot;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#x74;&amp;#111;&amp;#x3a;&amp;#99;&amp;#x6f;&amp;#x6e;&amp;#110;&amp;#x6f;&amp;#114;&amp;#x33;&amp;#49;&amp;#49;&amp;#x40;&amp;#103;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#x6d;&quot;&gt;&amp;#99;&amp;#x6f;&amp;#x6e;&amp;#110;&amp;#x6f;&amp;#114;&amp;#51;&amp;#x31;&amp;#x31;&amp;#x40;&amp;#x67;&amp;#109;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#x6d;&lt;/a&gt;</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#x69;&amp;#108;&amp;#116;&amp;#x6f;&amp;#x3a;&amp;#99;&amp;#x6f;&amp;#110;&amp;#x6e;&amp;#x6f;&amp;#x72;&amp;#51;&amp;#x31;&amp;#49;&amp;#64;&amp;#x67;&amp;#109;&amp;#97;&amp;#x69;&amp;#108;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#109;&quot;&gt;&amp;#99;&amp;#111;&amp;#110;&amp;#x6e;&amp;#x6f;&amp;#114;&amp;#51;&amp;#x31;&amp;#x31;&amp;#64;&amp;#103;&amp;#109;&amp;#x61;&amp;#x69;&amp;#108;&amp;#46;&amp;#99;&amp;#111;&amp;#x6d;&lt;/a&gt;</span>
 </span><span class='line'><span class="c">%% @doc Functions for calculating GCD.</span>
 </span><span class='line'><span class="c">%% @copyright 2013 C J Ross</span>
 </span><span class='line'><span class="c">%% @version 0.1&lt;/p&gt;</span>
@@ -1180,7 +1182,7 @@
 <span class='line-number'>28</span>
 <span class='line-number'>29</span>
 <span class='line-number'>30</span>
-</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#105;&amp;#108;&amp;#116;&amp;#x6f;&amp;#x3a;&amp;#x63;&amp;#x6f;&amp;#x6e;&amp;#110;&amp;#111;&amp;#x72;&amp;#51;&amp;#x31;&amp;#x31;&amp;#x40;&amp;#x67;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#46;&amp;#99;&amp;#111;&amp;#109;&quot;&gt;&amp;#x63;&amp;#111;&amp;#110;&amp;#110;&amp;#x6f;&amp;#114;&amp;#x33;&amp;#x31;&amp;#49;&amp;#x40;&amp;#103;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#108;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#109;&lt;/a&gt;</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#x74;&amp;#x6f;&amp;#58;&amp;#x63;&amp;#111;&amp;#110;&amp;#x6e;&amp;#x6f;&amp;#114;&amp;#x33;&amp;#x31;&amp;#x31;&amp;#64;&amp;#x67;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#111;&amp;#x6d;&quot;&gt;&amp;#x63;&amp;#x6f;&amp;#110;&amp;#x6e;&amp;#111;&amp;#x72;&amp;#51;&amp;#x31;&amp;#49;&amp;#x40;&amp;#103;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#109;&lt;/a&gt;</span>
 </span><span class='line'><span class="c">%% @doc Functions for calculating powers</span>
 </span><span class='line'><span class="c">%% @copyright 2013 C J Ross</span>
 </span><span class='line'><span class="c">%% @version 0.1&lt;/p&gt;</span>
@@ -1250,7 +1252,7 @@
 <span class='line-number'>34</span>
 <span class='line-number'>35</span>
 <span class='line-number'>36</span>
-</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#111;&amp;#x3a;&amp;#x63;&amp;#111;&amp;#x6e;&amp;#110;&amp;#111;&amp;#114;&amp;#51;&amp;#49;&amp;#49;&amp;#64;&amp;#103;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#108;&amp;#46;&amp;#99;&amp;#111;&amp;#x6d;&quot;&gt;&amp;#99;&amp;#x6f;&amp;#x6e;&amp;#110;&amp;#x6f;&amp;#x72;&amp;#x33;&amp;#x31;&amp;#x31;&amp;#x40;&amp;#x67;&amp;#109;&amp;#x61;&amp;#x69;&amp;#108;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#x6d;&lt;/a&gt;</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="c">%% @author C J Ross &lt;a href=&quot;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#x74;&amp;#111;&amp;#58;&amp;#99;&amp;#111;&amp;#x6e;&amp;#x6e;&amp;#x6f;&amp;#x72;&amp;#51;&amp;#x31;&amp;#49;&amp;#64;&amp;#x67;&amp;#109;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#x2e;&amp;#99;&amp;#x6f;&amp;#x6d;&quot;&gt;&amp;#x63;&amp;#111;&amp;#x6e;&amp;#110;&amp;#111;&amp;#x72;&amp;#51;&amp;#x31;&amp;#x31;&amp;#x40;&amp;#x67;&amp;#109;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#x2e;&amp;#99;&amp;#111;&amp;#x6d;&lt;/a&gt;</span>
 </span><span class='line'><span class="c">%% @doc Functions for calculating powers</span>
 </span><span class='line'><span class="c">%% @copyright 2013 C J Ross</span>
 </span><span class='line'><span class="c">%% @version 0.1&lt;/p&gt;</span>
@@ -1349,7 +1351,7 @@
   <entry>
     <title type="html"><![CDATA[Études for Erlang - CH 3]]></title>
     <link href="http://connor311.github.io/2013/06/16/etudes-for-erlang-ch-3/"/>
-    <updated>2013-06-16T23:01:00-04:00</updated>
+    <updated>2013-06-16T23:01:00+00:00</updated>
     <id>http://connor311.github.io/2013/06/16/etudes-for-erlang-ch-3</id>
     <content type="html"><![CDATA[<p>It is that time again, well I don&rsquo;t really know if I can say that yet since this is only the second installment of the series.  Last week I wrote about <a href="/2013/06/14/etudes-for-erlang-ch-1-and-2/">chapters 1 &amp; 2</a> from <a href="http://chimera.labs.oreilly.com/books/1234000000726" target="_blank">Etudes for Erlang</a>, however I actually wrote my solutions after the <a href="http://www.meetup.com/Erlang-NYC/events/122174852/" target="_blank">meetup</a>.  This time I am getting a head start and thankfully I only have to do one chapter. I will just hop right into it, because I am excited to learn some more about Erlang!<!--more--></p>
 
