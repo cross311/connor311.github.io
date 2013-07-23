@@ -45,3 +45,5 @@ Here is an actual game that my simulation outputs:
 
 {% include_code lang:erlang erlang-etudes/ch8/output.txt %}
 
+If you want to see a different and probably better solution check out the solution in the book: [Game.erl](http://chimera.labs.oreilly.com/books/1234000000726/apa.html#_literal_game_erl_literal)
+
