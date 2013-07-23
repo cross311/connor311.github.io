@@ -32,8 +32,9 @@ We will now use what we have learned about list comprehension to create a deck o
 
 {% include_code lang:erlang erlang-etudes/ch7/deck.erl %}
 
-Well I am excited to chapter 8, when we finally get into processes.  That is next week, so stay tuned!
+Well I am excited to [Chapter 8](/2013/07/22/etudes-for-erlang-ch-8/), when we finally get into processes.  That is next week, so stay tuned!
 
 What are you most excited to learn about processes, next week??
 
+[Chapter 8](/2013/07/22/etudes-for-erlang-ch-8/)
 [MEETUP](http://www.meetup.com/Erlang-NYC/)
