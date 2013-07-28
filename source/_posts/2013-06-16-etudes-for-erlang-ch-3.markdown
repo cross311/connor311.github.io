@@ -3,7 +3,7 @@ layout: post
 title: "Études for Erlang - CH 3"
 date: 2013-06-16 23:01
 comments: true
-categories: [erlang]
+categories: [erlang,series]
 ---
 It is that time again, well I don't really know if I can say that yet since this is only the second installment of the series.  Last week I wrote about [chapters 1 &amp; 2](/2013/06/14/etudes-for-erlang-ch-1-and-2/) from <a href="http://chimera.labs.oreilly.com/books/1234000000726" target="_blank">Etudes for Erlang</a>, however I actually wrote my solutions after the <a href="http://www.meetup.com/Erlang-NYC/events/122174852/" target="_blank">meetup</a>.  This time I am getting a head start and thankfully I only have to do one chapter. I will just hop right into it, because I am excited to learn some more about Erlang!<!--more-->
 <h2>Chapter 3: Atoms, Tuples, and Pattern Matching</h2>

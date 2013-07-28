@@ -3,7 +3,7 @@ layout: post
 title: "Études for Erlang - CH 8"
 date: 2013-07-22 23:14
 comments: true
-categories: [erlang]
+categories: [erlang,series]
 ---
 For the past few weeks we have been diving into the normal workings of Erlang.  So far however we have not really ran into anything that makes Erlang special.  To be honest if what we have gone over so far is all that was to Erlang, I would probably tell you to never use this language ever, ever, ever.  Ok maybe that is a little over the top, but as you saw in [Chapter 5](/2013/07/08/etudes-for-erlang-ch-5/) Erlang does not handle strings very nicely and that is a lot of what a I use in my day to day programming.
 
@@ -46,4 +46,8 @@ Here is an actual game that my simulation outputs:
 {% include_code lang:erlang erlang-etudes/ch8/output.txt %}
 
 If you want to see a different and probably better solution check out the solution in the book: [Game.erl](http://chimera.labs.oreilly.com/books/1234000000726/apa.html#_literal_game_erl_literal)
+
+[Chapter 9](/2013/07/28/etudes-for-erlang-ch-9/)
+
+[MEETUP](http://www.meetup.com/Erlang-NYC/)
 

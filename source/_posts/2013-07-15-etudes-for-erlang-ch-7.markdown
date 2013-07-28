@@ -3,7 +3,7 @@ layout: post
 title: "Études for Erlang - CH 7"
 date: 2013-07-15 22:58
 comments: true
-categories: [erlang]
+categories: [erlang,series]
 ---
 I have been working double duty tonight, since I have been slacking on my blogging duty.  I am again slacking, I am going to skip from [chapter 5](/2013/07/08/etudes-for-erlang-ch-5/) to chapter 6 for now. <!-- more -->
 
