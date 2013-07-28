@@ -23,7 +23,7 @@ The lesson this week asks us to simulate a childhood card game used by parents t
 
 Alright, now I know what you are thinking, "Cool a card game, but what does that have to do with Erlang processes??"  Well I have an answer for that, think of cards as messages that are passed between people.  Then think about people as processes, catching the drift yet?
 
-First on the agenda is to plan out how we want the code to work.  Since this will be the most complex piece of Erlang software we have written so far, it makes sense to spend a little time planning out the plan of attack.  I decided to use (Lucid Charts)[https://www.lucidchart.com/] to map out how I thought the flow of messages and the logic will progress.  
+First on the agenda is to plan out how we want the code to work.  Since this will be the most complex piece of Erlang software we have written so far, it makes sense to spend a little time planning out the plan of attack.  I decided to use [Lucid Charts](https://www.lucidchart.com/) to map out how I thought the flow of messages and the logic will progress.  
 
 Here is a picture of what I came up with:
 
