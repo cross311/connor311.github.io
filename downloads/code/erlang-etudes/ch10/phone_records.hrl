@@ -1,0 +1,2 @@
+-record (phone_record, {phone_number, start_date, end_date}).
+-record (customer, {phone_number, name_last, name_first, name_middle, rate_per_minute}).

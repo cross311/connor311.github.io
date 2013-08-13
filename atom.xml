@@ -4,13 +4,212 @@
   <title><![CDATA[Connor Ross | Tech]]></title>
   <link href="http://connor311.github.io/atom.xml" rel="self"/>
   <link href="http://connor311.github.io/"/>
-  <updated>2013-07-28T14:42:07-04:00</updated>
+  <updated>2013-08-13T00:17:11-04:00</updated>
   <id>http://connor311.github.io/</id>
   <author>
     <name><![CDATA[Connor Ross]]></name>
     
   </author>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Études for Erlang - CH 10]]></title>
+    <link href="http://connor311.github.io/2013/08/13/etudes-for-erlang-ch-10/"/>
+    <updated>2013-08-13T00:13:00-04:00</updated>
+    <id>http://connor311.github.io/2013/08/13/etudes-for-erlang-ch-10</id>
+    <content type="html"><![CDATA[<h2>Chapter 10: Storing Structured Data</h2>
+
+<p><a href="http://chimera.labs.oreilly.com/books/1234000000726/ch10.html">link</a></p>
+
+<p>SUPER ANNOYED tonight and this freaking chapter just keeps on going on and on.  I will finish this post another night, but I want get up some code for the meetup tomorrow.</p>
+
+<figure class='code'><figcaption><span> (call_data.csv)</span> <a href='http://connor311.github.io/downloads/code/erlang-etudes/ch10/call_data.csv'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">650</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">3326</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mi">47</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">11</span>
+</span><span class='line'><span class="mi">415</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">7871</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">20</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">09</span>
+</span><span class='line'><span class="mi">729</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">8855</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">55</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">18</span>
+</span><span class='line'><span class="mi">729</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">8855</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">57</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mi">56</span>
+</span><span class='line'><span class="mi">213</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">0172</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">59</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mi">49</span>
+</span><span class='line'><span class="mi">946</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">9760</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mi">20</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mi">10</span>
+</span><span class='line'><span class="mi">301</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">0433</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mi">44</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">04</span><span class="p">:</span><span class="mi">06</span>
+</span><span class='line'><span class="mi">301</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">0433</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">17</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">07</span><span class="p">:</span><span class="mi">53</span>
+</span><span class='line'><span class="mi">301</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">0433</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">05</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">13</span><span class="p">:</span><span class="mi">14</span>
+</span><span class='line'><span class="mi">729</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">8855</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">04</span><span class="p">:</span><span class="mi">40</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">07</span><span class="p">:</span><span class="mi">29</span>
+</span><span class='line'><span class="mi">213</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">0172</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">04</span><span class="p">:</span><span class="mi">26</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mi">00</span>
+</span><span class='line'><span class="mi">213</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">0172</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mi">59</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">35</span>
+</span><span class='line'><span class="mi">946</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">9760</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mi">36</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">04</span><span class="p">:</span><span class="mi">23</span>
+</span><span class='line'><span class="mi">838</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">1099</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">43</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">44</span>
+</span><span class='line'><span class="mi">650</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">3326</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">48</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">08</span>
+</span><span class='line'><span class="mi">838</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">1099</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mi">43</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mi">26</span>
+</span><span class='line'><span class="mi">838</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">1099</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">07</span><span class="p">:</span><span class="mi">54</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span>
+</span><span class='line'><span class="mi">301</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">0433</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span><span class="mi">07</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="mi">08</span>
+</span><span class='line'><span class="mi">415</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">7871</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mi">15</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">32</span>
+</span><span class='line'><span class="mi">650</span><span class="o">-</span><span class="mi">555</span><span class="o">-</span><span class="mi">3326</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span><span class="mi">2013</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">09</span><span class="p">:</span><span class="mi">13</span><span class="p">:</span><span class="mi">09</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span> (phone_records.hrl)</span> <a href='http://connor311.github.io/downloads/code/erlang-etudes/ch10/phone_records.hrl'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">record</span> <span class="p">(</span><span class="nl">phone_record</span><span class="p">,</span> <span class="p">{</span><span class="n">phone_number</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">}).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">record</span> <span class="p">(</span><span class="nl">customer</span><span class="p">,</span> <span class="p">{</span><span class="n">phone_number</span><span class="p">,</span> <span class="n">name_last</span><span class="p">,</span> <span class="n">name_first</span><span class="p">,</span> <span class="n">name_middle</span><span class="p">,</span> <span class="n">rate_per_minute</span><span class="p">}).</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span> (phone_bill.erl)</span> <a href='http://connor311.github.io/downloads/code/erlang-etudes/ch10/phone_bill.erl'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span> <span class="p">(</span><span class="n">phone_bill</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span> <span class="p">([</span><span class="n">init</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span><span class="n">read_bill</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span><span class="n">summary</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span><span class="n">summary</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">include</span> <span class="p">(</span><span class="s">&quot;phone_records.hrl&quot;</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">read_to_end</span><span class="p">(</span><span class="nv">FileLocation</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="k">case</span> <span class="nn">file</span><span class="p">:</span><span class="nf">open</span><span class="p">(</span><span class="nv">FileLocation</span><span class="p">,</span> <span class="p">[</span><span class="n">read</span><span class="p">])</span> <span class="k">of</span>
+</span><span class='line'>      <span class="p">{</span><span class="n">error</span><span class="p">,</span><span class="n">enoent</span><span class="p">}</span> <span class="o">-&gt;</span>
+</span><span class='line'>          <span class="p">[];</span>
+</span><span class='line'>      <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">File</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">read_to_end</span><span class="p">(</span><span class="nv">File</span><span class="p">,</span> <span class="p">[])</span>
+</span><span class='line'>  <span class="k">end</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">read_to_end</span><span class="p">({</span><span class="n">error</span><span class="p">,</span><span class="n">enoent</span><span class="p">},</span> <span class="p">_)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">[];</span>
+</span><span class='line'><span class="nf">read_to_end</span><span class="p">(_,</span> <span class="p">[</span><span class="n">eof</span><span class="p">|</span><span class="nv">Lines</span><span class="p">])</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">lists</span><span class="p">:</span><span class="nf">reverse</span><span class="p">(</span><span class="nv">Lines</span><span class="p">);</span>
+</span><span class='line'><span class="nf">read_to_end</span><span class="p">(</span><span class="nv">File</span><span class="p">,</span> <span class="nv">Lines</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">read_to_end</span><span class="p">(</span><span class="nv">File</span><span class="p">,</span> <span class="p">[</span><span class="nn">io</span><span class="p">:</span><span class="nf">get_line</span><span class="p">(</span><span class="nv">File</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="p">)|</span><span class="nv">Lines</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">read_phone_record_from_csv</span><span class="p">(</span><span class="nv">CsvLine</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">[</span><span class="nv">Number</span><span class="p">,</span><span class="nv">SDate</span><span class="p">,</span><span class="nv">STime</span><span class="p">,</span><span class="nv">EDate</span><span class="p">,</span><span class="nv">ETime</span><span class="p">|_]</span> <span class="o">=</span> <span class="nn">re</span><span class="p">:</span><span class="nf">split</span><span class="p">(</span><span class="nv">CsvLine</span><span class="p">,</span> <span class="s">&quot;[,</span><span class="se">\n</span><span class="s">]&quot;</span><span class="p">,</span> <span class="p">[{</span><span class="n">return</span><span class="p">,</span><span class="n">list</span><span class="p">}]),</span>
+</span><span class='line'>  <span class="nl">#phone_record</span><span class="p">{</span>
+</span><span class='line'>      <span class="n">phone_number</span><span class="o">=</span><span class="nv">Number</span><span class="p">,</span>
+</span><span class='line'>      <span class="n">start_date</span><span class="o">=</span><span class="n">read_date_time</span><span class="p">(</span><span class="nv">SDate</span><span class="p">,</span><span class="nv">STime</span><span class="p">),</span>
+</span><span class='line'>      <span class="n">end_date</span><span class="o">=</span><span class="n">read_date_time</span><span class="p">(</span><span class="nv">EDate</span><span class="p">,</span><span class="nv">ETime</span><span class="p">)}.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">read_date_time</span><span class="p">(</span><span class="nv">DateStr</span><span class="p">,</span> <span class="nv">TimeStr</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="n">parse_three_numbers_crap</span><span class="p">(</span><span class="nn">re</span><span class="p">:</span><span class="nf">split</span><span class="p">(</span><span class="nv">DateStr</span><span class="p">,</span> <span class="s">&quot;-&quot;</span><span class="p">,</span> <span class="p">[{</span><span class="n">return</span><span class="p">,</span><span class="n">list</span><span class="p">}])),</span>
+</span><span class='line'>  <span class="n">parse_three_numbers_crap</span><span class="p">(</span><span class="nn">re</span><span class="p">:</span><span class="nf">split</span><span class="p">(</span><span class="nv">TimeStr</span><span class="p">,</span> <span class="s">&quot;:&quot;</span><span class="p">,</span> <span class="p">[{</span><span class="n">return</span><span class="p">,</span><span class="n">list</span><span class="p">}]))}.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">parse_three_numbers_crap</span><span class="p">(</span><span class="nv">ThreeStringArray</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="p">[{</span><span class="nv">N1</span><span class="p">,_},{</span><span class="nv">N2</span><span class="p">,_},{</span><span class="nv">N3</span><span class="p">,_}]</span> <span class="o">=</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">map</span><span class="p">(</span><span class="k">fun</span><span class="p">(</span><span class="nv">S</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nn">string</span><span class="p">:</span><span class="nf">to_integer</span><span class="p">(</span><span class="nv">S</span><span class="p">)</span> <span class="k">end</span><span class="p">,</span> <span class="nv">ThreeStringArray</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">{</span><span class="nv">N1</span><span class="p">,</span><span class="nv">N2</span><span class="p">,</span><span class="nv">N3</span><span class="p">}.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">diff_date</span><span class="p">(</span><span class="nv">Date1</span><span class="p">,</span> <span class="nv">Date2</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">calendar</span><span class="p">:</span><span class="nf">datetime_to_gregorian_seconds</span><span class="p">(</span><span class="nv">Date1</span><span class="p">)</span> <span class="o">-</span>
+</span><span class='line'>      <span class="nn">calendar</span><span class="p">:</span><span class="nf">datetime_to_gregorian_seconds</span><span class="p">(</span><span class="nv">Date2</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">init</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">ets</span><span class="p">:</span><span class="nf">new</span><span class="p">(</span><span class="n">phone_record</span><span class="p">,</span> <span class="p">[</span><span class="n">named_table</span><span class="p">,</span> <span class="p">{</span><span class="n">keypos</span><span class="p">,</span> <span class="nl">#phone_record.phone_number</span><span class="p">},</span> <span class="n">bag</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nf">read_bill</span><span class="p">(</span><span class="nv">FileLocation</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Records</span> <span class="o">=</span> <span class="n">read_to_end</span><span class="p">(</span><span class="nv">FileLocation</span><span class="p">),</span>
+</span><span class='line'>  <span class="n">add_calls</span><span class="p">(</span><span class="nv">Records</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">add_calls</span><span class="p">([])</span> <span class="o">-&gt;</span> <span class="n">ok</span><span class="p">;</span>
+</span><span class='line'><span class="nf">add_calls</span><span class="p">([</span><span class="nv">Record</span><span class="p">|</span><span class="nv">RemainingRecords</span><span class="p">])</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nn">ets</span><span class="p">:</span><span class="nf">insert</span><span class="p">(</span><span class="n">phone_record</span><span class="p">,</span>
+</span><span class='line'>      <span class="n">read_phone_record_from_csv</span><span class="p">(</span><span class="nv">Record</span><span class="p">)),</span>
+</span><span class='line'>  <span class="n">add_calls</span><span class="p">(</span><span class="nv">RemainingRecords</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">summary</span><span class="p">(</span><span class="nv">PhoneNumber</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="nv">Records</span> <span class="o">=</span> <span class="nn">ets</span><span class="p">:</span><span class="nf">lookup</span><span class="p">(</span><span class="n">phone_record</span><span class="p">,</span><span class="nv">PhoneNumber</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">{</span><span class="nv">PhoneNumber</span><span class="p">,</span> <span class="p">(</span>
+</span><span class='line'>      <span class="nn">lists</span><span class="p">:</span><span class="nf">foldl</span><span class="p">(</span><span class="k">fun</span><span class="p">(</span><span class="nv">R</span><span class="p">,</span> <span class="nv">Sum</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">diff_date</span><span class="p">(</span><span class="nv">R</span><span class="nl">#phone_record.end_date</span><span class="p">,</span><span class="nv">R</span><span class="nl">#phone_record.start_date</span><span class="p">)</span> <span class="o">+</span> <span class="nv">Sum</span> <span class="k">end</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nv">Records</span><span class="p">)</span>
+</span><span class='line'>      <span class="o">+</span> <span class="mi">59</span><span class="p">)</span> <span class="ow">div</span> <span class="mi">60</span><span class="p">}.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">summary</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">summary</span><span class="p">(</span><span class="nn">ets</span><span class="p">:</span><span class="nf">first</span><span class="p">(</span><span class="n">phone_record</span><span class="p">),[]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">summary</span><span class="p">(</span><span class="n">&#39;$end_of_table&#39;</span><span class="p">,</span> <span class="nv">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">List</span><span class="p">;</span>
+</span><span class='line'><span class="nf">summary</span><span class="p">(</span><span class="nv">PhoneNumber</span><span class="p">,</span> <span class="nv">List</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">summary</span><span class="p">(</span><span class="nn">ets</span><span class="p">:</span><span class="nf">next</span><span class="p">(</span><span class="n">phone_record</span><span class="p">,</span> <span class="nv">PhoneNumber</span><span class="p">),</span> <span class="p">[</span><span class="n">summary</span><span class="p">(</span><span class="nv">PhoneNumber</span><span class="p">)|</span><span class="nv">List</span><span class="p">]).</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Études for Erlang - CH 9]]></title>
