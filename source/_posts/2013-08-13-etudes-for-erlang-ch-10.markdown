@@ -6,10 +6,10 @@ comments: true
 categories: [erlang,series]
 ---
 
+SUPER ANNOYED tonight and this freaking chapter just keeps on going on and on.  I will finish this post another night, but I want get up some code for the meetup tomorrow.  <!-- more -->
+
 ## Chapter 10: Storing Structured Data
 [link](http://chimera.labs.oreilly.com/books/1234000000726/ch10.html)
-
-SUPER ANNOYED tonight and this freaking chapter just keeps on going on and on.  I will finish this post another night, but I want get up some code for the meetup tomorrow.
 
 
 {% include_code lang:erlang erlang-etudes/ch10/call_data.csv %}
