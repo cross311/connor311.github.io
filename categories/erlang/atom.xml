@@ -4,7 +4,7 @@
   <title><![CDATA[Category: erlang | Connor Ross | Tech]]></title>
   <link href="http://connor311.github.io/categories/erlang/atom.xml" rel="self"/>
   <link href="http://connor311.github.io/"/>
-  <updated>2013-08-13T00:17:11-04:00</updated>
+  <updated>2013-08-13T00:19:13-04:00</updated>
   <id>http://connor311.github.io/</id>
   <author>
     <name><![CDATA[Connor Ross]]></name>
@@ -18,11 +18,11 @@
     <link href="http://connor311.github.io/2013/08/13/etudes-for-erlang-ch-10/"/>
     <updated>2013-08-13T00:13:00-04:00</updated>
     <id>http://connor311.github.io/2013/08/13/etudes-for-erlang-ch-10</id>
-    <content type="html"><![CDATA[<h2>Chapter 10: Storing Structured Data</h2>
+    <content type="html"><![CDATA[<p>SUPER ANNOYED tonight and this freaking chapter just keeps on going on and on.  I will finish this post another night, but I want get up some code for the meetup tomorrow.  <!-- more --></p>
+
+<h2>Chapter 10: Storing Structured Data</h2>
 
 <p><a href="http://chimera.labs.oreilly.com/books/1234000000726/ch10.html">link</a></p>
-
-<p>SUPER ANNOYED tonight and this freaking chapter just keeps on going on and on.  I will finish this post another night, but I want get up some code for the meetup tomorrow.</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (call_data.csv)</span> <a href='/downloads/code/erlang-etudes/ch10/call_data.csv'>download</a></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
