@@ -1,4 +1,7 @@
+---
+layout: nil
+---
 User-agent: *
 Disallow: 
 
-Sitemap: http://connor311.github.io/sitemap.xml 
+Sitemap: {{ site.url }}/sitemap.xml 
