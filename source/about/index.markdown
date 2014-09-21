@@ -14,10 +14,6 @@ Github: <a href="https://github.com/connor311">Connor311</a>
 
 LinkedIn: <a href="http://lnkd.in/QqbTHj">Connor Ross</a>
 <h2>Friends Blogs</h2>
-Ryan Gimmy : <a href="http://rygim.com/">http://rygim.com/</a> | <a href="http://www.nearinfinity.com/blogs/ryan_gimmy/all/">http://www.nearinfinity.com/blogs/ryan_gimmy/all/</a>
-
-Steve Lindley : <a href="http://www.stephenlindley.com/">http://www.stephenlindley.com/</a>
-
 Jenn Newman : <a href="http://jennnewman.com/">http://jennnewman.com/</a>
 
 Matt Drumheller : <a href="http://mattdrum.blogspot.com/">http://mattdrum.blogspot.com/</a>
