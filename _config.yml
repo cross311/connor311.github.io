@@ -1,0 +1,56 @@
+# ----------------------- #
+#      Main Configs       #
+# ----------------------- #
+
+url: http://connor311.github.io
+title: Connor Ross
+subtitle: What Keeps Me Ticking
+author: Connor Ross
+simple_search: http://google.com/search
+description: A in depth CV for Connor Ross
+
+# Default date format is "ordinal" (resulting in "July 22nd 2007")
+# You can customize the format as defined in
+# http://www.ruby-doc.org/core-1.9.2/Time.html#method-i-strftime
+# Additionally, %o will give you the ordinal representation of the day
+date_format: "ordinal"
+
+paginate: 10          # Posts per page on the blog index
+pagination_dir: /  # Directory base for pagination URLs eg. /blog/page/2/
+recent_posts: 5       # Posts in the sidebar Recent Posts section
+excerpt_link: "Read on &rarr;"  # "Continue reading" link text at the bottom of excerpted articles
+
+titlecase: true       # Converts page and post titles to titlecase
+
+# ----------------------- #
+#   3rd Party Settings    #
+# ----------------------- #
+
+# Github repositories
+github_user: connor311
+github_repo_count: 3
+github_show_profile_link: true
+github_skip_forks: true
+
+# Twitter
+twitter_user: otter311
+twitter_tweet_button: true
+
+# Google +1
+google_plus_one: true
+google_plus_one_size: medium
+
+# Google Plus Profile
+# Hidden: No visible button, just add author information to search results
+googleplus_user: 115150729916866222393
+googleplus_hidden: true
+
+# Disqus Comments
+disqus_short_name: connorrosstech
+disqus_show_comment_count: true
+
+# Google Analytics
+google_analytics_tracking_id: UA-42145286-1
+
+# Facebook Like
+facebook_like: true
