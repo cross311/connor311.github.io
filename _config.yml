@@ -15,6 +15,7 @@ description: A in depth CV for Connor Ross
 # Additionally, %o will give you the ordinal representation of the day
 date_format: "ordinal"
 
+permalink: :year/:month/:day/:title/
 paginate: 10          # Posts per page on the blog index
 pagination_dir: /  # Directory base for pagination URLs eg. /blog/page/2/
 recent_posts: 5       # Posts in the sidebar Recent Posts section
