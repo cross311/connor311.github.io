@@ -880,7 +880,7 @@ body.show-menu #left-nav {
 }
 .csharp {
   background: #e74c3c;
-  	width: 80%;
+  	width: 90%;
   	-moz-animation: illustrator 2s ease;
   	-webkit-animation: illustrator 2s ease;
 }
@@ -892,7 +892,7 @@ body.show-menu #left-nav {
 }
 .css {
   background: #3498db;
-  	width: 90%;
+  	width: 80%;
   	-moz-animation: css 2s ease;
   	-webkit-animation: css 2s ease;
 }
@@ -916,7 +916,7 @@ body.show-menu #left-nav {
 }
 .erlang {
 	background: #34495e;
-	width: 30%;
+	width: 40%;
 	-moz-animation: jquery 2s ease;
 	-webkit-animation: jquery 2s ease;
 }
