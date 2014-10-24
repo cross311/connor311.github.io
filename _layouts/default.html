@@ -1,20 +1,831 @@
 <!DOCTYPE html>
-<html>
+<!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 8)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
 
-  {% include head.html %}
+   <!--- Basic Page Needs
+   ================================================== -->
+  <meta charset="utf-8">
+	<title>{{ site.title }}</title>
+	<meta name="description" content="{{ site.description }}">
+	<meta name="author" content="{{ site.author }}">
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
-  <body>
+   <!-- Mobile Specific Metas
+   ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    {% include header.html %}
+	<!-- CSS
+    ================================================== -->
+   <link rel="stylesheet" href="/css/default.css">
+	 <link rel="stylesheet" href="/css/style.css">
+   <link rel="stylesheet" href="/css/responsive.css">
+   <link rel="stylesheet" href="/css/animate.css">
+   <link rel="stylesheet" href="/css/magnific-popup.css">
+   <link rel="stylesheet" href="/assets/owl-carousel/owl.carousel.css">
+   <link rel="stylesheet" href="/assets/owl-carousel/owl.theme.css">
 
-    <div class="page-content">
-      <div class="wrapper">
-        {{ content }}
+   <!-- Script
+   ================================================== -->
+	<script src="/js/modernizr.js"></script>
+
+   <!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="/favicon.png" >
+
+</head>
+
+<body>
+
+  <!-- Preloader --> 
+    <div id="preloader">
+      <div class="loader"></div>    
+    </div><!--preloader end-->
+
+    
+   <!-- Header
+   ================================================== -->
+   <header id="home">
+
+      <nav id="left-nav">
+
+        <div class="logo">
+          <img src="images/avatar.jpg">
+        </div>
+
+        <div class="menu" id="menu">
+          <span class="menu-global menu-top"></span>
+          <span class="menu-global menu-middle"></span>
+          <span class="menu-global menu-bottom"></span>
+        </div>
+
+         <ul id="nav" class="nav">
+            <li class="current">
+              <a class="smoothscroll" href="#home"><i class="fa fa-home fa-fw"></i>Home</a>
+            </li>
+            <li>
+              <a class="smoothscroll" href="#about"><i class="fa fa-user fa-fw"></i>About Me</a>
+            </li>
+            <li>
+              <a class="smoothscroll" href="#resume"><i class="fa fa-file-text fa-fw"></i>Resume</a>
+            </li>
+            <li>
+              <a class="smoothscroll" href="#portfolio"><i class="fa fa-briefcase fa-fw"></i>Portfolio</a>
+            </li>
+            <li>
+              <a class="smoothscroll" href="#testimonials"><i class="fa fa-comments fa-fw"></i>Testimonials</a>
+            </li>
+            <li>
+              <a class="smoothscroll" href="#contact"><i class="fa fa-envelope fa-fw"></i>Contact</a>
+            </li>
+         </ul> <!-- end #nav -->
+
+      </nav> <!-- end #nav-wrap -->
+
+      <div class="row banner">
+         <div class="banner-text">
+            <h1 class="responsive-headline wow zoomIn">I'm <span>{{ site.author }}</span></h1>
+            <h3 class="wow fadeInUp">I'm a passionate <span>Software Engineer</span> and <span>Software Architect</span> creating modern and enterprise level designs for <span>Web</span> and <span>Mobile</span>. <br> Let's start learn more <a class="smoothscroll" href="#about">about me</a>.</h3>
+            <hr />
+         </div>
       </div>
-    </div>
 
-    {% include footer.html %}
+      <p class="scrolldown">
+         <a class="smoothscroll" href="#about"><i class="fa fa-angle-double-down"></i></a>
+      </p>
 
-  </body>
+      <div class="header-overlay"></div>
+
+   <!-- Social Section
+   ================================================== -->
+   <div id="social">
+      <div class="row social-container">
+            <ul class="social">
+               <li><a href="https://www.facebook.com/rosscj"><i class="fa fa-facebook"></i></a></li>
+               <li><a href="https://twitter.com/otter311"><i class="fa fa-twitter"></i></a></li>
+               <li><a href="https://plus.google.com/u/1/+ConnorRoss311/posts"><i class="fa fa-google-plus"></i></a></li>
+               <li><a href="https://www.linkedin.com/profile/view?id=163630721"><i class="fa fa-linkedin"></i></a></li>
+               <li><a href="https://github.com/connor311"><i class="fa fa-github"></i></a></li>
+            </ul>
+      </div>
+
+   </div> <!-- Social End -->
+
+   </header> <!-- Header End -->
+
+   <!-- About Section
+   ================================================== -->
+   <section id="about">
+
+      <div class="row bio-container">
+        <div class="twelve columns bio-inner">
+         <div class="six columns bio-left"> 
+         <div class="pp-container">
+
+            <img class="profile-pic wow zoomIn"  src="images/avatar.jpg" alt="" />
+              <h2>Connor Ross</h2>
+              <h3>Developer/Architect</h3>              
+            </div> <!-- Profile Picture -->
+         </div>
+
+
+         <div class="six columns main-col wow fadeIn">
+          <div class="arrow-left"></div>
+
+            <p>TODO: Fill in about me section
+            </p>
+
+          <div class="row">            
+            <div class="six columns download">
+                <p>
+                  <a href="#contact" class="button"><i class="fa fa-paper-plane"></i>Hire Me</a>
+                  <a href="resume.pdf" class="button" target="_blank"><i class="fa fa-download"></i>Download Resume</a>
+                </p>
+            </div> <!-- Download Buttons --> 
+      </div>
+
+         </div> <!-- end .main-col -->
+      </div>
+      </div>
+
+
+   </section> <!-- About Section End-->
+
+
+   <!-- Resume Section
+   ================================================== -->
+   <section id="resume">
+    <h1 class="section-title wow fadeInDown">Resume</h1>
+      <!-- Education
+      =============================================== -->
+      <div class="row education">
+
+         <div class="three columns header-col">
+            <h2><span>Education</span></h2>
+         </div>
+
+      <div class="nine columns main-col">
+         <div class="education-timeline">
+            <ul class="timeline">
+              <li class="timeline-event">
+                <label class="timeline-event-icon"></label>
+                <div class="timeline-event-copy">
+                  <p class="timeline-event-thumbnail">August 2006 - May 2010</p>
+                  <h3>Virginia Military Institute</h3>
+                  <h4>Bachelor of Science</h4>
+                  <p><strong>Computer Science</strong><br>
+                     Completed graduation from Virginia Military Institute with the major of Computer Science. Achieved the Dean Award for extra-ordinary result.  Played rugby all 4 years, and captain senior year</p>
+                </div>
+              </li>
+            </ul>  
+         </div> <!-- Education Timeline End --> 
+      </div> <!-- main-col end -->
+
+      </div> <!-- End Education -->
+
+
+      <!-- Work
+      ========================================= -->
+      <div class="row work">
+
+         <div class="three columns header-col">
+            <h2><span>Employment</span></h2>
+         </div>
+
+         <div class="nine columns main-col">
+
+         <div class="work-timeline">
+            <ul class="timeline">
+            <li class="timeline-event">
+              <label class="timeline-event-icon"></label>
+              <div class="timeline-event-copy">
+                <p class="timeline-event-thumbnail">July 2012 - Present</p>
+                <h3>Medidata Solutions</h3>
+                <h4>Senior Application Developer</h4>
+                <p>Brought legacy .Net 3.5 web application to a tested 4.5 web application integrated in an enterprise ecosystem.  Organized the first company internal engineering conference that contained over 20 talks, at which I also presented at.  Blogged on a regular basis about design and architecture decisions before moving forward, fostering an environment of openness and collaboration.  Participated in daily foosball games to keep my hands fast and my brain creative!</p>
+              </div>
+            </li>
+              <li class="timeline-event">
+                <label class="timeline-event-icon"></label>
+                <div class="timeline-event-copy">
+                  <p class="timeline-event-thumbnail">June 2012 - July 2012</p>
+                  <h3>Strategic Analysis Incorporated</h3>
+                  <h4>Junior Software Engineer</h4>
+                  <p> Led a team of 2 other engineers from design to release, to more efficiently gather monthly reports for government contracts on Status Report System.  Created a framework to allow site data to easily be exported in company approved Word document template, using word xml instead of html on Status Report System.  Helped set up process and infrastructure code for new .Net MVC 3 projects on Status Report System.</p>
+                </div>
+              </li>
+            </ul>  
+         </div> <!-- Work Timeline End --> 
+         </div> <!-- main-col end -->
+
+      </div> <!-- End Work -->
+
+
+	      <!-- Sports
+	      ========================================= -->
+	      <div class="row sports">
+
+	         <div class="three columns header-col">
+	            <h2><span>Sports</span></h2>
+	         </div>
+
+	         <div class="nine columns main-col">
+
+	         <div class="sports-timeline">
+	            <ul class="timeline">
+	              <li class="timeline-event">
+	                <label class="timeline-event-icon"></label>
+	                <div class="timeline-event-copy">
+	                  <p class="timeline-event-thumbnail">September 2013 - Present</p>
+	                  <h3>New York Shock Exchange Mens Roller Derby</h3>
+	                  <h4>Jammer &amp; Treasurer</h4>
+	                  <p>I grew up skating on a daily basis at the local skate rink, Star City Roller Rink.  After playing rugby, I heard about roller derby and knew that it was the sport I was born to compete in!  For the Shock Exchange my position is Jammer, but I will also block from time to time.  If you have not watched a roller derby bout (bout is derby lingo for game) I recommend you look and see if there is a team near that you can watch!</p>
+	                </div>
+	              </li>
+	              <li class="timeline-event">
+	                <label class="timeline-event-icon"></label>
+	                <div class="timeline-event-copy">
+	                  <p class="timeline-event-thumbnail">August 2006 - May 2012</p>
+	                  <h3>Rugby</h3>
+	                  <h4>Scrum Half &amp; Winger</h4>
+	                  <p> I picked up rugby freshmen year of college, after watching my senior mentor play in a match.  My main position was scrum half, which I loved always having my hands on the ball and making quick decisions during game play.</p>
+	                </div>
+	              </li>
+	            </ul>  
+	         </div> <!-- Work Timeline End --> 
+	         </div> <!-- main-col end -->
+
+	      </div> <!-- End Work -->
+
+
+      <!-- Skills
+      =============================================== -->
+      <div class="row skill">
+
+         <div class="three columns header-col">
+            <h2><span>Skills</span></h2>
+         </div>
+
+         <div class="nine columns main-col">
+
+            <p> During my experience I have worked on all parts of the application stack.  Whether it be back-end, data storage, front-end, and deployment.
+            </p>
+
+        <div class="bars">
+
+           <ul class="skills">
+            <li><span class="bar-expand visualstudio wow fadeInLeft"></span><em>Visual Studio</em></li>
+            <li><span class="bar-expand csharp wow fadeInLeft"></span><em>C#</em></li>
+            <li><span class="bar-expand sql wow fadeInLeft"></span><em>SQL</em></li>
+            <li><span class="bar-expand angularjs wow fadeInLeft"></span><em>Angular JS</em></li>
+            <li><span class="bar-expand css wow fadeInLeft"></span><em>CSS</em></li>
+            <li><span class="bar-expand javascript wow fadeInLeft"></span><em>Javascript</em></li>
+          </ul>
+
+	        </div><!-- end skill-bars -->
+
+	      </div> <!-- main-col end -->
+
+	      </div> <!-- End skills -->
+	
+        <div class="row dabble">
+
+		         <div class="three columns header-col">
+		            <h2><span>Dabbles</span></h2>
+		         </div>
+		
+         <div class="nine columns main-col">
+            <p> Things I have experimented with in my off time.</p>
+         <div class="bars">
+          <ul class="skills">
+            <li><span class="bar-expand ruby wow fadeInLeft"></span><em>Ruby</em></li>
+            <li><span class="bar-expand erlang wow fadeInLeft"></span><em>Erlang</em></li>
+            <li><span class="bar-expand chef wow fadeInLeft"></span><em>Chef</em></li>
+          </ul>
+
+        </div><!-- end dabbles-bars -->
+
+      </div> <!-- main-col end -->
+
+      </div> <!-- End dabbles -->
+
+      <!-- Awards
+      =============================================== -->
+      <div class="row awards">
+
+         <div class="three columns header-col">
+            <h2><span>Recognition</span></h2>
+         </div>
+
+         <div class="nine columns main-col">
+
+            <p>I am a strong believer that a great developer can do more then just code.  What makes a great developer is the ability to spread knowledge with others through blogging, speaking, and working on side projects with others.  While working to become a better developer I have been recognized with awards and speaking engagements.
+            </p>
+
+				<div class="award-list">
+
+				   <ul>	
+					   <li class="wow fadeIn">
+               <span><i class="fa fa-microphone fa-5x pull-left fa-fw"></i></span>
+               <h3>Medidata Global Engineering Conference</h3>
+               <h5>Organizer &amp; Speaker</h5>
+               <h4>New York City, New York</h4>
+            </li>
+             <li class="wow fadeIn">
+                <span><i class="fa fa-trophy fa-5x pull-left fa-fw"></i></span>
+                <h3>Medidata Hack-A-Thon: Client Dashboard Contest</h3>
+                <h5>Winner</h5>
+                <h4>New York City, New York</h4>
+             </li>
+		             <li class="wow fadeIn">
+		                <span><i class="fa fa-trophy fa-5x pull-left fa-fw"></i></span>
+		                <h3>Patient Engagement App Challange</h3>
+		                <h5>Winner: <a href="http://challengepost.com/software/medidata-engage" target="_blank">Challenge Post Submission</a></h5>
+		                <h4>New York City, New York</h4>
+		             </li>
+             <li class="wow fadeIn">
+                <span><i class="fa fa-trophy fa-5x pull-left fa-fw"></i></span>
+                <h3>Medidata Hack-A-Thon: Patient Engagment Contest</h3>
+                <h5>Winner</h5>
+                <h4>New York City, New York</h4>
+             </li>
+					</ul>
+
+				</div><!-- end awards list -->
+
+			</div> <!-- main-col end -->
+
+      </div> <!-- End skills -->
+
+   </section> <!-- Resume Section End-->
+
+
+   <!-- Blog Section
+   ================================================== -->
+   <section id="portfolio">
+   
+     <div class="row">	
+
+        <div class="twelve columns collapsed">
+
+           <h1 class="section-title wow fadeInDown">Some Of My Thoughts</h1>
+           
+           <!-- blog-wrapper -->
+           <div id="portfolio-wrapper" class="bgrid-quarters s-bgrid-thirds cf wow fadeIn">
+          {% for post in site.posts %}
+           <div class="columns portfolio-item">
+               <div class="item-wrap">
+
+                  <a href="{{ post.url | prepend: site.baseurl }}" title="">
+                     <img alt="" src="http://placehold.it/300x300">
+                     <div class="overlay">
+                        <div class="portfolio-item-meta">
+                       <h5>{{ post.title }}</h5>
+                           <p>Date: <span>{{ post.date | date: "%b %-d, %Y" }}<span></p>
+                    </div>
+                     </div>
+                     <div class="link-icon"><i class="fa fa-plus fa-2x"></i></div>
+                  </a>
+
+               </div>
+           </div> <!-- item end -->
+           {% endfor %}
+        </div>
+           <a id="subscribe" href="{{ "/feed.xml" | prepend: site.baseurl }}" class="button">Subscribe via RSS</a>
+        </div>
+       
+       
+     </div> <!-- end blog row -->
+
+   </section> <!-- Blog Section End>
+
+   <!-- Portfolio Section
+   ================================================== -->
+   <section id="portfolio2" style="display:none">
+
+      <div class="row">
+
+         <div class="twelve columns collapsed">
+
+            <h1 class="section-title wow fadeInDown">Some of My Works</h1>
+
+            <!-- portfolio-wrapper -->
+            <div id="portfolio-wrapper" class="bgrid-quarters s-bgrid-thirds cf wow fadeIn">
+
+               <div class="columns portfolio-item">
+                  <div class="item-wrap">
+
+                     <a href="#modal-01" title="">
+                        <img alt="" src="http://placehold.it/300x300">
+                        <div class="overlay">
+                           <div class="portfolio-item-meta">
+                          <h5>Portfolio Title</h5>
+                              <p>Illustrration</p>
+                       </div>
+                        </div>
+                        <div class="link-icon"><i class="fa fa-plus fa-2x"></i></div>
+                     </a>
+
+                  </div>
+              </div> <!-- item end -->
+
+               <div class="columns portfolio-item">
+                  <div class="item-wrap">
+
+                     <a href="#modal-02" title="">
+                        <img alt="" src="http://placehold.it/300x300">
+                        <div class="overlay">
+                           <div class="portfolio-item-meta">
+                          <h5>Portfolio Title</h5>
+                              <p>Web Development</p>
+                       </div>
+                        </div>
+                        <div class="link-icon"><i class="fa fa-plus fa-2x"></i></div>
+                     </a>
+
+                  </div>
+              </div> <!-- item end -->
+
+               <div class="columns portfolio-item">
+                  <div class="item-wrap">
+
+                     <a href="#modal-03" title="">
+                        <img alt="" src="http://placehold.it/300x300">
+                        <div class="overlay">
+                           <div class="portfolio-item-meta">
+                          <h5>Portfolio Title</h5>
+                              <p>Webdesign</p>
+                       </div>
+                        </div>
+                        <div class="link-icon"><i class="fa fa-plus fa-2x"></i></div>
+                     </a>
+
+                  </div>
+              </div> <!-- item end -->
+
+               <div class="columns portfolio-item">
+                  <div class="item-wrap">
+
+                     <a href="#modal-04" title="">
+                        <img alt="" src="http://placehold.it/300x300">
+                        <div class="overlay">
+                           <div class="portfolio-item-meta">
+                          <h5>Portfolio Title</h5>
+                              <p>Photography</p>
+                       </div>
+                        </div>
+                        <div class="link-icon"><i class="fa fa-plus fa-2x"></i></div>
+                     </a>
+
+                  </div>
+              </div> <!-- item end -->
+
+               <div class="columns portfolio-item">
+                  <div class="item-wrap">
+
+                     <a href="#modal-05" title="">
+                        <img alt="" src="http://placehold.it/300x300">
+                        <div class="overlay">
+                           <div class="portfolio-item-meta">
+                          <h5>Portfolio Title</h5>
+                              <p>Branding</p>
+                       </div>
+                        </div>
+                        <div class="link-icon"><i class="fa fa-plus fa-2x"></i></div>
+                     </a>
+
+                  </div>
+              </div> <!-- item end -->
+
+               <div class="columns portfolio-item">
+                  <div class="item-wrap">
+
+                     <a href="#modal-06" title="">
+                        <img alt="" src="http://placehold.it/300x300">
+                        <div class="overlay">
+                           <div class="portfolio-item-meta">
+                          <h5>Portfolio Title</h5>
+                              <p>Photography</p>
+                       </div>
+                        </div>
+                        <div class="link-icon"><i class="fa fa-plus fa-2x"></i></div>
+                     </a>
+
+                  </div>
+              </div> <!-- item end -->
+
+               <div class="columns portfolio-item">
+                  <div class="item-wrap">
+
+                     <a href="#modal-07" title="">
+                        <img alt="" src="http://placehold.it/300x300">
+                        <div class="overlay">
+                           <div class="portfolio-item-meta">
+                         <h5>Portfolio Title</h5>
+                              <p>Illustrration</p>
+                       </div>
+                        </div>
+                        <div class="link-icon"><i class="fa fa-plus fa-2x"></i></div>
+                     </a>
+
+                  </div>
+              </div> <!-- item end -->
+
+               <div class="columns portfolio-item">
+                  <div class="item-wrap">
+
+                     <a href="#modal-08" title="">
+                        <img alt="" src="http://placehold.it/300x300">
+                        <div class="overlay">
+                           <div class="portfolio-item-meta">
+                          <h5>Portfolio Title</h5>
+                              <p>Web Development</p>
+                       </div>
+                        </div>
+                        <div class="link-icon"><i class="fa fa-plus fa-2x"></i></div>
+                     </a>
+
+                  </div>
+              </div>  <!-- item end -->
+
+            </div> <!-- portfolio-wrapper end -->
+
+         </div> <!-- twelve columns end -->
+
+
+         <!-- Modal Popup
+        =============================================== -->
+
+         <div id="modal-01" class="popup-modal mfp-hide">
+
+          <img class="scale-with-grid" src="http://placehold.it/640x427" alt="" />
+
+          <div class="description-box">
+            <h4>This is title</h4>
+            <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+               <span class="categories"><i class="fa fa-tag"></i>Branding, Webdesign</span>
+          </div>
+
+            <div class="link-box">
+               <a href="#" class="button">Live Demo</a>
+             <a class="popup-modal-dismiss button btn-close">Close</a>
+            </div>
+
+        </div><!-- modal-01 End -->
+
+         <div id="modal-02" class="popup-modal mfp-hide">
+
+          <img class="scale-with-grid" src="http://placehold.it/640x427" alt="" />
+
+          <div class="description-box">
+            <h4>This is title</h4>
+            <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+               <span class="categories"><i class="fa fa-tag"></i>Branding, Web Development</span>
+          </div>
+
+            <div class="link-box">
+               <a href="#" class="button">Live Demo</a>
+             <a class="popup-modal-dismiss button btn-close">Close</a>
+            </div>
+
+        </div><!-- modal-02 End -->
+
+         <div id="modal-03" class="popup-modal mfp-hide">
+
+          <img class="scale-with-grid" src="http://placehold.it/640x427" alt="" />
+
+          <div class="description-box">
+            <h4>This is title</h4>
+            <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+               <span class="categories"><i class="fa fa-tag"></i>Branding</span>
+          </div>
+
+            <div class="link-box">
+               <a href="#" class="button">Live Demo</a>
+             <a class="popup-modal-dismiss button btn-close">Close</a>
+            </div>
+
+        </div><!-- modal-03 End -->
+
+         <div id="modal-04" class="popup-modal mfp-hide">
+
+          <img class="scale-with-grid" src="http://placehold.it/640x427" alt="" />
+
+          <div class="description-box">
+            <h4>This is title</h4>
+            <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+               <span class="categories"><i class="fa fa-tag"></i>Photography</span>
+          </div>
+
+            <div class="link-box">
+               <a href="#" class="button">Live Demo</a>
+             <a class="popup-modal-dismiss button btn-close">Close</a>
+            </div>
+
+        </div><!-- modal-04 End -->
+
+         <div id="modal-05" class="popup-modal mfp-hide">
+
+          <img class="scale-with-grid" src="http://placehold.it/640x427" alt="" />
+
+          <div class="description-box">
+            <h4>This is title</h4>
+            <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+               <span class="categories"><i class="fa fa-tag"></i>Branding, Webdesign</span>
+          </div>
+
+            <div class="link-box">
+               <a href="#" class="button">Live Demo</a>
+             <a class="popup-modal-dismiss button btn-close">Close</a>
+            </div>
+
+        </div><!-- modal-05 End -->
+
+         <div id="modal-06" class="popup-modal mfp-hide">
+
+          <img class="scale-with-grid" src="http://placehold.it/640x427" alt="" />
+
+          <div class="description-box">
+            <h4>This is title</h4>
+            <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+               <span class="categories"><i class="fa fa-tag"></i>Photography</span>
+          </div>
+
+            <div class="link-box">
+               <a href="#" class="button">Live Demo</a>
+             <a class="popup-modal-dismiss button btn-close">Close</a>
+            </div>
+
+        </div><!-- modal-06 End -->
+
+         <div id="modal-07" class="popup-modal mfp-hide">
+
+          <img class="scale-with-grid" src="http://placehold.it/640x427" alt="" />
+
+          <div class="description-box">
+            <h4>This is title</h4>
+            <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+               <span class="categories"><i class="fa fa-tag"></i>Branding, Illustration</span>
+          </div>
+
+            <div class="link-box">
+               <a href="#" class="button">Live Demo</a>
+             <a class="popup-modal-dismiss button btn-close">Close</a>
+            </div>
+
+        </div><!-- modal-07 End -->
+
+         <div id="modal-08" class="popup-modal mfp-hide">
+
+          <img class="scale-with-grid" src="http://placehold.it/640x427" alt="" />
+
+          <div class="description-box">
+            <h4>This is title</h4>
+            <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+               <span class="categories"><i class="fa fa-tag"></i>Webdesign, Photography</span>
+          </div>
+
+            <div class="link-box">
+               <a href="#" class="button">Live Demo</a>
+             <a class="popup-modal-dismiss button btn-close">Close</a>
+            </div>
+
+        </div><!-- modal-08 End -->
+
+
+      </div> <!-- row End -->
+
+   </section> <!-- Portfolio Section End-->
+
+
+
+   <!-- Call-To-Action Section
+   ================================================== -->
+   <section id="call-to-action">
+
+      <div class="row">
+
+         <div class="two columns header-col">
+            <h1 class="wow fadeInLeft">
+              <span><i class="fa fa-paper-plane fa-5x pull-left fa-fw"></i></span>
+            </h1>
+         </div>
+
+         <div class="seven columns">            
+            <h2 class="wow zoomIn">Want me at your company</h2>
+            <p>I am available for interviews depending on your project value. Hire me and get your project done!</p>
+
+         </div>
+
+         <div class="three columns action wow fadeIn">
+
+            <a href="#contact" class="button">Hire me</a>
+
+         </div>
+
+      </div>
+
+   </section> <!-- Call-To-Action Section End-->
+
+
+   <!-- Testimonials Section
+   ================================================== -->
+   <section id="testimonials">
+      <div class="text-container">
+         <div class="row">
+          <div class="twelve columns flex-container">
+            <h1 class="section-title wow fadeInDown">CoWorker Testimonials</h1>
+
+            <div id="testimonial-slides" class="owl-carousel">
+              <div> 
+                <blockquote><p>Connor Ross is the software engineer any company would love. When he's writing code, he's 'in the zone' and doesn't get distracted by minor disruptions or coworkers who want to goof off. But when the team gets together for brainstorming sessions, he's a team player and actively drives the discussion with succinct points that keep the meetings short, sweet, and to the point. With Connor at the helm, projects are completed on time and on budget, with excellent customer service.</p>
+                 <cite> Jeffrey Cubbal</cite>
+              </blockquote> 
+              </div> <!-- Single testimonial -->
+
+            </div> <!-- Owl Carousel End --> 
+
+          </div> <!-- Testimonial-container ends -->
+
+         </div> <!-- row ends -->
+
+       </div>  <!-- text-container ends -->
+
+   </section> <!-- Testimonials Section End-->
+
+
+   <!-- Contact Section
+   ================================================== -->
+   <section id="contact">
+
+      <div class="row section-head">
+          <div class="twelve columns">
+              <h1 class="section-title wow fadeInDown">Get In Touch</h1>
+              <p class="lead">I am currently happily employed, but you never know what might spike my interest!  Email me at: <a href="mailto:connor311@gmail.com?Subject=Saw%20Your%20Website">connor311@gmail.com</a></p>
+          </div>
+      </div> <!-- Section head --> 
+
+      <div class="row">
+
+      <div class="twelve columns">
+<!--         <h1><span>Find me on Google Map</span></h1> -->
+         <!-- Start Google Map -->
+         <div id="map" class="wow fadeIn"></div>
+         <!-- End -->
+      </div> <!-- Row ends-->
+
+
+      </div> <!-- Row ends-->
+
+
+
+   </section> <!-- Contact Section End-->
+
+
+   <!-- footer
+   ================================================== -->
+   <footer>
+
+      <div class="row">
+
+         <div class="twelve columns">
+
+		            <ul class="social-links">
+		               <li><a href="https://www.facebook.com/rosscj"><i class="fa fa-facebook"></i></a></li>
+		               <li><a href="https://twitter.com/otter311"><i class="fa fa-twitter"></i></a></li>
+		               <li><a href="https://plus.google.com/u/1/+ConnorRoss311/posts"><i class="fa fa-google-plus"></i></a></li>
+		               <li><a href="https://www.linkedin.com/profile/view?id=163630721"><i class="fa fa-linkedin"></i></a></li>
+		               <li><a href="https://github.com/connor311"><i class="fa fa-github"></i></a></li>
+		            </ul>
+
+            <ul class="copyright">
+               <li>{{ site.author}} &copy; Copyright 2014, All Rights Reserved</li>
+               
+            </ul>
+
+         </div>
+
+         <div id="go-top"><a class="smoothscroll" title="Back to Top" href="#home"><i class="fa fa-chevron-up"></i></a></div>
+
+      </div>
+
+   </footer> <!-- Footer End-->
+
+   <!-- Java Script
+   ================================================== -->
+
+   <script src="/js/jquery-2.1.1.min.js"></script>
+   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&AMP;sensor=false"></script>
+   <script src="/js/gmaps.js"></script>
+   <script src="/assets/owl-carousel/owl.carousel.min.js"></script>
+   <script src="/js/waypoints.js"></script>
+   <script src="/js/jquery.fittext.js"></script>
+   <script src="/js/magnific-popup.js"></script>
+   <script src="/js/wow.min.js"></script>
+   <script src="/js/jquery.nicescroll.min.js"></script>
+   <script src="/js/script.js"></script>
+
+</body>
 
 </html>
