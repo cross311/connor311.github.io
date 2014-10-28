@@ -418,6 +418,9 @@ TOC :
     line-height: 24px;
     width: 260px!important;
   }
+  .section-title:after{
+    content: "";
+  }
 
    /* mobile navigation
    -------------------------------------------------------------------- */
