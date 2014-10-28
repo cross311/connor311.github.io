@@ -241,9 +241,6 @@ TOC :
     /* scrolldown link */
    header .scrolldown { display: none; }
    
-  .section-title:after{
-    content: "" !important;
-  }
 
 
    /* About Section

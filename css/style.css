@@ -51,18 +51,6 @@ body {
   -o-transition: all .3s;
 }
 
-.section-title:after {
-  background: none repeat scroll 0 0 #fff;
-  bottom: -15px;
-  color: #333;
-  content: "\f0a7";
-  left: 45%;
-  line-height: 1px;
-  padding: 15px 5px;
-  position: absolute;
-  font-family: "FontAwesome";
-}
-
 /* ------------------------------------------------------------------ */
 /* 2. Preloader CSS */ 
 /* ------------------------------------------------------------------ */
@@ -518,14 +506,6 @@ body.show-menu #left-nav {
   text-align: center;
 }
 
-
-
-#about .section-title:after {
-  background: rgba(0,0,0,0.2);
-  color: #fff;
-  content: "\f007";
-}
-
 #about p {
    line-height: 30px;
    color: #fff;
@@ -677,12 +657,6 @@ body.show-menu #left-nav {
    font-weight: 700;
    text-transform: uppercase;
    color: #666;
-}
-
-#resume .section-title:after {
-  background: #fff;
-  color: #666;
-  content: "\f02d";
 }
 
 
@@ -1024,12 +998,6 @@ body.show-menu #left-nav {
    border-color: #ddd;
 }
 
-#blog .section-title:after {
-  background: transparent;
-  content: "\f0b1";
-  color: #fff;
-}
-
 #blog-wrapper .columns { margin-bottom: 36px; }
 
 .blog-item .item-wrap {
@@ -1090,12 +1058,6 @@ body.show-menu #left-nav {
 
 #portfolio h1:hover {
    border-color: #ddd;
-}
-
-#portfolio .section-title:after {
-  background: transparent;
-  content: "\f0b1";
-  color: #fff;
 }
 
 
@@ -1345,12 +1307,6 @@ body.show-menu #left-nav {
   display: block; 
 }
 
-#testimonials .section-title:after {
-  background: #F1F1F1;
-  content: "\f0e6";
-  color: #95A3A3;
-}
-
 
 
 #testimonials .header-col { 
@@ -1408,12 +1364,6 @@ body.show-menu #left-nav {
 #contact h1:hover {
    border-color: #fff;
  }
-
-#contact .section-title:after {
-  background: #191919;
-  content: "\f003";
-  color: #888;
-}
 
 
 #contact h4 {
