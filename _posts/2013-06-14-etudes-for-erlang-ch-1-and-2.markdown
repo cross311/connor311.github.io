@@ -8,6 +8,7 @@ categories: [erlang,series]
 Have you ever thought to yourself, "What can I do with all my spare time" or maybe "There are all these people at work, that I really would like to get to know better"?  No, *really*, oh well I have.  The game plan I came up with was simple, find something that was related to work but happened after work and beer was provided.  The answer to all the worlds problems is <a href="http://www.erlang.org/" target="_blank">Erlang</a>, dun dun duda....  Ok maybe not, but the newly re-minted <a href="http://www.meetup.com/Erlang-NYC/" target="_blank">Erlang-NYC</a> meetup group was the answer to my problems.  For those of you who have never heard of this "<a href="http://www.meetup.com" target="_blank">Meetup</a>" idea, it is a group of people getting together to talk or act on a unified topic or activity.  This meetup's unified topic is Erlang, DUH, and they get together about once a month or more.<!--more-->
 
 One of the series the group is doing follows along with a beginners guide to Erlang called, <a href="http://chimera.labs.oreilly.com/books/1234000000726" target="_blank">Études for Erlang</a>.  Every week we meet to go through one of the chapters from the guide and hopefully we all become more familiar with the language, while making friends with people of similar interests.  This week (06/10/2013) we had our first meeting to go through chapters 1 and 2.  Here are my solutions:
+
 ## Chapter 1: Getting Comfortable with Erlang
 
 <a href="http://chimera.labs.oreilly.com/books/1234000000726/ch01.html" target="_blank">link</a>
