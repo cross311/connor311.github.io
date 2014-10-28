@@ -1,13 +1,33 @@
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width initial-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="icon" 
-      type="image/png" 
-      href="{{ "/favicon.png" | prepend: site.baseurl }}">
-    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
-    <meta name="description" content="{{ site.description }}">
 
-    <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
-    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+   <!--- Basic Page Needs
+   ================================================== -->
+  <meta charset="utf-8">
+    <title>{{ site.title }}</title>
+    <meta name="description" content="{{ site.description }}">
+    <meta name="author" content="{{ site.author }}">
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+
+   <!-- Mobile Specific Metas
+   ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+   <link rel="stylesheet" href="/css/default.css">
+     <link rel="stylesheet" href="/css/style.css">
+   <link rel="stylesheet" href="/css/responsive.css">
+   <link rel="stylesheet" href="/css/animate.css">
+   <link rel="stylesheet" href="/css/magnific-popup.css">
+   <link rel="stylesheet" href="/assets/owl-carousel/owl.carousel.css">
+   <link rel="stylesheet" href="/assets/owl-carousel/owl.theme.css">
+
+   <!-- Script
+   ================================================== -->
+    <script src="/js/modernizr.js"></script>
+
+   <!-- Favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="/favicon.png" >
+
 </head>

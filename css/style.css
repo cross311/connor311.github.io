@@ -1654,6 +1654,14 @@ footer .social-links li:first-child { margin-left: 0; }
 #go-top a:hover { background-color: #0F9095; }
 
 
+/* ------------------------------------------------------------------ */
+/* 10. Blog entry
+/* ------------------------------------------------------------------ */
+#blog-entry {
+  padding-top: 50px;
+}
+
+
 
 
 

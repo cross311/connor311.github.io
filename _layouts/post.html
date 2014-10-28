@@ -1,15 +1,91 @@
----
-layout: 
----
-<div class="post">
+<!DOCTYPE html>
+<!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 8)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+{% include head.html %}
 
-  <header class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
-    <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
-  </header>
+<body>
+  <div id="top"></div>
 
-  <article class="post-content">
-    {{ content }}
-  </article>
+  <!-- Preloader --> 
+    <div id="preloader">
+      <div class="loader"></div>    
+    </div><!--preloader end-->
 
-</div>
+    
+   <!-- Header
+   ================================================== -->
+   <header id="post">
+
+      {% include left-nav.html %}
+
+      <div class="row banner">
+         <div class="banner-text">
+            <h1 class="responsive-headline wow zoomIn">{{ page.title }}</h1>
+            <h3 class="wow fadeInUp">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</h3>
+            <hr />
+         </div>
+      </div>
+
+      <p class="scrolldown">
+         <a class="smoothscroll" href="#blog-entry"><i class="fa fa-angle-double-down"></i></a>
+      </p>
+
+      <div class="header-overlay"></div>
+
+   </header> <!-- Header End -->
+
+
+   <!-- Blog Section
+   ================================================== -->
+   <section id="blog-entry">
+   
+     <div class="row">  
+
+        <div class="twelve columns collapsed">
+          <article class="post-content">
+            {{ content }}
+          </article>
+        </div>
+       
+       
+     </div> <!-- end blog row -->
+
+   </section> <!-- Blog Section End>
+
+
+
+   <!-- Call-To-Action Section
+   ================================================== -->
+   <section id="call-to-action">
+
+      <div class="row">
+
+         <div class="two columns header-col">
+            <h1 class="wow fadeInLeft">
+              <span><i class="fa fa-paper-plane fa-5x pull-left fa-fw"></i></span>
+            </h1>
+         </div>
+
+         <div class="seven columns">            
+            <h2 class="wow zoomIn">Want to keep up with me?</h2>
+            <p>Keep listening!</p>
+
+         </div>
+
+         <div class="three columns action wow fadeIn">
+
+           <a href="{{ "/feed.xml" | prepend: site.baseurl }}" class="button">Subscribe via RSS</a>
+
+         </div>
+
+      </div>
+
+   </section> <!-- Call-To-Action Section End-->
+
+
+   {% include footer.html%}
+
+</body>
+
+</html>
