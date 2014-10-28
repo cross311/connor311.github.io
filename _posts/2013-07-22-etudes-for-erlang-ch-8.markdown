@@ -3,7 +3,7 @@ layout: post
 title: "Études for Erlang - CH 8"
 date: 2013-07-22 23:14
 comments: true
-categories: [erlang,series]
+tags: [erlang,series]
 ---
 For the past few weeks we have been diving into the normal workings of Erlang.  So far however we have not really ran into anything that makes Erlang special.  To be honest if what we have gone over so far is all that was to Erlang, I would probably tell you to never use this language ever, ever, ever.  Ok maybe that is a little over the top, but as you saw in [Chapter 5]({% post_url 2013-07-08-etudes-for-erlang-ch-5 %}) Erlang does not handle strings very nicely and that is a lot of what a I use in my day to day programming.
 

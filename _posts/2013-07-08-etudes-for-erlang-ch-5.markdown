@@ -3,7 +3,7 @@ layout: post
 title: "Études for Erlang - CH 5"
 date: 2013-07-08 23:36
 comments: true
-categories: [erlang,series]
+tags: [erlang,series]
 ---
 Have you missed me??  For the past two weeks I have been driving to and from many a wedding.  My cousin, Olivia, got married two weeks ago to an awesome man, John!  Then this past weekend my best friend growing up, Ben, got married to a lady who I do not know to well but any person he would marry must be a great gal!  To each of you I wish you the best!
 

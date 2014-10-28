@@ -23,6 +23,12 @@
          <div class="banner-text">
             <h1 class="responsive-headline wow zoomIn">{{ page.title }}</h1>
             <h3 class="wow fadeInUp">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</h3>
+            <h3 class="wow fadeInUp">{% if page.tags %} • 
+              {% for tag in page.tags %}
+                {{ tag }} • 
+              {% endfor %}
+              {% endif %}
+            </h3>
             <hr />
          </div>
       </div>

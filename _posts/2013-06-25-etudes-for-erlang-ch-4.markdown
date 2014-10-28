@@ -3,7 +3,7 @@ layout: post
 title: "Études for Erlang - CH 4"
 date: 2013-06-25 23:26
 comments: true
-categories: [erlang,series]
+tags: [erlang,series]
 ---
 This week the homework for the <a href="http://www.meetup.com/Erlang-NYC/events/123394132/" target="_blank">meetup</a> was chapters 4 &amp; 5.  However this weekend I was at my childhood best friend's bachelor party so I only got to chapter 4. Ouch, Ouch, please stop throwing tomatoes, lettuce and actually I don't want to know what that is, I am sorry!  If you want more Erlang check out last week for [chapter 3]({% post_url 2013-06-16-etudes-for-erlang-ch-3 %}), again!
 

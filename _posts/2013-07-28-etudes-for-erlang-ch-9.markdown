@@ -3,7 +3,7 @@ layout: post
 title: "Études for Erlang - CH 9"
 date: 2013-07-28 13:02
 comments: true
-categories: [erlang,series]
+tags: [erlang,series]
 ---
 Welcome back, my fellow Erlangers!!  After last weeks etude about [processess]({% post_url 2013-07-22-etudes-for-erlang-ch-8 %}), let's just say I am super excited to get started on chapter 9 this week.  I mean who could not be excited.  Not only did we all get to relive a small part of our childhood, but we also got into the MEAT of Erlang.  It was also the first time that as a programmer you could really show your personallity within your code.  Prior to chapter 8, each little detail was spelled out for how to do every execise leaving little to the imagination.
 
