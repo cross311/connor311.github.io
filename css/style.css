@@ -1008,9 +1008,68 @@ body.show-menu #left-nav {
 /* ------------------------------------------------------------------ */
 /* 6. Blog Section
 /* ------------------------------------------------------------------ */
+#blog {
+   background: url(../images/3.jpg) no-repeat fixed center center / cover;
+   padding-top: 90px;
+   padding-bottom: 60px;
+}
+#blog h1 {
+   letter-spacing: 1px;
+   margin-bottom: 60px;
+   color: #fff;
+   border-color: #fff;
+}
+
+#blog h1:hover {
+   border-color: #ddd;
+}
+
+#blog .section-title:after {
+  background: transparent;
+  content: "\f0b1";
+  color: #fff;
+}
+
+#blog-wrapper .columns { margin-bottom: 36px; }
+
+.blog-item .item-wrap {
+  background: none repeat scroll 0 0 #fff;
+  border: 5px solid #fff;
+  box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  position: relative;
+
+   -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.blog-item > .item-wrap > h5 {
+  border-bottom: 3px solid #11ABB0;
+}
+
+
+.blog-item > .item-wrap > .date {
+  display:block;
+  color:#888;
+}
+
+.blog-item  > .item-wrap > p.excerpt {
+  height:300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 #subscribe {
 	margin-left: 20px;
+}
+
+#blog .button:hover,
+#blog .button:active {
+   background: #FFFFFF;
+   color: #0D0D0D;
 }
 
 /* ------------------------------------------------------------------ */
@@ -1043,7 +1102,6 @@ body.show-menu #left-nav {
 .btn-close {
   background: #ed5565;
 }
-
 
 /* Portfolio Content */
 

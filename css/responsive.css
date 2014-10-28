@@ -293,6 +293,18 @@ TOC :
    .bars { width: 100%; }
 
 
+   /* Blog Section
+   --------------------------------------------------------------------- */
+   #blog .blog-item  > .item-wrap > p.excerpt {
+    height:auto;
+    overflow: auto;
+    text-overflow: none;
+  }
+
+  #blog .subscribe {
+    text-align: center;
+  }
+
    /* Call To Action Section
    /* ----------------------------------------------------------------- */
   #call-to-action {

@@ -71,7 +71,7 @@
               <a class="smoothscroll" href="#resume"><i class="fa fa-file-text fa-fw"></i>Resume</a>
             </li>
             <li>
-              <a class="smoothscroll" href="#portfolio"><i class="fa fa-briefcase fa-fw"></i>Portfolio</a>
+              <a class="smoothscroll" href="#blog"><i class="fa fa-briefcase fa-fw"></i>Blog</a>
             </li>
             <li>
               <a class="smoothscroll" href="#testimonials"><i class="fa fa-comments fa-fw"></i>Testimonials</a>
@@ -363,7 +363,7 @@
 
    <!-- Blog Section
    ================================================== -->
-   <section id="portfolio">
+   <section id="blog">
    
      <div class="row">	
 
@@ -372,31 +372,35 @@
            <h1 class="section-title wow fadeInDown">Some Of My Thoughts</h1>
            
            <!-- blog-wrapper -->
-           <div id="portfolio-wrapper" class="bgrid-quarters s-bgrid-thirds cf wow fadeIn">
+           <div id="blog-wrapper" class="bgrid-thirds cf wow fadeIn">
           {% for post in site.posts %}
-           <div class="columns portfolio-item">
+           <div class="columns blog-item">
                <div class="item-wrap">
 
-                  <a href="{{ post.url | prepend: site.baseurl }}" title="">
-                     <img alt="" src="http://placehold.it/300x300">
-                     <div class="overlay">
-                        <div class="portfolio-item-meta">
-                       <h5>{{ post.title }}</h5>
-                           <p>Date: <span>{{ post.date | date: "%b %-d, %Y" }}<span></p>
-                    </div>
-                     </div>
-                     <div class="link-icon"><i class="fa fa-plus fa-2x"></i></div>
-                  </a>
-
+                  <h5>
+                    <a href="{{ post.url | prepend: site.baseurl }}" title="">{{ post.title }}
+                    </a>
+                  </h5>
+                  <span class="date"><span class="fa fa-calendar"></span> {{ post.date | date: "%b %-d, %Y" }}</span>
+                  <p class="excerpt">{{ post.excerpt | strip_html }}</p>
+                  <a href="{{ post.url | prepend: site.baseurl }}">Read More...</a>
                </div>
            </div> <!-- item end -->
            {% endfor %}
         </div>
-           <a id="subscribe" href="{{ "/feed.xml" | prepend: site.baseurl }}" class="button">Subscribe via RSS</a>
-        </div>
+      </div>
        
        
      </div> <!-- end blog row -->
+
+   
+     <div class="row subscribe">  
+
+        <div class="twelve columns collapsed">
+           <a id="subscribe" href="{{ "/feed.xml" | prepend: site.baseurl }}" class="button">Subscribe via RSS</a>
+        </div>
+        
+      </div>
 
    </section> <!-- Blog Section End>
 

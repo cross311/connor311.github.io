@@ -181,7 +181,7 @@ function parallax() {
 /*	Modal Popup
 ------------------------------------------------------*/
 
-    $('.item-wrap a').magnificPopup({
+    $('#portfolio .item-wrap a').magnificPopup({
 
        type:'inline',
        fixedContentPos: false,
