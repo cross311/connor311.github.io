@@ -6,8 +6,6 @@ comments: true
 tags: [design_pattern,coding,csharp]
 ---
 
-### Architecture and Design
-
 I have been working with a skilled software architect for the past couple of months.  Learning the fact that being a software architect is not all about designing the most beautiful, cutting edge system I could think of.
 The main point, to me has been, that I need to know the physics of what is actually possible for a given software project and team.
 If a design would take years to build or the current team does not have the expertise to build the components, the beauty of the design does not matter because it will never see the light of day.
