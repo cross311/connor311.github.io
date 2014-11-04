@@ -154,6 +154,7 @@ header .banner-text h1 {
    color: #fff;
    letter-spacing: 2px;
    margin: 0 auto 40px;
+   line-height: 72px;
 }
 
 header .banner-text h1 span {
