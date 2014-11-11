@@ -7,7 +7,7 @@ tags: [linkcorp,website]
 ---
 Over the past couple of weeks I have come to realize that I work with a number of people that I would love to start a company with.  This thought brought me to create [Link Corp](http://linkcorp.nyc).
 
-Link Corp is a private club of sorts, comprised of only people who I would want to work with.  The name came about after I scribbled a interesting design on my green engineering pad, that in my mind resembled the design on Links shield from Zelda.
+Link Corp is a private club of sorts, comprised of only people I would want to work with.  The name came about after I scribbled an interesting design on my green engineering pad, that in my mind resembled the design on Link's shield from Zelda.
 
 
 ![Link Corp Logo](/assets/posts/the_start_of_something/linkcorp-logo-white.png)
